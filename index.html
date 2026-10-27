@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق TTM1 الرسمي</title>
+    <title>تطبيق Lounge الرسمي</title>
     <!-- مكتبات Firebase المتوافقة (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -15,6 +15,60 @@
         .screen-page{display:none;width:100%;min-height:85vh;flex-direction:column;justify-content:flex-start}
         .screen-page.active{display:flex}
         
+        /* شريط الإعلانات المتحرك */
+        .ticker-wrap {
+            width: 100%;
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+        .ticker-title {
+            background: #9333ea;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+        .ticker-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 18s linear infinite;
+            font-size: 11px;
+            color: #f0abfc;
+            font-weight: bold;
+        }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
+        }
+
+        /* شارات المستويات والأوسمة */
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(168,85,247,0.5);
+        }
+        .badge-tag.agent {
+            background: linear-gradient(135deg, #eab308, #ca8a04);
+            color: #000;
+        }
+
         @keyframes darkHorrorWave {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -135,6 +189,21 @@
         .chat-msg-row { position: relative; overflow: hidden; touch-action: pan-y; }
         .chat-bubble-swipe { transition: transform 0.2s ease; }
 
+        /* أزرار نسخ معلومات الوكيل */
+        .agent-copy-btn {
+            background: rgba(147, 51, 234, 0.3);
+            border: 1px solid #c084fc;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-right: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
         #c4GiftOverlay {
           position: fixed;
           inset: 0;
@@ -165,143 +234,6 @@
         @keyframes c4Orbit { from { transform: rotate(0deg) scale(.85); } to { transform: rotate(360deg) scale(1.08); } }
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
-
-        /* تمديدات وألغاز عالم ألعاب TTM1 */
-        #ttm-games {
-          --gold: #ffd166;
-          --purple: #8158e8;
-          font-family: Tahoma, Arial, sans-serif;
-          color: #fff;
-          max-width: 650px;
-          margin: 15px auto;
-          padding: 16px;
-          border-radius: 22px;
-          background: linear-gradient(145deg, #17152e, #29204b);
-          box-sizing: border-box;
-          direction: rtl;
-          text-align: right;
-        }
-        #ttm-games * { box-sizing: border-box; }
-        #ttm-games button {
-          font: inherit;
-          cursor: pointer;
-          border: 0;
-          border-radius: 12px;
-          padding: 12px;
-          color: #fff;
-          background: #6245bd;
-          transition: transform .15s, opacity .15s;
-        }
-        #ttm-games button:active { transform: scale(.97); }
-        #ttm-games .ttm-header {
-          text-align: center;
-          padding: 14px 4px 22px;
-        }
-        #ttm-games .ttm-logo {
-          width: 72px;
-          height: 72px;
-          display: grid;
-          place-items: center;
-          margin: auto auto 12px;
-          border-radius: 23px;
-          color: #35254e;
-          font-size: 23px;
-          font-weight: bold;
-          background: linear-gradient(135deg, #fff0b2, #e7a92e);
-          box-shadow: 0 0 24px #ffd16633;
-        }
-        #ttm-games h2, #ttm-games h3 { margin: 8px 0; color: #facc15; }
-        #ttm-games p { color: #d2cce9; line-height: 1.8; font-size: 12px; }
-        #ttm-games .ttm-game-list {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 12px;
-        }
-        #ttm-games .ttm-game-card {
-          min-height: 130px;
-          text-align: center;
-          padding: 18px 8px;
-          border: 1px solid #ffffff18;
-          background: #ffffff0b;
-          border-radius: 18px;
-        }
-        #ttm-games .ttm-game-card .emoji {
-          display: block;
-          font-size: 34px;
-          margin-bottom: 9px;
-        }
-        #ttm-games .ttm-game-card strong { display: block; font-size: 13px; }
-        #ttm-games .ttm-game-card small {
-          display: block;
-          margin-top: 7px;
-          color: #c9c1e4;
-          font-size: 10px;
-        }
-        #ttm-games .ttm-panel {
-          margin-top: 18px;
-          padding: 16px;
-          border-radius: 18px;
-          background: #0f1024;
-          border: 1px solid #ffffff12;
-        }
-        #ttm-games .ttm-hidden { display: none !important; }
-        #ttm-games .ttm-action {
-          width: 100%;
-          margin-top: 10px;
-          background: linear-gradient(100deg, #7352db, #9a55cb);
-        }
-        #ttm-games .ttm-secondary {
-          width: 100%;
-          margin-top: 10px;
-          background: #34314c;
-        }
-        #ttm-games .ttm-answer {
-          width: 100%;
-          margin: 7px 0;
-          text-align: right;
-          background: #292744;
-          border: 1px solid #ffffff16;
-        }
-        #ttm-games .ttm-feedback {
-          min-height: 28px;
-          margin: 12px 0 0;
-          color: var(--gold);
-          font-weight: bold;
-          font-size: 12px;
-          text-align: center;
-        }
-        #ttm-games .ttm-word {
-          text-align: center;
-          font-size: 30px;
-          letter-spacing: 5px;
-          padding: 20px 5px;
-          color: var(--gold);
-          direction: rtl;
-        }
-        #ttm-games .ttm-input {
-          width: 100%;
-          padding: 13px;
-          border: 1px solid #ffffff2b;
-          border-radius: 12px;
-          color: white;
-          background: #22203b;
-          font: inherit;
-          text-align: center;
-        }
-        #ttm-games .ttm-memory-grid {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 9px;
-        }
-        #ttm-games .ttm-memory-card {
-          aspect-ratio: 1;
-          font-size: 27px !important;
-          background: #3b3064 !important;
-        }
-        #ttm-games .ttm-memory-card:disabled {
-          opacity: .7;
-          cursor: default;
-        }
     </style>
 </head>
 <body>
@@ -310,11 +242,11 @@
         <div class="auth-card">
             <div class="animated-logo-container">
                 <div style="width:75px;height:75px;border-radius:50%;background:radial-gradient(circle,#3b0764 0%,#090514 100%);border:2px solid #c084fc;display:flex;flex-direction:column;justify-content:center;align-items:center;margin:0 auto;box-shadow:0 0 20px rgba(192,132,252,0.6)">
-                    <span style="font-size:20px;font-weight:900;color:#c084fc">TTM1</span>
+                    <span style="font-size:20px;font-weight:900;color:#c084fc">Lounge</span>
                     <span style="font-size:10px;font-weight:bold;color:#fff">App</span>
                 </div>
             </div>
-            <h2 style="color:#c084fc;margin:0 0 5px 0">تطبيق TTM1 الأصلي</h2>
+            <h2 style="color:#c084fc;margin:0 0 5px 0">تطبيق Lounge الرسمي</h2>
             <p style="color:#94a3b8;font-size:12px;margin-bottom:15px">تسجيل الدخول أو إنشاء حساب جديد بأمان</p>
             <div class="tab-switch">
                 <button class="tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')">تسجيل الدخول</button>
@@ -334,6 +266,12 @@
     </div>
 
     <div id="mainScreen" class="screen-page">
+        <!-- شريط الإعلانات المتحرك -->
+        <div class="ticker-wrap">
+            <span class="ticker-title">📢 إعلان</span>
+            <div class="ticker-text" id="tickerTextDisplay">أهلاً بكم في تطبيق Lounge الرسمي! أسرع وأحدث نظام دردشة وشحن أرباح.</div>
+        </div>
+
         <div style="text-align:center"><button id="adminPanelMainBtn" class="admin-badge" onclick="openAdminPanelModal()">👑 لوحة تحكم الإدارة الخاصة</button></div>
         <div class="new-header-bar">
             <div style="display:flex;align-items:center">
@@ -344,6 +282,7 @@
                 <div style="text-align:left">
                     <div style="font-size:11px;color:#94a3b8">أهلاً بك</div>
                     <div style="font-size:13px;font-weight:bold;color:#fff" id="headerUserName">المستخدم</div>
+                    <div id="userHeaderBadgeArea"></div>
                 </div>
                 <img id="headerUserAvatar" src="https://via.placeholder.com/45" class="user-avatar-small" alt="صورة">
             </div>
@@ -382,7 +321,7 @@
             </div>
         </div>
 
-        <!-- زر قسم التحدي اليومي (50 نقطة عند إتمام الأسئلة) -->
+        <!-- زر قسم التحدي اليومي -->
         <div class="card" style="background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.4);margin-bottom:10px;padding:10px">
             <div style="display:flex;justify-content:space-between;align-items:center">
                 <div style="text-align:right">
@@ -395,8 +334,8 @@
 
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
+            <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
-            <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🎮</div><span>ألعاب TTM1</span><div class="mini-arrow">⌄</div></div>
         </div>
         <div class="bottom-nav-bar">
             <button class="bottom-nav-item active" onclick="navigateTo('mainScreen')"><span>🏠</span><div>الرئيسية</div></button>
@@ -407,7 +346,23 @@
         </div>
     </div>
 
-    <!-- شاشة الأسئلة والتحدي اليومي (100 سؤال - 50 نقطة) -->
+    <!-- شاشة نظام الوكلاء المعتمدين والتقديم على الوكالة -->
+    <div id="agentsScreen" class="screen-page">
+        <div class="top-nav">
+            <h3 style="margin:0;color:#facc15;font-size:15px">🏢 الوكلاء المعتمدون والتسجيل</h3>
+            <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
+        </div>
+        <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);margin-bottom:10px;text-align:right">
+            <h4 style="margin:0 0 6px 0;color:#eab308;font-size:13px">🤝 التقديم على وكالة معتمدة</h4>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">رسوم الوكالة تقتطع (7,000,000 نقطة) أو تحويل (2,000,000 د.ع) عبر زين كاش مع إرفاق المستندات:</p>
+            <button class="action-btn btn-gold" style="padding:8px;font-size:11px" onclick="openAgentApplyModal()">تقديم طلب وكالة جديد 📝</button>
+        </div>
+        <div class="card" style="text-align:right">
+            <h4 style="margin:0 0 8px 0;color:#38bdf8;font-size:13px">⭐ قائمة الوكلاء المعتمدين</h4>
+            <div id="approvedAgentsList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div>
+        </div>
+    </div>
+
     <div id="quizScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#38bdf8;font-size:15px">🧠 تحدي الأسئلة اليومي (100 سؤال)</h3>
@@ -423,9 +378,7 @@
                 جاري تحميل السؤال...
             </div>
 
-            <div id="options-box" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;">
-                <!-- الخياران يتولدان برمجياً بشكل عشوائي -->
-            </div>
+            <div id="options-box" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;"></div>
 
             <button id="answer-action-btn" disabled style="width:100%; padding:12px; background:#475569; color:#fff; border:none; border-radius:10px; font-size:13px; font-weight:bold; cursor:not-allowed;">
                 أجب عن الأسئلة اليومية
@@ -445,49 +398,6 @@
             </div>
             <div id="lbContentGifts" class="lb-pane-content"><div id="leaderboardGiftsList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
             <div id="lbContentWheel" class="lb-pane-content" style="display:none"><div id="leaderboardWheelList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
-        </div>
-    </div>
-
-    <!-- شاشة ألعاب TTM1 للتسلية -->
-    <div id="agentsScreen" class="screen-page">
-        <div class="top-nav">
-            <h3 style="margin:0;color:#facc15;font-size:15px">🎮 ألعاب TTM1 للتسلية</h3>
-            <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
-        </div>
-        
-        <div id="ttm-games">
-          <header class="ttm-header">
-            <div class="ttm-logo">TTM1</div>
-            <h2>🎮 عالم ألعاب TTM1</h2>
-            <p>استمتع بالألغاز والألعاب الخفيفة، والعب على راحتك ❤️</p>
-          </header>
-
-          <div class="ttm-game-list">
-            <button class="ttm-game-card" data-game="words">
-              <span class="emoji">🔤</span>
-              <strong>لخبط الحروف</strong>
-              <small>اكتشف الكلمة الصحيحة</small>
-            </button>
-            <button class="ttm-game-card" data-game="riddles">
-              <span class="emoji">😂</span>
-              <strong>فوازير وألغاز</strong>
-              <small>فكر واكتشف الجواب</small>
-            </button>
-            <button class="ttm-game-card" data-game="memory">
-              <span class="emoji">🃏</span>
-              <strong>افتح وتذكّر</strong>
-              <small>طابق الصور المتشابهة</small>
-            </button>
-          </div>
-
-          <section id="ttm-game-panel" class="ttm-panel ttm-hidden">
-            <h3 id="ttm-game-title">اللعبة</h3>
-            <p id="ttm-game-description"></p>
-            <div id="ttm-game-content"></div>
-            <p id="ttm-game-feedback" class="ttm-feedback" aria-live="polite"></p>
-            <button id="ttm-game-next" class="ttm-action ttm-hidden">جولة جديدة 🔄</button>
-            <button id="ttm-game-back" class="ttm-secondary">رجوع إلى الألعاب</button>
-          </section>
         </div>
     </div>
 
@@ -552,11 +462,26 @@
         <div class="profile-box">
             <div class="large-avatar-container" id="profileAvatarRingBox"><img id="avatarPreview" class="large-avatar" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية"></div>
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
-            <div style="margin-top:2px;margin-bottom:6px"><span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span></div>
+            <div style="margin-top:2px;margin-bottom:6px">
+                <span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span>
+                <div id="profileBadgeDisplay" style="margin-top:4px"></div>
+            </div>
             <input type="text" id="profileNameInput" class="input-box" placeholder="تعديل الاسم" style="margin-top:4px;margin-bottom:6px">
             <input type="text" id="profileBioInput" class="input-box" placeholder="اكتب البايو الخاص بك (60 حرف كحد أقصى)" maxlength="60" oninput="validateBioLength(this)" style="margin-top:2px;margin-bottom:6px;font-size:11px">
             <div id="bioCounter" style="font-size:9px;color:#94a3b8;text-align:left;margin-bottom:6px">0 / 60</div>
             <div style="margin-top:8px;text-align:right"><button class="action-btn btn-gold" onclick="saveProfileData()">حفظ التعديلات 💾</button></div>
+            
+            <!-- لوحة شحن حقيبة الوكيل (تظهر للوكلاء فقط) -->
+            <div id="agentBagPanel" style="display:none;margin-top:12px;background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:10px;border-radius:12px;text-align:right">
+                <h4 style="margin:0 0 4px 0;color:#eab308;font-size:12px">💼 حقيبة الوكيل المعتمد</h4>
+                <div style="font-size:11px;color:#fff">رصيد الحقيبة المخصص للشحن: <b id="agentBagBalance" style="color:#34d399">0</b> نقطة</div>
+                <div style="margin-top:8px">
+                    <input type="text" id="agentChargeTargetId" class="input-box" placeholder="ID المستخدم المراد شحنه">
+                    <input type="number" id="agentChargeAmount" class="input-box" placeholder="عدد النقاط من الحقيبة">
+                    <button class="action-btn btn-green" style="padding:6px;font-size:11px" onclick="agentTransferPoints()">شحن النقاط للمستخدم 🚀</button>
+                </div>
+            </div>
+
             <div class="profile-gifts-section">
                 <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:12px">🎁 هدايا الملف الشخصي المستلمة</h4>
                 <div id="profileReceivedGiftsGrid" class="profile-gifts-grid"><div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:10px">لا توجد هدايا مستلمة بعد</div></div>
@@ -647,12 +572,52 @@
     </div>
 </div>
 
+<!-- مودال تقديم الوكالة -->
+<div id="agentApplyModal" class="modal">
+    <div class="modal-content" style="text-align:right">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <h4 style="margin:0;color:#eab308;font-size:14px">📝 التقديم على وكالة معتمدة</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAgentApplyModal()">✖</button>
+        </div>
+        <label style="font-size:11px;color:#cbd5e1">يوزر التليجرام الخاص بك:</label>
+        <input type="text" id="agentTelegramInput" class="input-box" placeholder="@username">
+        <label style="font-size:11px;color:#cbd5e1">رقم الواتساب الخاص بك:</label>
+        <input type="text" id="agentWhatsappInput" class="input-box" placeholder="07xxxxxxxxx">
+        <label style="font-size:11px;color:#cbd5e1">طريقة دفع رسم التقديم:</label>
+        <select id="agentPaymentMethod" class="select-box">
+            <option value="points">خصم 7,000,000 نقطة من الرصيد</option>
+            <option value="zaincash">تحويل 2,000,000 د.ع عبر زين كاش</option>
+        </select>
+        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (أمام وخلف):</label>
+        <input type="file" id="agentHousingImg" accept="image/*" class="input-box">
+        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (أمام وخلف):</label>
+        <input type="file" id="agentNationalImg" accept="image/*" class="input-box">
+        <button class="action-btn btn-gold" style="margin-top:10px" onclick="submitAgentApplication()">إرسال الطلب للإدارة 🚀</button>
+    </div>
+</div>
+
 <div id="adminPanelModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:400px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 style="margin:0;color:#ef4444;font-size:15px">👑 لوحة تحكم الإدارة (TTM1)</h4>
+            <h4 style="margin:0;color:#ef4444;font-size:15px">👑 لوحة تحكم الإدارة (Lounge)</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
         </div>
+        
+        <!-- التحكم بشريط الإعلانات -->
+        <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:10px;border-radius:10px;margin-bottom:10px">
+            <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:12px">📢 التحكم بشريط الإعلانات</h4>
+            <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان الجديد..." style="margin-bottom:6px">
+            <button class="action-btn btn-purple" style="padding:6px;font-size:11px" onclick="adminUpdateTicker()">نشر الإعلان 🚀</button>
+        </div>
+
+        <!-- شحن حقيبة الوكلاء -->
+        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:10px;border-radius:10px;margin-bottom:10px">
+            <h4 style="margin:0 0 6px 0;color:#eab308;font-size:12px">💼 شحن حقيبة وكيل معتمد</h4>
+            <input type="text" id="adminAgentTargetId" class="input-box" placeholder="ID الوكيل" style="margin-bottom:6px">
+            <input type="number" id="adminAgentBagAmount" class="input-box" placeholder="عدد نقاط الحقيبة" style="margin-bottom:6px">
+            <button class="action-btn btn-gold" style="padding:6px;font-size:11px" onclick="adminChargeAgentBag()">شحن حقيبة الوكيل 💼</button>
+        </div>
+
         <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
             <h4 style="margin:0 0 6px 0;color:#38bdf8;font-size:12px">⚡ شحن النقاط المباشر</h4>
             <input type="text" id="adminTargetIdInput" class="input-box" placeholder="أدخل ID المستخدم (أرقام فقط)" style="margin-bottom:6px">
@@ -665,12 +630,12 @@
                 <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="padding:8px;font-size:11px" onclick="adminToggleWithdrawFeature()">🔒 إغلاق/فتح سحب الأرباح</button>
                 <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="padding:8px;font-size:11px" onclick="adminToggleDailyCounterFeature()">⏳ قفل/فتح العداد اليومي</button>
                 <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="padding:8px;font-size:11px">📥 عرض طلبات شراء العدادات</button>
+                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="padding:8px;font-size:11px">📝 عرض طلبات الوكلاء</button>
             </div>
         </div>
         
-        <!-- قسم البحث عن المستخدم لمعرفة العداد والمرات التي سحب بها أرباحه -->
         <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#10b981;font-size:12px">🔍 فحص ملف المستخدم (العدادات وسحوبات الأرباح)</h4>
+            <h4 style="margin:0 0 6px 0;color:#10b981;font-size:12px">🔍 فحص ملف المستخدم</h4>
             <input type="text" id="adminInspectIdInput" class="input-box" placeholder="أدخل ID المستخدم" style="margin-bottom:6px">
             <button class="action-btn btn-green" style="padding:8px;font-size:11px" onclick="adminInspectUser()">فحص المستخدم 🔎</button>
             <div id="adminInspectResult" style="font-size:11px;color:#cbd5e1;margin-top:6px;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;display:none;"></div>
@@ -680,6 +645,16 @@
             <button class="shop-tab-btn active-gold" id="admTab1" onclick="switchAdminTab('withdrawals')">طلبات السحب</button>
         </div>
         <div id="adminWithdrawalsArea" class="admin-tab-content" style="max-height:200px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
+    </div>
+</div>
+
+<div id="adminAgentAppsModal" class="modal">
+    <div class="modal-content" style="text-align:right;max-width:400px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <h4 style="margin:0;color:#eab308;font-size:14px">📝 طلبات التقديم على الوكالة</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminAgentApplications()">✖</button>
+        </div>
+        <div id="adminAgentAppsList" style="max-height:300px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
     </div>
 </div>
 
@@ -701,6 +676,7 @@
         </div>
         <div class="large-avatar-container" style="margin:0 auto 4px auto"><img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم"></div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:4px">ID: ---</span>
+        <div id="visitedUserBadgeArea" style="margin-bottom:6px"></div>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
         <h3 id="visitedUserName" style="margin:0 0 2px 0;color:#fff;font-size:15px">اسم المستخدم</h3>
         <div class="profile-gifts-section" style="margin-top:8px">
@@ -841,20 +817,21 @@
     <div class="c4-gift-glow"></div>
     <div class="c4-gift-spark"></div>
     <div id="c4GiftArt" class="c4-gift-art">🏰</div>
-    <div id="c4GiftLabel" class="c4-gift-label">TTM1</div>
+    <div id="c4GiftLabel" class="c4-gift-label">Lounge</div>
   </div>
 </div>
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
-    let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false};
+    let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
+    let housingImgBase64='', nationalImgBase64='';
 
-    // --- قاعدة بيانات الأسئلة (100 سؤال متنوعة) ---
+    // --- قاعدة بيانات الأسئلة (100 سؤال) ---
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
         { id: 2, q: "كم عدد سور القرآن الكريم؟", correct: "114 سورة", wrong: "120 سورة" },
@@ -964,29 +941,27 @@
     let currentQuestion = null;
     let isCompletedToday = false;
 
-    // خلط وترتيب الأسئلة عشوائياً يومياً لضمان ظهور 100 سؤال متجدد بدون تكرار
     function initDailyQuizSession() {
         if (!currentUserKey) return;
         const todayStr = new Date().toDateString();
-        const sessionDateKey = 'ttm1_quiz_session_date_' + currentUserKey;
+        const sessionDateKey = 'lounge_quiz_session_date_' + currentUserKey;
         const storedDate = localStorage.getItem(sessionDateKey);
 
-        // إذا بدأ يوم جديد، نقوم بخلط الأسئلة الـ 100 بالكامل
         if (storedDate !== todayStr) {
             localStorage.setItem(sessionDateKey, todayStr);
             let shuffled = [...fullQuestionsPool].sort(() => Math.random() - 0.5);
-            localStorage.setItem('ttm1_daily_pool_' + currentUserKey, JSON.stringify(shuffled));
-            localStorage.removeItem('ttm1_quiz_completed_' + currentUserKey);
+            localStorage.setItem('lounge_daily_pool_' + currentUserKey, JSON.stringify(shuffled));
+            localStorage.removeItem('lounge_quiz_completed_' + currentUserKey);
         }
 
-        let savedPool = localStorage.getItem('ttm1_daily_pool_' + currentUserKey);
+        let savedPool = localStorage.getItem('lounge_daily_pool_' + currentUserKey);
         if (savedPool) {
             currentDailyQuestions = JSON.parse(savedPool);
         } else {
             currentDailyQuestions = [...fullQuestionsPool].sort(() => Math.random() - 0.5);
         }
 
-        const completedToday = localStorage.getItem('ttm1_quiz_completed_' + currentUserKey);
+        const completedToday = localStorage.getItem('lounge_quiz_completed_' + currentUserKey);
         if (completedToday === todayStr) {
             isCompletedToday = true;
             lockQuizButton("لقد أتممت تحدي الـ 100 سؤال بنجاح لهذا اليوم، ننتظرك غداً!");
@@ -1015,7 +990,6 @@
         if (!optionsBox) return;
         optionsBox.innerHTML = '';
 
-        // خلط الخيارين (الصحيح والخطأ) عشوائياً في كل مرة
         const isCorrectFirst = Math.random() < 0.5;
         const opts = isCorrectFirst ? 
             [{ text: currentQuestion.correct, isCorrect: true }, { text: currentQuestion.wrong, isCorrect: false }] :
@@ -1049,10 +1023,9 @@
 
         setTimeout(() => {
             if (currentQuestionIndex >= 100 || currentQuestionIndex >= currentDailyQuestions.length) {
-                // عند إتمام الـ 100 سؤال يمنح المستخدم 50 نقطة فقط
                 isCompletedToday = true;
                 const todayStr = new Date().toDateString();
-                localStorage.setItem('ttm1_quiz_completed_' + currentUserKey, todayStr);
+                localStorage.setItem('lounge_quiz_completed_' + currentUserKey, todayStr);
 
                 userData.points = (userData.points || 0) + 50;
                 saveToDB().then(() => {
@@ -1118,6 +1091,7 @@
         const t=document.getElementById(screenId);if(t)t.classList.add('active');
         if(screenId==='quizScreen') initDailyQuizSession();
         if(screenId==='friendsScreen')loadFriendSystem();
+        if(screenId==='agentsScreen')loadApprovedAgentsList();
         if(screenId==='profileScreen'){loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`;}
         if(screenId==='leaderboardScreen')loadLeaderboardData();
     }
@@ -1163,7 +1137,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1188,7 +1162,11 @@
                 updateUI();checkActiveTimer();checkAndRunAutomatedFridayDistribution();
             }
         });
-        rtdb.ref('app_settings').on('value',snap=>{globalAppSettings=snap.exists()?snap.val():{withdrawLocked:false,dailyCounterLocked:false};});
+        rtdb.ref('app_settings').on('value',snap=>{
+            globalAppSettings=snap.exists()?snap.val():{withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
+            let tickerElem = document.getElementById('tickerTextDisplay');
+            if(tickerElem && globalAppSettings.tickerText) tickerElem.innerText = globalAppSettings.tickerText;
+        });
         loadNotifications();loadFriendSystem();
     }
     function updateUI(){
@@ -1205,6 +1183,31 @@
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         
+        // الأوسمة والمستويات
+        let pts = userData.points || 0;
+        let lvlName = "مبتدئ 🌟";
+        if(pts >= 100000) lvlName = "أسطورة 👑";
+        else if(pts >= 20000) lvlName = "محترف 🔥";
+
+        let badgeHtml = `<span class="badge-tag">${lvlName}</span>`;
+        if(userData.isAgent) badgeHtml += ` <span class="badge-tag agent">وكيل معتمد 💼</span>`;
+        
+        let hdrBadge = document.getElementById('userHeaderBadgeArea');
+        if(hdrBadge) hdrBadge.innerHTML = badgeHtml;
+        let prfBadge = document.getElementById('profileBadgeDisplay');
+        if(prfBadge) prfBadge.innerHTML = badgeHtml;
+
+        // حقيبة الوكيل
+        let agentPanel = document.getElementById('agentBagPanel');
+        if(agentPanel){
+            if(userData.isAgent){
+                agentPanel.style.display = 'block';
+                document.getElementById('agentBagBalance').innerText = (userData.agentBag||0).toLocaleString();
+            } else {
+                agentPanel.style.display = 'none';
+            }
+        }
+
         let adminBtn=document.getElementById('adminPanelMainBtn');
         if(adminBtn){
             if(currentUserKey==='msaftwtn_gmail_com'||currentEmail==='msaftwtn@gmail.com'||userData.customId==='1'){
@@ -1223,6 +1226,39 @@
         return rtdb.ref('users/'+currentUserKey).update(userData);
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
+    
+    // شحن الوكيل للمستخدم من الحقيبة
+    function agentTransferPoints(){
+        if(!userData.isAgent) return alert("⚠️ أنت لست وكيلاً معتمداً!");
+        let targetId = document.getElementById('agentChargeTargetId').value.trim();
+        let amt = parseInt(document.getElementById('agentChargeAmount').value);
+        if(!targetId || isNaN(amt) || amt <= 0) return alert("⚠️ أدخل البيانات بشكل صحيح!");
+        let currentBag = userData.agentBag || 0;
+        if(currentBag < amt) return alert("❌ رصيد حقيبتك غير كافٍ للشحن!");
+
+        rtdb.ref('users').once('value').then(snap=>{
+            let targetKey = '';
+            snap.forEach(c=>{ if(String(c.val().customId).trim()===String(targetId).trim()) targetKey = c.key; });
+            if(!targetKey) return alert("❌ لم يتم العثور على هذا المستخدم!");
+
+            userData.agentBag = currentBag - amt;
+            saveToDB().then(()=>{
+                rtdb.ref(`users/${targetKey}`).once('value').then(ts=>{
+                    let oldPts = ts.val().points || 0;
+                    rtdb.ref(`users/${targetKey}`).update({points: oldPts + amt}).then(()=>{
+                        rtdb.ref(`notifications/${targetKey}`).push({
+                            text: `💼 قام الوكيل (${userData.name}) بشحن ${amt.toLocaleString()} نقطة بحسابك!`,
+                            timestamp: Date.now()
+                        });
+                        document.getElementById('agentChargeTargetId').value = '';
+                        document.getElementById('agentChargeAmount').value = '';
+                        alert("✅ تم شحن النقاط للمستخدم بنجاح من حقيبتك!");
+                    });
+                });
+            });
+        });
+    }
+
     function buyCounter(pts,price, counterName){
         if((userData.points||0)<price)return alert(`❌ نقاطك غير كافية! سعر العداد ${price.toLocaleString()} نقطة.`);
         userData.points-=price;
@@ -1248,6 +1284,90 @@
             document.getElementById('manualCounterDetails').value = '';
             alert("✅ تم إرسال طلب حجز العداد للإدارة بنجاح! سيتم التحقق والشحن قريباً.");
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
+    }
+
+    function openAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='flex'; }
+    function closeAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='none'; }
+
+    function submitAgentApplication(){
+        let tg = document.getElementById('agentTelegramInput').value.trim();
+        let wa = document.getElementById('agentWhatsappInput').value.trim();
+        let method = document.getElementById('agentPaymentMethod').value;
+        let hFile = document.getElementById('agentHousingImg').files[0];
+        let nFile = document.getElementById('agentNationalImg').files[0];
+
+        if(!tg || !wa || !hFile || !nFile) return alert("⚠️ يرجى ملء يوزر التليجرام والواتساب ورفع صورتين لبطاقة السكن والبطاقة الوطنية!");
+
+        if(method === 'points' && (userData.points||0) < 7000000){
+            return alert("❌ نقاطك الحالية أقل من 7,000,000 نقطة المطلوبة للتقديم بها!");
+        }
+
+        let r1 = new FileReader(), r2 = new FileReader();
+        r1.onload = (e1)=>{
+            housingImgBase64 = e1.target.result;
+            r2.onload = (e2)=>{
+                nationalImgBase64 = e2.target.result;
+
+                if(method === 'points'){
+                    userData.points -= 7000000;
+                    saveToDB();
+                }
+
+                rtdb.ref('agent_applications').push({
+                    userKey: currentUserKey,
+                    userName: userData.name,
+                    userId: userData.customId,
+                    telegram: tg,
+                    whatsapp: wa,
+                    method: method,
+                    housingImg: housingImgBase64,
+                    nationalImg: nationalImgBase64,
+                    timestamp: Date.now()
+                }).then(()=>{
+                    closeAgentApplyModal();
+                    alert("✅ تم إرسال طلب الوكالة والمستندات بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
+                });
+            };
+            r2.readAsDataURL(nFile);
+        };
+        r1.readAsDataURL(hFile);
+    }
+
+    function loadApprovedAgentsList(){
+        rtdb.ref('users').once('value').then(snap=>{
+            let c = document.getElementById('approvedAgentsList'); if(!c) return;
+            if(!snap.exists()){ c.innerHTML = "لا يوجد وكلاء حالياً"; return; }
+            let h = '';
+            snap.forEach(u=>{
+                let d = u.val();
+                if(d.isAgent){
+                    h += `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(234,179,8,0.3);padding:8px;border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center">
+                        <div>
+                            <b style="color:#eab308;font-size:12px">💼 ${d.name}</b>
+                            <div style="font-size:10px;color:#cbd5e1;margin-top:2px">
+                                تليجرام: ${d.agentTelegram||'---'} 
+                                <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentTelegram||''}')">📋 نسخ</button>
+                            </div>
+                            <div style="font-size:10px;color:#cbd5e1;margin-top:2px">
+                                واتساب: ${d.agentWhatsapp||'---'} 
+                                <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentWhatsapp||''}')">📋 نسخ</button>
+                            </div>
+                        </div>
+                        <span style="font-size:18px">⭐</span>
+                    </div>`;
+                }
+            });
+            c.innerHTML = h || "لا يوجد وكلاء معتمدون حتى الآن.";
+        });
+    }
+
+    function copyTextToClipboard(text){
+        if(!text) return alert("⚠️ لا يوجد نص للنسخ!");
+        navigator.clipboard.writeText(text).then(()=>{
+            alert(`📋 تم نسخ (${text}) إلى الحافظة بنجاح!`);
+        }).catch(()=>{
+            alert("❌ تعذر النسخ المباشر، يمكنك نسخه يدوياً.");
+        });
     }
 
     function claimDailyReward(){
@@ -1464,6 +1584,16 @@
             document.getElementById('visitedUserCustomId').innerText=`ID: ${u.customId||'---'}`;
             document.getElementById('visitedUserAvatar').src=u.avatar?u.avatar:'https://via.placeholder.com/85';
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
+
+            // أوسمة الزائر
+            let vPts = u.points || 0;
+            let vLvl = "مبتدئ 🌟";
+            if(vPts >= 100000) vLvl = "أسطورة 👑";
+            else if(vPts >= 20000) vLvl = "محترف 🔥";
+            let vBadgeHtml = `<span class="badge-tag">${vLvl}</span>`;
+            if(u.isAgent) vBadgeHtml += ` <span class="badge-tag agent">وكيل معتمد 💼</span>`;
+            document.getElementById('visitedUserBadgeArea').innerHTML = vBadgeHtml;
+
             loadProfileReceivedGifts(targetKey,'visitedReceivedGiftsGrid');
             let addB=document.getElementById('visitedAddFriendBtn'),roomA=document.getElementById('visitedUserRoomArea'),noRoomA=document.getElementById('visitedUserNoRoom'),banB=document.getElementById('roomOwnerBanBtn');
             if(isolatedActiveRoomId&&currentUserKey===activeRoomCreatorKey&&targetKey!==currentUserKey)banB.style.display='inline-block';else banB.style.display='none';
@@ -1580,7 +1710,86 @@
         });
     }
 
-    // زر فحص العداد والسحوبات داخل لوحة الإدارة للمستخدم
+    // الإدارة - نشر شريط الإعلانات
+    function adminUpdateTicker(){
+        if(currentUserKey!=='msaftwtn_gmail_com') return;
+        let txt = document.getElementById('adminTickerInput').value.trim();
+        if(!txt) return alert("⚠️ أدخل نص الإعلان!");
+        rtdb.ref('app_settings').update({tickerText: txt}).then(()=>{
+            document.getElementById('adminTickerInput').value = '';
+            alert("📢 تم نشر الإعلان المباشر على الشريط العلوى بنجاح!");
+        });
+    }
+
+    // الإدارة - شحن حقيبة الوكيل
+    function adminChargeAgentBag(){
+        if(currentUserKey!=='msaftwtn_gmail_com') return;
+        let targetId = document.getElementById('adminAgentTargetId').value.trim();
+        let amt = parseInt(document.getElementById('adminAgentBagAmount').value);
+        if(!targetId || isNaN(amt) || amt <= 0) return alert("⚠️ أدخل ID الوكيل وعدد النقاط بشكل صحيح!");
+
+        rtdb.ref('users').once('value').then(snap=>{
+            let tk = '';
+            snap.forEach(c=>{ if(String(c.val().customId).trim()===String(targetId).trim()) tk = c.key; });
+            if(!tk) return alert("❌ لم يتم العثور على هذا المستخدم!");
+
+            rtdb.ref(`users/${tk}`).once('value').then(us=>{
+                let u = us.val();
+                if(!u.isAgent) return alert("⚠️ هذا المستخدم ليس وكيلاً معتمداً بعد!");
+                let newBag = (u.agentBag||0) + amt;
+                rtdb.ref(`users/${tk}`).update({agentBag: newBag}).then(()=>{
+                    rtdb.ref(`notifications/${tk}`).push({
+                        text: `💼 قامت الإدارة بشحن حقيبتك بـ ${amt.toLocaleString()} نقطة!`,
+                        timestamp: Date.now()
+                    });
+                    document.getElementById('adminAgentTargetId').value = '';
+                    document.getElementById('adminAgentBagAmount').value = '';
+                    alert("✅ تم شحن حقيبة الوكيل بنجاح!");
+                });
+            });
+        });
+    }
+
+    function openAdminAgentApplications(){
+        document.getElementById('adminAgentAppsModal').style.display='flex';
+        rtdb.ref('agent_applications').on('value',snap=>{
+            let lst = document.getElementById('adminAgentAppsList');
+            if(!snap.exists()){ lst.innerHTML = "لا توجد طلبات وكالة معلقة."; return; }
+            let h = '';
+            snap.forEach(item=>{
+                let d = item.val();
+                h += `<div style="background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:6px">
+                    <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
+                    <b>تليجرام:</b> ${d.telegram} | <b>واتساب:</b> ${d.whatsapp}<br>
+                    <b>طريقة الدفع:</b> ${d.method==='points'?'7,000,000 نقطة':'تحويل زين كاش 2M'}<br>
+                    <div style="margin:4px 0;display:flex;gap:4px">
+                        <a href="${d.housingImg}" target="_blank" style="color:#38bdf8">🖼️ بطاقة السكن</a> | 
+                        <a href="${d.nationalImg}" target="_blank" style="color:#38bdf8">🖼️ البطاقة الوطنية</a>
+                    </div>
+                    <button onclick="adminApproveAgent('${d.userKey}','${d.telegram}','${d.whatsapp}','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وتفعيل الوكالة ✔️</button>
+                    <button onclick="adminDeleteRef('agent_applications','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;margin-right:4px;cursor:pointer">رفض 🗑️</button>
+                </div>`;
+            });
+            lst.innerHTML = h;
+        });
+    }
+    function closeAdminAgentApplications(){ document.getElementById('adminAgentAppsModal').style.display='none'; }
+
+    function adminApproveAgent(userKey, tg, wa, appKey){
+        rtdb.ref(`users/${userKey}`).update({
+            isAgent: true,
+            agentTelegram: tg,
+            agentWhatsapp: wa
+        }).then(()=>{
+            rtdb.ref(`notifications/${userKey}`).push({
+                text: `🎉 مبروك! وافقت الإدارة على طلبك وأصبحت وكيلاً معتمداً للبرنامج.`,
+                timestamp: Date.now()
+            });
+            rtdb.ref(`agent_applications/${appKey}`).remove();
+            alert("💼 تم تفعيل الوكالة للمستخدم بنجاح!");
+        });
+    }
+
     function adminInspectUser(){
         if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
         let tId=document.getElementById('adminInspectIdInput').value.trim();
@@ -1605,6 +1814,7 @@
             let wCount = foundUser.withdrawCount || 0;
             resArea.innerHTML=`<b>👤 اسم المستخدم:</b> ${foundUser.name || 'بدون اسم'}<br>`+
                               `<b>👑 نوع العداد المشترك:</b> ${counterInfo}<br>`+
+                              `<b>💼 صفة الوكيل:</b> ${foundUser.isAgent?'وكيل معتمد':'مستخدم عادي'}<br>`+
                               `<b>💸 عدد مرات سحب الأرباح:</b> ${wCount} مرة`;
         });
     }
@@ -1643,9 +1853,7 @@
     }
     function closeAdminCounterOrders(){document.getElementById('adminCounterOrdersModal').style.display='none';}
 
-    function switchAdminTab(tab){
-        document.getElementById('admTab1').className="shop-tab-btn active-gold";
-    }
+    function switchAdminTab(tab){ document.getElementById('admTab1').className="shop-tab-btn active-gold"; }
     function loadAdminData(){
         rtdb.ref('admin_withdrawals').on('value',snap=>{
             let a=document.getElementById('adminWithdrawalsArea');if(!snap.exists()){a.innerHTML="لا توجد طلبات سحب.";return;}let h='';
@@ -1782,9 +1990,7 @@
 
     let touchStartX = 0;
     let touchCurrentX = 0;
-    function handleTouchStart(e) {
-        touchStartX = e.touches[0].clientX;
-    }
+    function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
     function handleTouchMove(e) {
         touchCurrentX = e.touches[0].clientX;
         let diff = touchCurrentX - touchStartX;
@@ -1797,11 +2003,8 @@
         let bubble = e.currentTarget;
         let diff = touchCurrentX - touchStartX;
         bubble.style.transform = 'translateX(0px)';
-        if (Math.abs(diff) > 50) {
-            prepareReplyToMessage(senderName, text);
-        }
-        touchStartX = 0;
-        touchCurrentX = 0;
+        if (Math.abs(diff) > 50) { prepareReplyToMessage(senderName, text); }
+        touchStartX = 0; touchCurrentX = 0;
     }
 
     function deleteRoomMessage(id,mk){rtdb.ref(`room_messages/${id}/${mk}`).remove();}
@@ -1962,7 +2165,7 @@
         void art.offsetWidth;
 
         art.textContent = gift.emoji;
-        label.textContent = "TTM1";
+        label.textContent = "Lounge";
 
         overlay.classList.add("c4-show");
         art.style.animation = "";
@@ -1975,289 +2178,6 @@
           }, 380);
         }, 3000);
       };
-    })();
-
-    // --- سكربت ألعاب TTM1 للتسلية ---
-    (function () {
-      "use strict";
-
-      const root = document.getElementById("ttm-games");
-      if (!root || root.dataset.initialized === "true") return;
-      root.dataset.initialized = "true";
-
-      const panel = root.querySelector("#ttm-game-panel");
-      const title = root.querySelector("#ttm-game-title");
-      const description = root.querySelector("#ttm-game-description");
-      const content = root.querySelector("#ttm-game-content");
-      const feedback = root.querySelector("#ttm-game-feedback");
-      const nextButton = root.querySelector("#ttm-game-next");
-      const backButton = root.querySelector("#ttm-game-back");
-      const gameList = root.querySelector(".ttm-game-list");
-
-      let currentGame = "";
-      let wordIndex = 0;
-      let riddleIndex = 0;
-      let memoryState = null;
-      let memoryTimer = null;
-
-      const words = [
-        { scrambled: "باتك", answer: "كتاب", hint: "شيء نقرأه" },
-        { scrambled: "حابص", answer: "صباح", hint: "بداية اليوم" },
-        { scrambled: "ةرك", answer: "كرة", hint: "نلعب بها" },
-        { scrambled: "درو", answer: "ورد", hint: "زهرة جميلة" },
-        { scrambled: "رحب", answer: "بحر", hint: "ماء واسع" },
-        { scrambled: "رمق", answer: "قمر", hint: "يظهر في السماء ليلاً" }
-      ];
-
-      const riddles = [
-        {
-          q: "شنو الشي اللي إله أسنان وما يعض؟",
-          answers: ["المشط", "الكرسي", "الكتاب"],
-          correct: 0
-        },
-        {
-          q: "شنو الشي اللي كلما أخذت منه يكبر؟",
-          answers: ["الجبل", "الحفرة", "النهر"],
-          correct: 1
-        },
-        {
-          q: "شنو الشي اللي يكتب وما يقرأ؟",
-          answers: ["القلم", "الكتاب", "الهاتف"],
-          correct: 0
-        },
-        {
-          q: "شنو الشي اللي إله عين وما يشوف؟",
-          answers: ["المرآة", "الإبرة", "القطة"],
-          correct: 1
-        },
-        {
-          q: "شنو الشي اللي يمشي بلا رجلين؟",
-          answers: ["الساعة", "الطاولة", "الكرسي"],
-          correct: 0
-        }
-      ];
-
-      function shuffle(items) {
-        const result = items.slice();
-        for (let i = result.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [result[i], result[j]] = [result[j], result[i]];
-        }
-        return result;
-      }
-
-      function clearGame() {
-        if (memoryTimer) clearTimeout(memoryTimer);
-        memoryTimer = null;
-        memoryState = null;
-        content.replaceChildren();
-        feedback.textContent = "";
-        nextButton.classList.add("ttm-hidden");
-      }
-
-      function startGame(game) {
-        clearGame();
-        currentGame = game;
-        gameList.classList.add("ttm-hidden");
-        panel.classList.remove("ttm-hidden");
-
-        if (game === "words") showWord();
-        if (game === "riddles") showRiddle();
-        if (game === "memory") showMemory();
-      }
-
-      function makeButton(text, className, handler) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.textContent = text;
-        button.className = className;
-        button.addEventListener("click", handler);
-        return button;
-      }
-
-      function showWord() {
-        clearGame();
-        currentGame = "words";
-        title.textContent = "🔤 لخبط الحروف";
-        description.textContent = "رتّب الحروف واكتشف الكلمة. تگدر تطلب تلميح إذا احتجت.";
-        const item = words[wordIndex % words.length];
-
-        const scrambled = document.createElement("div");
-        scrambled.className = "ttm-word";
-        scrambled.textContent = shuffle(Array.from(item.answer)).join(" ");
-        content.appendChild(scrambled);
-
-        const input = document.createElement("input");
-        input.className = "ttm-input";
-        input.placeholder = "اكتب الكلمة هنا...";
-        input.autocomplete = "off";
-        input.setAttribute("aria-label", "الكلمة الصحيحة");
-        content.appendChild(input);
-
-        const check = makeButton("تحقق من الجواب", "ttm-action", function () {
-          if (!input.value.trim()) {
-            feedback.textContent = "اكتب جوابك أولاً 😊";
-            return;
-          }
-          if (input.value.trim().replace(/\s/g, "") === item.answer) {
-            feedback.textContent = "أحسنت! جواب صحيح 🎉";
-            nextButton.classList.remove("ttm-hidden");
-          } else {
-            feedback.textContent = "مو هي الكلمة، حاول مرة ثانية 😄";
-          }
-        });
-        content.appendChild(check);
-
-        content.appendChild(makeButton("أعطني تلميح 💡", "ttm-secondary", function () {
-          feedback.textContent = "تلميح: " + item.hint;
-        }));
-
-        nextButton.classList.remove("ttm-hidden");
-        nextButton.textContent = "كلمة جديدة 🔄";
-      }
-
-      function showRiddle() {
-        clearGame();
-        currentGame = "riddles";
-        title.textContent = "😂 فوازير وألغاز";
-        description.textContent = "اختار الجواب اللي تشوفه صحيح.";
-        const item = riddles[riddleIndex % riddles.length];
-
-        const question = document.createElement("p");
-        question.textContent = item.q;
-        content.appendChild(question);
-
-        item.answers.forEach(function (answer, index) {
-          content.appendChild(makeButton(answer, "ttm-answer", function () {
-            if (content.dataset.answered === "true") return;
-            content.dataset.answered = "true";
-
-            if (index === item.correct) {
-              feedback.textContent = "صحيح! عاشت إيدك 🎉";
-            } else {
-              feedback.textContent = "مو هذا الجواب 😄 الجواب الصحيح: " + item.answers[item.correct];
-            }
-            nextButton.classList.remove("ttm-hidden");
-          }));
-        });
-
-        content.dataset.answered = "false";
-        nextButton.classList.remove("ttm-hidden");
-        nextButton.textContent = "فزورة جديدة 🔄";
-      }
-
-      function showMemory() {
-        clearGame();
-        currentGame = "memory";
-        title.textContent = "🃏 افتح وتذكّر";
-        description.textContent = "افتح البطاقات وطابق كل صورتين متشابهتين.";
-
-        const symbols = ["🍎", "🚀", "🐱", "⚽", "🌟", "🍕"];
-        const cards = shuffle(symbols.concat(symbols)).map(function (symbol, index) {
-          return { id: index, symbol: symbol, matched: false };
-        });
-
-        memoryState = {
-          cards: cards,
-          opened: [],
-          locked: false,
-          matched: 0
-        };
-
-        const grid = document.createElement("div");
-        grid.className = "ttm-memory-grid";
-        content.appendChild(grid);
-
-        cards.forEach(function (card) {
-          const button = makeButton("❔", "ttm-memory-card", function () {
-            flipCard(card.id);
-          });
-          button.setAttribute("aria-label", "بطاقة مخفية");
-          grid.appendChild(button);
-        });
-
-        function renderCard(id, symbol, matched) {
-          const button = grid.children[id];
-          button.textContent = matched || memoryState.opened.includes(id) ? symbol : "❔";
-          button.disabled = matched || memoryState.locked;
-          button.style.background = matched ? "#28765c" : "";
-          button.setAttribute("aria-label", matched ? symbol : "بطاقة مخفية");
-        }
-
-        function renderAll() {
-          cards.forEach(function (card) {
-            renderCard(card.id, card.symbol, card.matched);
-          });
-        }
-
-        function flipCard(id) {
-          const state = memoryState;
-          if (!state || state.locked) return;
-          const card = state.cards[id];
-          if (card.matched || state.opened.includes(id)) return;
-
-          state.opened.push(id);
-          renderAll();
-
-          if (state.opened.length === 2) {
-            const first = state.cards[state.opened[0]];
-            const second = state.cards[state.opened[1]];
-
-            if (first.symbol === second.symbol) {
-              first.matched = true;
-              second.matched = true;
-              state.matched += 2;
-              state.opened = [];
-              renderAll();
-
-              if (state.matched === state.cards.length) {
-                feedback.textContent = "برافو! طابقت كل البطاقات 🎉";
-                nextButton.classList.remove("ttm-hidden");
-              } else {
-                feedback.textContent = "مطابقة صحيحة! كمل 😍";
-              }
-            } else {
-              state.locked = true;
-              feedback.textContent = "مو متشابهات، جرّب غيرهن.";
-              memoryTimer = setTimeout(function () {
-                if (memoryState !== state) return;
-                state.opened.forEach(function (openedId) {
-                  renderCard(openedId, state.cards[openedId].symbol, false);
-                });
-                state.opened = [];
-                state.locked = false;
-                memoryTimer = null;
-                renderAll();
-              }, 850);
-            }
-          }
-        }
-      }
-
-      gameList.addEventListener("click", function (event) {
-        const button = event.target.closest("[data-game]");
-        if (button && gameList.contains(button)) {
-          startGame(button.dataset.game);
-        }
-      });
-
-      nextButton.addEventListener("click", function () {
-        if (currentGame === "words") {
-          wordIndex++;
-          showWord();
-        } else if (currentGame === "riddles") {
-          riddleIndex++;
-          showRiddle();
-        } else if (currentGame === "memory") {
-          showMemory();
-        }
-      });
-
-      backButton.addEventListener("click", function () {
-        clearGame();
-        panel.classList.add("ttm-hidden");
-        gameList.classList.remove("ttm-hidden");
-      });
     })();
 </script>
 </body>
