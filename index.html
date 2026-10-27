@@ -109,9 +109,12 @@
         .top-logout-btn{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#ef4444;padding:5px 12px;border-radius:12px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px}
         .bell-icon-btn{background:none;border:none;font-size:20px;cursor:pointer;position:relative;padding:0;margin-left:8px}
         .top-profile-card{background:rgba(15,23,42,0.85);border:1px solid rgba(192,132,252,0.3);border-radius:16px;padding:12px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+        
+        /* دائرة الهوية والرمز بدون دوران */
         .coin-center-emblem{width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,#3b0764 0%,#090514 100%);border:2px solid #c084fc;display:flex;justify-content:center;align-items:center;box-shadow:0 0 12px rgba(192,132,252,0.5);margin:0 auto}
-        .spinning-coin{font-size:22px;animation:spinCoin 3s linear infinite}
-        @keyframes spinCoin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        .spinning-coin{font-size:14px;font-weight:900;color:#c084fc;animation:pulseLounge 2s ease-in-out infinite}
+        @keyframes pulseLounge{0%{opacity:0.6}50%{opacity:1}100%{opacity:0.6}}
+
         .timer-mini-bar{display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.9);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2px 6px;gap:6px;margin-top:6px}
         .timer-time-text{font-family:monospace;font-size:10px;font-weight:bold;color:#fff}
         .power-btn{width:20px;height:20px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
@@ -293,7 +296,7 @@
                 <div style="font-size:12px;color:#34d399;font-weight:bold;margin-top:2px" id="activeCounterInfo">لا يوجد</div>
             </div>
             <div style="text-align:center">
-                <div class="coin-center-emblem"><div class="spinning-coin">💬</div></div>
+                <div class="coin-center-emblem"><div class="spinning-coin" id="loungeTickerWord">LOUNGE</div></div>
                 <div class="timer-mini-bar">
                     <span id="timerDisplay" class="timer-time-text">24:00:00</span>
                     <button id="powerActivateBtn" class="power-btn red-pulse" onclick="claimDailyReward()">⚡</button>
@@ -346,7 +349,7 @@
         </div>
     </div>
 
-    <!-- شاشة نظام الوكلاء المعتمدين والتقديم على الوكالة -->
+    <!-- شاشة نظام الوكلاء المعتمدين والتسجيل -->
     <div id="agentsScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#facc15;font-size:15px">🏢 الوكلاء المعتمدون والتسجيل</h3>
@@ -572,7 +575,7 @@
     </div>
 </div>
 
-<!-- مودال تقديم الوكالة -->
+<!-- مودال تقديم الوكالة (4 حقول مستمسكات) -->
 <div id="agentApplyModal" class="modal">
     <div class="modal-content" style="text-align:right">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -581,17 +584,28 @@
         </div>
         <label style="font-size:11px;color:#cbd5e1">يوزر التليجرام الخاص بك:</label>
         <input type="text" id="agentTelegramInput" class="input-box" placeholder="@username">
+        
         <label style="font-size:11px;color:#cbd5e1">رقم الواتساب الخاص بك:</label>
         <input type="text" id="agentWhatsappInput" class="input-box" placeholder="07xxxxxxxxx">
+        
         <label style="font-size:11px;color:#cbd5e1">طريقة دفع رسم التقديم:</label>
         <select id="agentPaymentMethod" class="select-box">
             <option value="points">خصم 7,000,000 نقطة من الرصيد</option>
             <option value="zaincash">تحويل 2,000,000 د.ع عبر زين كاش</option>
         </select>
-        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (أمام وخلف):</label>
-        <input type="file" id="agentHousingImg" accept="image/*" class="input-box">
-        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (أمام وخلف):</label>
-        <input type="file" id="agentNationalImg" accept="image/*" class="input-box">
+        
+        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (الأمامية):</label>
+        <input type="file" id="agentHousingFront" accept="image/*" class="input-box">
+        
+        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (الخلفية):</label>
+        <input type="file" id="agentHousingBack" accept="image/*" class="input-box">
+        
+        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (الأمامية):</label>
+        <input type="file" id="agentNationalFront" accept="image/*" class="input-box">
+        
+        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (الخلفية):</label>
+        <input type="file" id="agentNationalBack" accept="image/*" class="input-box">
+
         <button class="action-btn btn-gold" style="margin-top:10px" onclick="submitAgentApplication()">إرسال الطلب للإدارة 🚀</button>
     </div>
 </div>
@@ -610,7 +624,7 @@
             <button class="action-btn btn-purple" style="padding:6px;font-size:11px" onclick="adminUpdateTicker()">نشر الإعلان 🚀</button>
         </div>
 
-        <!-- شحن حقيبة الوكلاء -->
+        <!-- أزرار شحن حقيبة الوكيل وشحن النقاط المباشر جنباً إلى جنب / مرتبة بوضوح -->
         <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:10px;border-radius:10px;margin-bottom:10px">
             <h4 style="margin:0 0 6px 0;color:#eab308;font-size:12px">💼 شحن حقيبة وكيل معتمد</h4>
             <input type="text" id="adminAgentTargetId" class="input-box" placeholder="ID الوكيل" style="margin-bottom:6px">
@@ -624,13 +638,14 @@
             <input type="number" id="adminPointsAmountInput" class="input-box" placeholder="عدد النقاط" style="margin-bottom:6px">
             <button class="action-btn btn-gold" style="padding:8px;font-size:11px" onclick="adminChargeDirectUser()">شحن النقاط 🪙</button>
         </div>
+
         <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
             <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:12px">⚙️ إعدادات التحكم العامة للإدارة</h4>
             <div style="display:flex;flex-direction:column;gap:6px">
                 <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="padding:8px;font-size:11px" onclick="adminToggleWithdrawFeature()">🔒 إغلاق/فتح سحب الأرباح</button>
                 <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="padding:8px;font-size:11px" onclick="adminToggleDailyCounterFeature()">⏳ قفل/فتح العداد اليومي</button>
                 <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="padding:8px;font-size:11px">📥 عرض طلبات شراء العدادات</button>
-                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="padding:8px;font-size:11px">📝 عرض طلبات الوكلاء</button>
+                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="padding:8px;font-size:11px">📝 عرض طلبات الوكلاء ومستمسكاتهم</button>
             </div>
         </div>
         
@@ -648,10 +663,11 @@
     </div>
 </div>
 
+<!-- مودال استعراض طلبات الوكلاء والمستمسكات الأربعة -->
 <div id="adminAgentAppsModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:400px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 style="margin:0;color:#eab308;font-size:14px">📝 طلبات التقديم على الوكالة</h4>
+            <h4 style="margin:0;color:#eab308;font-size:14px">📝 طلبات التقديم على الوكالة والمستمسكات</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminAgentApplications()">✖</button>
         </div>
         <div id="adminAgentAppsList" style="max-height:300px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
@@ -829,7 +845,7 @@
     let newRoomAvatarBase64='',newRoomBgBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
-    let housingImgBase64='', nationalImgBase64='';
+    let hFront64='', hBack64='', nFront64='', nBack64='';
 
     // --- قاعدة بيانات الأسئلة (100 سؤال) ---
     const fullQuestionsPool = [
@@ -940,6 +956,23 @@
     let correctAnswersCount = 0;
     let currentQuestion = null;
     let isCompletedToday = false;
+
+    // تأثير نص كلمة Lounge المتحرك حرفاً حرفاً داخل الدائرة
+    function initLoungeTickerAnimation(){
+        const words = ["LOUNGE", "APP", "CHAT", "VIP"];
+        let wIdx = 0, cIdx = 0;
+        const el = document.getElementById('loungeTickerWord');
+        if(!el) return;
+        setInterval(()=>{
+            let currentWord = words[wIdx];
+            el.innerText = currentWord.substring(0, cIdx + 1);
+            cIdx++;
+            if(cIdx >= currentWord.length){
+                cIdx = 0;
+                wIdx = (wIdx + 1) % words.length;
+            }
+        }, 800);
+    }
 
     function initDailyQuizSession() {
         if (!currentUserKey) return;
@@ -1054,6 +1087,7 @@
     }
 
     window.addEventListener('load',()=>{
+        initLoungeTickerAnimation();
         try{
             const firebaseConfig={
                 apiKey: "AIzaSyDtafaH13sD8fHRNoyzib_5aqLctsuMnY8",
@@ -1183,7 +1217,7 @@
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         
-        // الأوسمة والمستويات
+        // أوسمة ومستويات
         let pts = userData.points || 0;
         let lvlName = "مبتدئ 🌟";
         if(pts >= 100000) lvlName = "أسطورة 👑";
@@ -1289,48 +1323,61 @@
     function openAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='flex'; }
     function closeAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='none'; }
 
+    // تقديم الوكالة بـ 4 حقول للمستمسكات
     function submitAgentApplication(){
         let tg = document.getElementById('agentTelegramInput').value.trim();
         let wa = document.getElementById('agentWhatsappInput').value.trim();
         let method = document.getElementById('agentPaymentMethod').value;
-        let hFile = document.getElementById('agentHousingImg').files[0];
-        let nFile = document.getElementById('agentNationalImg').files[0];
+        let hF = document.getElementById('agentHousingFront').files[0];
+        let hB = document.getElementById('agentHousingBack').files[0];
+        let nF = document.getElementById('agentNationalFront').files[0];
+        let nB = document.getElementById('agentNationalBack').files[0];
 
-        if(!tg || !wa || !hFile || !nFile) return alert("⚠️ يرجى ملء يوزر التليجرام والواتساب ورفع صورتين لبطاقة السكن والبطاقة الوطنية!");
+        if(!tg || !wa || !hF || !hB || !nF || !nB) return alert("⚠️ يرجى ملء اليوزر والواتساب ورفع المستمسكات الأربعة (أمام وخلف لكل من السكن والوطنية)!");
 
         if(method === 'points' && (userData.points||0) < 7000000){
             return alert("❌ نقاطك الحالية أقل من 7,000,000 نقطة المطلوبة للتقديم بها!");
         }
 
-        let r1 = new FileReader(), r2 = new FileReader();
+        let r1 = new FileReader(), r2 = new FileReader(), r3 = new FileReader(), r4 = new FileReader();
         r1.onload = (e1)=>{
-            housingImgBase64 = e1.target.result;
+            hFront64 = e1.target.result;
             r2.onload = (e2)=>{
-                nationalImgBase64 = e2.target.result;
+                hBack64 = e2.target.result;
+                r3.onload = (e3)=>{
+                    nFront64 = e3.target.result;
+                    r4.onload = (e4)=>{
+                        nBack64 = e4.target.result;
 
-                if(method === 'points'){
-                    userData.points -= 7000000;
-                    saveToDB();
-                }
+                        if(method === 'points'){
+                            userData.points -= 7000000;
+                            saveToDB();
+                        }
 
-                rtdb.ref('agent_applications').push({
-                    userKey: currentUserKey,
-                    userName: userData.name,
-                    userId: userData.customId,
-                    telegram: tg,
-                    whatsapp: wa,
-                    method: method,
-                    housingImg: housingImgBase64,
-                    nationalImg: nationalImgBase64,
-                    timestamp: Date.now()
-                }).then(()=>{
-                    closeAgentApplyModal();
-                    alert("✅ تم إرسال طلب الوكالة والمستندات بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
-                });
+                        rtdb.ref('agent_applications').push({
+                            userKey: currentUserKey,
+                            userName: userData.name,
+                            userId: userData.customId,
+                            telegram: tg,
+                            whatsapp: wa,
+                            method: method,
+                            housingFront: hFront64,
+                            housingBack: hBack64,
+                            nationalFront: nFront64,
+                            nationalBack: nBack64,
+                            timestamp: Date.now()
+                        }).then(()=>{
+                            closeAgentApplyModal();
+                            alert("✅ تم إرسال طلب الوكالة والمستمسكات الأربعة بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
+                        });
+                    };
+                    r4.readAsDataURL(nB);
+                };
+                r3.readAsDataURL(nF);
             };
-            r2.readAsDataURL(nFile);
+            r2.readAsDataURL(hB);
         };
-        r1.readAsDataURL(hFile);
+        r1.readAsDataURL(hF);
     }
 
     function loadApprovedAgentsList(){
@@ -1762,9 +1809,11 @@
                     <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
                     <b>تليجرام:</b> ${d.telegram} | <b>واتساب:</b> ${d.whatsapp}<br>
                     <b>طريقة الدفع:</b> ${d.method==='points'?'7,000,000 نقطة':'تحويل زين كاش 2M'}<br>
-                    <div style="margin:4px 0;display:flex;gap:4px">
-                        <a href="${d.housingImg}" target="_blank" style="color:#38bdf8">🖼️ بطاقة السكن</a> | 
-                        <a href="${d.nationalImg}" target="_blank" style="color:#38bdf8">🖼️ البطاقة الوطنية</a>
+                    <div style="margin:4px 0;display:flex;gap:4px;flex-wrap:wrap">
+                        <a href="${d.housingFront}" target="_blank" style="color:#38bdf8">🖼️ سكن (أمام)</a> | 
+                        <a href="${d.housingBack}" target="_blank" style="color:#38bdf8">🖼️ سكن (خلف)</a> | 
+                        <a href="${d.nationalFront}" target="_blank" style="color:#38bdf8">🖼️ وطنية (أمام)</a> | 
+                        <a href="${d.nationalBack}" target="_blank" style="color:#38bdf8">🖼️ وطنية (خلف)</a>
                     </div>
                     <button onclick="adminApproveAgent('${d.userKey}','${d.telegram}','${d.whatsapp}','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وتفعيل الوكالة ✔️</button>
                     <button onclick="adminDeleteRef('agent_applications','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;margin-right:4px;cursor:pointer">رفض 🗑️</button>
@@ -1812,10 +1861,29 @@
             }
             let counterInfo = foundUser.activeCounter && foundUser.activeCounter !== 'لا يوجد' ? foundUser.activeCounter : 'لا يوجد عداد مشترك';
             let wCount = foundUser.withdrawCount || 0;
+            let agentControlBtn = foundUser.isAgent ? `<button onclick="adminRemoveAgent('${foundUser.key}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-top:4px;cursor:pointer">إلغاء صفة الوكيل (حذف من القائمة) 🗑️</button>` : '';
             resArea.innerHTML=`<b>👤 اسم المستخدم:</b> ${foundUser.name || 'بدون اسم'}<br>`+
                               `<b>👑 نوع العداد المشترك:</b> ${counterInfo}<br>`+
                               `<b>💼 صفة الوكيل:</b> ${foundUser.isAgent?'وكيل معتمد':'مستخدم عادي'}<br>`+
-                              `<b>💸 عدد مرات سحب الأرباح:</b> ${wCount} مرة`;
+                              `<b>💸 عدد مرات سحب الأرباح:</b> ${wCount} مرة<br>${agentControlBtn}`;
+        });
+    }
+
+    // ميزة حذف/إزالة الوكيل لكي يختفي من القائمة
+    function adminRemoveAgent(userKey){
+        if(currentUserKey!=='msaftwtn_gmail_com'||!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم وإزالته من قائمة الوكلاء؟"))return;
+        rtdb.ref(`users/${userKey}`).update({
+            isAgent: false,
+            agentTelegram: '',
+            agentWhatsapp: '',
+            agentBag: 0
+        }).then(()=>{
+            rtdb.ref(`notifications/${userKey}`).push({
+                text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`,
+                timestamp: Date.now()
+            });
+            alert("🗑️ تم إلغاء الوكالة بنجاح وإزالته من القائمة!");
+            adminInspectUser();
         });
     }
 
