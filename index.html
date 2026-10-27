@@ -110,7 +110,6 @@
         .bell-icon-btn{background:none;border:none;font-size:20px;cursor:pointer;position:relative;padding:0;margin-left:8px}
         .top-profile-card{background:rgba(15,23,42,0.85);border:1px solid rgba(192,132,252,0.3);border-radius:16px;padding:12px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
         
-        /* دائرة الهوية والرمز بدون دوران */
         .coin-center-emblem{width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,#3b0764 0%,#090514 100%);border:2px solid #c084fc;display:flex;justify-content:center;align-items:center;box-shadow:0 0 12px rgba(192,132,252,0.5);margin:0 auto}
         .spinning-coin{font-size:14px;font-weight:900;color:#c084fc;animation:pulseLounge 2s ease-in-out infinite}
         @keyframes pulseLounge{0%{opacity:0.6}50%{opacity:1}100%{opacity:0.6}}
@@ -192,7 +191,6 @@
         .chat-msg-row { position: relative; overflow: hidden; touch-action: pan-y; }
         .chat-bubble-swipe { transition: transform 0.2s ease; }
 
-        /* أزرار نسخ معلومات الوكيل */
         .agent-copy-btn {
             background: rgba(147, 51, 234, 0.3);
             border: 1px solid #c084fc;
@@ -324,7 +322,6 @@
             </div>
         </div>
 
-        <!-- زر قسم التحدي اليومي -->
         <div class="card" style="background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.4);margin-bottom:10px;padding:10px">
             <div style="display:flex;justify-content:space-between;align-items:center">
                 <div style="text-align:right">
@@ -474,7 +471,6 @@
             <div id="bioCounter" style="font-size:9px;color:#94a3b8;text-align:left;margin-bottom:6px">0 / 60</div>
             <div style="margin-top:8px;text-align:right"><button class="action-btn btn-gold" onclick="saveProfileData()">حفظ التعديلات 💾</button></div>
             
-            <!-- لوحة شحن حقيبة الوكيل (تظهر للوكلاء فقط) -->
             <div id="agentBagPanel" style="display:none;margin-top:12px;background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:10px;border-radius:12px;text-align:right">
                 <h4 style="margin:0 0 4px 0;color:#eab308;font-size:12px">💼 حقيبة الوكيل المعتمد</h4>
                 <div style="font-size:11px;color:#fff">رصيد الحقيبة المخصص للشحن: <b id="agentBagBalance" style="color:#34d399">0</b> نقطة</div>
@@ -610,77 +606,85 @@
     </div>
 </div>
 
+<!-- لوحة الإدارة بأزرار مصغرة بالكامل لتظهر بالكامل بكل جدارة -->
 <div id="adminPanelModal" class="modal">
-    <div class="modal-content" style="text-align:right;max-width:400px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 style="margin:0;color:#ef4444;font-size:15px">👑 لوحة تحكم الإدارة (Lounge)</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
+    <div class="modal-content" style="text-align:right;max-width:390px;padding:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <h4 style="margin:0;color:#ef4444;font-size:13px">👑 لوحة تحكم الإدارة</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
         </div>
         
-        <!-- التحكم بشريط الإعلانات -->
-        <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:12px">📢 التحكم بشريط الإعلانات</h4>
-            <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان الجديد..." style="margin-bottom:6px">
-            <button class="action-btn btn-purple" style="padding:6px;font-size:11px" onclick="adminUpdateTicker()">نشر الإعلان 🚀</button>
+        <!-- إعلان -->
+        <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">📢 شريط الإعلانات</h4>
+            <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان الجديد..." style="margin-bottom:4px;padding:6px;font-size:11px">
+            <button class="action-btn btn-purple" style="padding:4px;font-size:10px" onclick="adminUpdateTicker()">نشر 🚀</button>
         </div>
 
-        <!-- أزرار شحن حقيبة الوكيل وشحن النقاط المباشر جنباً إلى جنب / مرتبة بوضوح -->
-        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#eab308;font-size:12px">💼 شحن حقيبة وكيل معتمد</h4>
-            <input type="text" id="adminAgentTargetId" class="input-box" placeholder="ID الوكيل" style="margin-bottom:6px">
-            <input type="number" id="adminAgentBagAmount" class="input-box" placeholder="عدد نقاط الحقيبة" style="margin-bottom:6px">
-            <button class="action-btn btn-gold" style="padding:6px;font-size:11px" onclick="adminChargeAgentBag()">شحن حقيبة الوكيل 💼</button>
+        <!-- شحن النقاط أو حقيبة الوكيل (مطابق لصورة 43487.jpg بحقلين وزرين جنباً إلى جنب) -->
+        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#eab308;font-size:11px">⚡ شحن النقاط أو حقيبة الوكيل مباشرة</h4>
+            <input type="text" id="adminDualTargetId" class="input-box" placeholder="أدخل ID المستخدم أو الوكيل (أرقام فقط)" style="margin-bottom:4px;padding:6px;font-size:11px">
+            <input type="number" id="adminDualPointsAmount" class="input-box" placeholder="عدد النقاط" style="margin-bottom:6px;padding:6px;font-size:11px">
+            <div style="display:flex;gap:6px">
+                <button class="action-btn" style="flex:1;padding:6px;font-size:10px;background:#0ea5e9;color:#fff" onclick="adminDualChargeAgentBag()">شحن حقيبة الوكيل 🎒</button>
+                <button class="action-btn" style="flex:1;padding:6px;font-size:10px;background:#f59e0b;color:#000" onclick="adminDualChargeDirectPoints()">شحن النقاط 🪙</button>
+            </div>
         </div>
 
-        <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#38bdf8;font-size:12px">⚡ شحن النقاط المباشر</h4>
-            <input type="text" id="adminTargetIdInput" class="input-box" placeholder="أدخل ID المستخدم (أرقام فقط)" style="margin-bottom:6px">
-            <input type="number" id="adminPointsAmountInput" class="input-box" placeholder="عدد النقاط" style="margin-bottom:6px">
-            <button class="action-btn btn-gold" style="padding:8px;font-size:11px" onclick="adminChargeDirectUser()">شحن النقاط 🪙</button>
+        <!-- ميزة تجميد/إيقاف الحسابات المؤقتة (مطابق لصورة 43488.jpg) -->
+        <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#ef4444;font-size:11px">🚫 إيقاف / تجميد الحساب مؤقتاً</h4>
+            <input type="text" id="adminFreezeTargetId" class="input-box" placeholder="أدخل ID المستخدم المراد إيقافه" style="margin-bottom:6px;padding:6px;font-size:11px">
+            <button class="action-btn" style="padding:6px;font-size:10px;background:#ef4444;color:#fff" onclick="adminToggleFreezeUser()">تجميد / إلغاء تجميد الحساب ⚠️</button>
         </div>
 
-        <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:12px">⚙️ إعدادات التحكم العامة للإدارة</h4>
-            <div style="display:flex;flex-direction:column;gap:6px">
-                <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="padding:8px;font-size:11px" onclick="adminToggleWithdrawFeature()">🔒 إغلاق/فتح سحب الأرباح</button>
-                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="padding:8px;font-size:11px" onclick="adminToggleDailyCounterFeature()">⏳ قفل/فتح العداد اليومي</button>
-                <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="padding:8px;font-size:11px">📥 عرض طلبات شراء العدادات</button>
-                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="padding:8px;font-size:11px">📝 عرض طلبات الوكلاء ومستمسكاتهم</button>
+        <!-- إعدادات وقفل -->
+        <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">⚙️ أزرار الطوارئ والإدارة</h4>
+            <div style="display:flex;gap:4px;margin-bottom:4px">
+                <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleWithdrawFeature()">🔒 سحب الأرباح</button>
+                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleDailyCounterFeature()">⏳ العداد اليومي</button>
+            </div>
+            <div style="display:flex;gap:4px">
+                <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="flex:1;padding:5px;font-size:9px">📥 العدادات</button>
+                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="flex:1;padding:5px;font-size:9px">📝 الوكلاء</button>
             </div>
         </div>
         
-        <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:10px;border-radius:10px;margin-bottom:10px">
-            <h4 style="margin:0 0 6px 0;color:#10b981;font-size:12px">🔍 فحص ملف المستخدم</h4>
-            <input type="text" id="adminInspectIdInput" class="input-box" placeholder="أدخل ID المستخدم" style="margin-bottom:6px">
-            <button class="action-btn btn-green" style="padding:8px;font-size:11px" onclick="adminInspectUser()">فحص المستخدم 🔎</button>
-            <div id="adminInspectResult" style="font-size:11px;color:#cbd5e1;margin-top:6px;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;display:none;"></div>
+        <!-- فحص المستخدم -->
+        <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#10b981;font-size:11px">🔍 فحص ملف المستخدم</h4>
+            <div style="display:flex;gap:4px">
+                <input type="text" id="adminInspectIdInput" class="input-box" placeholder="ID المستخدم" style="margin:0;padding:5px;font-size:10px;flex:1">
+                <button class="action-btn btn-green" style="width:auto;padding:5px 8px;font-size:10px" onclick="adminInspectUser()">فحص 🔎</button>
+            </div>
+            <div id="adminInspectResult" style="font-size:10px;color:#cbd5e1;margin-top:4px;background:rgba(0,0,0,0.3);padding:4px;border-radius:4px;display:none;"></div>
         </div>
 
-        <div class="shop-tabs" style="margin-bottom:8px">
-            <button class="shop-tab-btn active-gold" id="admTab1" onclick="switchAdminTab('withdrawals')">طلبات السحب</button>
-        </div>
-        <div id="adminWithdrawalsArea" class="admin-tab-content" style="max-height:200px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
+        <div style="font-size:11px;color:#c084fc;margin-bottom:4px"><b>طلبات السحب المعلقة:</b></div>
+        <div id="adminWithdrawalsArea" class="admin-tab-content" style="max-height:120px;overflow-y:auto;font-size:10px">جاري التحميل...</div>
     </div>
 </div>
 
 <!-- مودال استعراض طلبات الوكلاء والمستمسكات الأربعة -->
 <div id="adminAgentAppsModal" class="modal">
-    <div class="modal-content" style="text-align:right;max-width:400px">
+    <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 style="margin:0;color:#eab308;font-size:14px">📝 طلبات التقديم على الوكالة والمستمسكات</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminAgentApplications()">✖</button>
+            <h4 style="margin:0;color:#eab308;font-size:13px">📝 طلبات التقديم على الوكالة والمستمسكات</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeAdminAgentApplications()">✖</button>
         </div>
-        <div id="adminAgentAppsList" style="max-height:300px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
+        <div id="adminAgentAppsList" style="max-height:280px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
     </div>
 </div>
 
 <div id="adminCounterOrdersModal" class="modal">
-    <div class="modal-content" style="text-align:right;max-width:400px">
+    <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 style="margin:0;color:#c084fc;font-size:14px">📥 طلبات شراء العدادات المعلقة</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAdminCounterOrders()">✖</button>
+            <h4 style="margin:0;color:#c084fc;font-size:13px">📥 طلبات شراء العدادات المعلقة</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeAdminCounterOrders()">✖</button>
         </div>
-        <div id="adminCounterOrdersList" style="max-height:280px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
+        <div id="adminCounterOrdersList" style="max-height:260px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
     </div>
 </div>
 
@@ -847,7 +851,6 @@
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='';
 
-    // --- قاعدة بيانات الأسئلة (100 سؤال) ---
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
         { id: 2, q: "كم عدد سور القرآن الكريم؟", correct: "114 سورة", wrong: "120 سورة" },
@@ -957,7 +960,6 @@
     let currentQuestion = null;
     let isCompletedToday = false;
 
-    // تأثير نص كلمة Lounge المتحرك حرفاً حرفاً داخل الدائرة
     function initLoungeTickerAnimation(){
         const words = ["LOUNGE", "APP", "CHAT", "VIP"];
         let wIdx = 0, cIdx = 0;
@@ -1145,7 +1147,7 @@
             btn.disabled=false;btn.innerText="دخول الحساب 🚀";
             if(snap.exists()&&String(snap.val().password).trim()===String(pass).trim()){
                 let uDat=snap.val();
-                if(uDat.isBanned&&email!=='msaftwtn@gmail.com')return alert("🚫 تم حظر هذا الحساب نهائياً!");
+                if(uDat.isBanned&&email!=='msaftwtn@gmail.com')return alert("🚫 تم تجميد أو حظر هذا الحساب من قبل الإدارة!");
                 currentEmail=email;try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
                 if(email==='msaftwtn@gmail.com'&&uDat.customId!=='1')rtdb.ref('users/'+currentUserKey).update({customId:'1'});
                 if(email!=='msaftwtn@gmail.com'){
@@ -1189,7 +1191,11 @@
         rtdb.ref('users/'+currentUserKey).on('value',snap=>{
             if(snap.exists()){
                 userData=snap.val();
-                if(userData.isBanned&&currentUserKey!=='msaftwtn_gmail_com'){alert("🚫 تم حظر حسابك نهائياً!");handleLogout();return;}
+                if(userData.isBanned&&currentUserKey!=='msaftwtn_gmail_com'){
+                    alert("🚫 تم تجميد حسابك من قبل الإدارة!");
+                    handleLogout();
+                    return;
+                }
                 currentEmail=userData.email||(currentUserKey==='msaftwtn_gmail_com'?'msaftwtn@gmail.com':'');
                 if(currentUserKey==='msaftwtn_gmail_com'&&userData.customId!=='1'){userData.customId='1';rtdb.ref('users/'+currentUserKey).update({customId:'1'});}
                 if(!userData.customId||!/^\d+$/.test(userData.customId)){userData.customId=Math.floor(100000+Math.random()*900000).toString();rtdb.ref('users/'+currentUserKey).update({customId:userData.customId});}
@@ -1217,7 +1223,6 @@
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         
-        // أوسمة ومستويات
         let pts = userData.points || 0;
         let lvlName = "مبتدئ 🌟";
         if(pts >= 100000) lvlName = "أسطورة 👑";
@@ -1231,7 +1236,6 @@
         let prfBadge = document.getElementById('profileBadgeDisplay');
         if(prfBadge) prfBadge.innerHTML = badgeHtml;
 
-        // حقيبة الوكيل
         let agentPanel = document.getElementById('agentBagPanel');
         if(agentPanel){
             if(userData.isAgent){
@@ -1261,7 +1265,6 @@
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
     
-    // شحن الوكيل للمستخدم من الحقيبة
     function agentTransferPoints(){
         if(!userData.isAgent) return alert("⚠️ أنت لست وكيلاً معتمداً!");
         let targetId = document.getElementById('agentChargeTargetId').value.trim();
@@ -1323,7 +1326,6 @@
     function openAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='flex'; }
     function closeAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='none'; }
 
-    // تقديم الوكالة بـ 4 حقول للمستمسكات
     function submitAgentApplication(){
         let tg = document.getElementById('agentTelegramInput').value.trim();
         let wa = document.getElementById('agentWhatsappInput').value.trim();
@@ -1632,7 +1634,6 @@
             document.getElementById('visitedUserAvatar').src=u.avatar?u.avatar:'https://via.placeholder.com/85';
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
 
-            // أوسمة الزائر
             let vPts = u.points || 0;
             let vLvl = "مبتدئ 🌟";
             if(vPts >= 100000) vLvl = "أسطورة 👑";
@@ -1736,10 +1737,11 @@
         });
     }
 
-    function adminChargeDirectUser(){
+    // شحن النقاط المباشر من الحقلين المدمجين
+    function adminDualChargeDirectPoints(){
         if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
-        let tId=document.getElementById('adminTargetIdInput').value.trim(),pts=parseInt(document.getElementById('adminPointsAmountInput').value);
-        if(!tId||isNaN(pts)||pts<=0)return alert('⚠️ أدخل البيانات بشكل صحيح!');
+        let tId=document.getElementById('adminDualTargetId').value.trim(),pts=parseInt(document.getElementById('adminDualPointsAmount').value);
+        if(!tId||isNaN(pts)||pts<=0)return alert('⚠️ أدخل ID المستخدم وعدد النقاط بشكل صحيح!');
         rtdb.ref('users').once('value').then(snap=>{
             let tk='';snap.forEach(c=>{if(String(c.val().customId).trim()===String(tId).trim())tk=c.key;});
             if(!tk)return alert('❌ لم يتم العثور على المستخدم!');
@@ -1750,29 +1752,18 @@
                         text: `⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`,
                         timestamp: Date.now()
                     });
-                    document.getElementById('adminTargetIdInput').value='';document.getElementById('adminPointsAmountInput').value='';
-                    alert(`✅ تم الشحن بـ ${pts} نقطة بنجاح.`);
+                    document.getElementById('adminDualTargetId').value='';document.getElementById('adminDualPointsAmount').value='';
+                    alert(`✅ تم شحن ${pts} نقطة بنجاح.`);
                 });
             });
         });
     }
 
-    // الإدارة - نشر شريط الإعلانات
-    function adminUpdateTicker(){
-        if(currentUserKey!=='msaftwtn_gmail_com') return;
-        let txt = document.getElementById('adminTickerInput').value.trim();
-        if(!txt) return alert("⚠️ أدخل نص الإعلان!");
-        rtdb.ref('app_settings').update({tickerText: txt}).then(()=>{
-            document.getElementById('adminTickerInput').value = '';
-            alert("📢 تم نشر الإعلان المباشر على الشريط العلوى بنجاح!");
-        });
-    }
-
-    // الإدارة - شحن حقيبة الوكيل
-    function adminChargeAgentBag(){
-        if(currentUserKey!=='msaftwtn_gmail_com') return;
-        let targetId = document.getElementById('adminAgentTargetId').value.trim();
-        let amt = parseInt(document.getElementById('adminAgentBagAmount').value);
+    // شحن حقيبة الوكيل من الحقلين المدمجين
+    function adminDualChargeAgentBag(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
+        let targetId = document.getElementById('adminDualTargetId').value.trim();
+        let amt = parseInt(document.getElementById('adminDualPointsAmount').value);
         if(!targetId || isNaN(amt) || amt <= 0) return alert("⚠️ أدخل ID الوكيل وعدد النقاط بشكل صحيح!");
 
         rtdb.ref('users').once('value').then(snap=>{
@@ -1789,11 +1780,49 @@
                         text: `💼 قامت الإدارة بشحن حقيبتك بـ ${amt.toLocaleString()} نقطة!`,
                         timestamp: Date.now()
                     });
-                    document.getElementById('adminAgentTargetId').value = '';
-                    document.getElementById('adminAgentBagAmount').value = '';
+                    document.getElementById('adminDualTargetId').value = '';
+                    document.getElementById('adminDualPointsAmount').value = '';
                     alert("✅ تم شحن حقيبة الوكيل بنجاح!");
                 });
             });
+        });
+    }
+
+    // ميزة تجميد/إيقاف الحسابات المؤقتة من لوحة الإدارة
+    function adminToggleFreezeUser(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
+        let tId = document.getElementById('adminFreezeTargetId').value.trim();
+        if(!tId) return alert("⚠️ أدخل ID المستخدم المراد إيقافه!");
+
+        rtdb.ref('users').once('value').then(snap=>{
+            let tk = '';
+            snap.forEach(c=>{ if(String(c.val().customId).trim()===String(tId).trim()) tk = c.key; });
+            if(!tk) return alert("❌ لم يتم العثور على المستخدم!");
+
+            rtdb.ref(`users/${tk}`).once('value').then(us=>{
+                let u = us.val();
+                let currentStatus = !!u.isBanned;
+                let newStatus = !currentStatus; // عكس حالة الحظر (تجميد أو إلغاء تجميد)
+                
+                rtdb.ref(`users/${tk}`).update({isBanned: newStatus}).then(()=>{
+                    document.getElementById('adminFreezeTargetId').value = '';
+                    if(newStatus){
+                        alert(`🚫 تم تجميد وإيقاف حساب المستخدم (${u.name}) بنجاح! سيتم تسجيل خروجه ولن يستطيع الدخول إلا بعد إلغاء التجميد.`);
+                    } else {
+                        alert(`✅ تم إلغاء تجميد حساب المستخدم (${u.name}) بنجاح وأصبح بإمكانه الدخول الآن.`);
+                    }
+                });
+            });
+        });
+    }
+
+    function adminUpdateTicker(){
+        if(currentUserKey!=='msaftwtn_gmail_com') return;
+        let txt = document.getElementById('adminTickerInput').value.trim();
+        if(!txt) return alert("⚠️ أدخل نص الإعلان!");
+        rtdb.ref('app_settings').update({tickerText: txt}).then(()=>{
+            document.getElementById('adminTickerInput').value = '';
+            alert("📢 تم نشر الإعلان المباشر على الشريط العلوى بنجاح!");
         });
     }
 
@@ -1869,7 +1898,6 @@
         });
     }
 
-    // ميزة حذف/إزالة الوكيل لكي يختفي من القائمة
     function adminRemoveAgent(userKey){
         if(currentUserKey!=='msaftwtn_gmail_com'||!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم وإزالته من قائمة الوكلاء؟"))return;
         rtdb.ref(`users/${userKey}`).update({
@@ -1921,11 +1949,10 @@
     }
     function closeAdminCounterOrders(){document.getElementById('adminCounterOrdersModal').style.display='none';}
 
-    function switchAdminTab(tab){ document.getElementById('admTab1').className="shop-tab-btn active-gold"; }
     function loadAdminData(){
         rtdb.ref('admin_withdrawals').on('value',snap=>{
             let a=document.getElementById('adminWithdrawalsArea');if(!snap.exists()){a.innerHTML="لا توجد طلبات سحب.";return;}let h='';
-            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:6px"><b>المستخدم:</b> ${d.userName} (${d.userId})<br><b>المبلغ:</b> ${d.amount}$ | <b>زين كاش:</b> ${d.account}<br><button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">حذف/تم التحويل 🗑️</button></div>`;});
+            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:6px;border-radius:6px;margin-bottom:4px"><b>${d.userName} (${d.userId})</b>: ${d.amount}$ <button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:2px 6px;border-radius:4px;cursor:pointer;float:left">حذف 🗑️</button></div>`;});
             a.innerHTML=h;
         });
     }
