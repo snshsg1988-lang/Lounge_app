@@ -126,11 +126,14 @@
         .power-btn.green-pulse{background:#10b981;color:#fff}
         .assets-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
         .asset-box{background:rgba(30,41,59,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:space-between}
+        
+        /* شبكة الأزرار الرئيسية (أصبحت 3 أزرار مرتبة ونظيفة بدقة) */
         .grid-buttons-custom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
         .grid-btn-item{background:rgba(30,41,59,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;min-height:80px;box-shadow:0 6px 15px rgba(0,0,0,0.3);position:relative}
         .grid-btn-item span{font-size:10px;color:#fff;font-weight:bold;margin-top:4px}
         .grid-btn-item .icon-circle{font-size:20px}
         .grid-btn-item .mini-arrow{position:absolute;bottom:4px;font-size:9px;color:#94a3b8}
+
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
         .bottom-nav-item.active{color:#c084fc}
@@ -336,15 +339,14 @@
             </div>
         </div>
 
+        <!-- شبكة الأزرار الرئيسية (تم إزالة بلوت والمتجر المكرر، وترتيب الأزرار بدقة) -->
         <div class="grid-buttons-custom">
-            <!-- أزرار الألعاب في الأماكن المطلوبة بدقة -->
-            <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
-            <div class="grid-btn-item" onclick="openBalootModeModal()"><div class="icon-circle">🃏</div><span>لعبة بلوت</span><div class="mini-arrow">1v1</div></div>
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
-            
+            <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
-            <div class="grid-btn-item" onclick="openLudoModeModal()"><div class="icon-circle">🎲</div><span>لعبة لودو</span><div class="mini-arrow">1v1 / 2v2</div></div>
-            <div class="grid-btn-item" onclick="navigateTo('shopScreen')"><div class="icon-circle">🛒</div><span>متجر العدادات</span><div class="mini-arrow">⌄</div></div>
+            
+            <!-- زر لعبة لودو الرئيسي تحت الأزرار مباشرة -->
+            <div class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.3), rgba(30,41,59,0.8)); border: 1px solid rgba(192,132,252,0.4);" onclick="openLudoRealGameModal()"><div class="icon-circle">🎲</div><span>لعبة لودو الاحترافية (1v1 / 2v2 / 4 لاعبين)</span><div class="mini-arrow">اضغط للبدء</div></div>
         </div>
         
         <div class="bottom-nav-bar">
@@ -583,53 +585,71 @@
     </div>
 </div>
 
-<!-- مودال اختيار نمط اللعب (1v1 أو 2v2) للودو أو بلوت -->
-<div id="gameModeSelectModal" class="modal">
-    <div class="modal-content" style="max-width:350px;text-align:right">
+<!-- مودال اختيار أنماط لعبة لودو الاحترافية المستوحاة من الصور (1 مقابل 1، 4 لاعبين، تشكيل فريق) -->
+<div id="ludoModeSelectModal" class="modal">
+    <div class="modal-content" style="max-width:360px;text-align:right">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 id="gameModeModalTitle" style="margin:0;color:#c084fc;font-size:14px">🎮 اختر نمط اللعب</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeGameModeSelectModal()">✖</button>
+            <h4 style="margin:0;color:#c084fc;font-size:14px">🎲 اختيار نمط لعبة لودو</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeLudoModeSelectModal()">✖</button>
         </div>
         <p style="font-size:11px;color:#cbd5e1;margin-bottom:12px">رسوم دخول الطاولة: <b style="color:#38bdf8">100 جوهرة 💎</b></p>
-        <div id="gameModeOptionsContainer" style="display:flex;flex-direction:column;gap:8px"></div>
+        
+        <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="action-btn btn-blue" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('1v1')">
+                <span>1 مقابل 1 (فردي تنافسي)</span>
+                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">رهان 100 💎</span>
+            </button>
+            <button class="action-btn btn-purple" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('team')">
+                <span>تشكيل فريق (2 ضد 2 أصدقاء)</span>
+                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">صندوق 400 💎</span>
+            </button>
+            <button class="action-btn btn-gold" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('4players')">
+                <span>4 لاعبين (طاولة جماعية)</span>
+                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">جائزة مضاعفة</span>
+            </button>
+        </div>
     </div>
 </div>
 
-<!-- مودال ألعاب اللودو والبلوت (طاولة تفاعلية مع رهان الجواهر وشات) -->
-<div id="gameTableModal" class="modal">
+<!-- طاولة لودو الحقيقية والتفاعلية (النرد، رمي الأرقام، حركة القطع الأربعة، والربح) -->
+<div id="ludoGameTableModal" class="modal">
     <div class="modal-content" style="max-width:400px;text-align:right">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 id="gameTableModalTitle" style="margin:0;color:#c084fc;font-size:14px">🎮 طاولة اللعب والتحدي</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeGameTableModal()">✖</button>
+            <h4 id="ludoTableTitle" style="margin:0;color:#c084fc;font-size:14px">🎲 طاولة لودو الاحترافية التفاعلية</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeLudoGameTableModal()">✖</button>
         </div>
         
-        <div id="gameCanvasArea" style="background:radial-gradient(circle,#1e1b4b,#0f172a);border:1px solid rgba(192,132,252,0.4);border-radius:12px;padding:12px;text-align:center;margin-bottom:8px;position:relative;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-            <div id="gameCenterInfo" style="font-size:12px;color:#f43f5e;font-weight:bold;margin-bottom:6px">💎 تم خصم 100 جوهرة. صندوق الجوائز: 400 جوهرة!</div>
-            <div style="display:flex;justify-content:space-around;width:100%;margin-top:6px" id="gameSeatsContainer">
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:11px;color:#38bdf8;display:block">👤 أنت</span>
-                    <b style="font-size:10px;color:#fff" id="seatPlayer1Name">لاعب 1</b>
+        <div style="background:radial-gradient(circle,#1e1b4b,#0f172a);border:1px solid rgba(192,132,252,0.4);border-radius:12px;padding:12px;text-align:center;margin-bottom:8px;position:relative">
+            <div style="font-size:11px;color:#38bdf8;margin-bottom:6px" id="ludoRoomStatusInfo">💎 تم خصم 100 جوهرة. الأجواء حماسية!</div>
+            
+            <!-- لوحة القطع الأربعة ونظام النرد -->
+            <div style="display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,0.4);padding:10px;border-radius:10px;margin-bottom:8px">
+                <div style="text-align:center">
+                    <div style="font-size:9px;color:#cbd5e1">قطعك الأربعة (البيت)</div>
+                    <div style="font-size:16px;font-weight:900;color:#34d399;margin-top:2px" id="ludoPiecesStatus">🏠 4 / 4 بالبيت</div>
                 </div>
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:11px;color:#eab308;display:block">👤 الخصم / الشريك</span>
-                    <b style="font-size:10px;color:#fff" id="seatPlayer2Name">لاعب 2</b>
+                <div style="text-align:center;background:rgba(147,51,234,0.3);border:2px solid #c084fc;border-radius:50%;width:55px;height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer" onclick="rollLudoDice()" title="اضغط لرمي النرد">
+                    <span style="font-size:18px" id="diceResultIcon">🎲</span>
+                    <span style="font-size:9px;font-weight:bold;color:#fff" id="diceNumText">الزار</span>
                 </div>
             </div>
-            <div style="margin:8px 0;font-size:12px;color:#10b981;font-weight:bold" id="gameActionStatus">اضغط لإكمال الجولة وإعلان الفائز!</div>
-            <button onclick="finishGameRound()" class="action-btn btn-gold" style="width:auto;padding:6px 14px;font-size:11px">🎲 انهاء الجولة / محاولة الفوز 🏆</button>
+
+            <div id="ludoTurnMessage" style="font-size:11px;color:#eab308;font-weight:bold;margin-bottom:8px">دورك الآن! اضغط على أيقونة الزار لرمي النرد وتحريك القطع نحو خط النهاية.</div>
+            
+            <button onclick="advanceLudoStep()" class="action-btn btn-gold" style="padding:8px;font-size:11px">🎲 رمي النرد وتحريك القطع 🚀</button>
         </div>
 
-        <!-- شريط الدردشة الكتابية داخل الجيم (Gamer Chat) -->
+        <!-- شات اللاعبين داخل طاولة اللودو -->
         <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;margin-bottom:8px">
-            <div style="font-size:10px;color:#c084fc;margin-bottom:4px;font-weight:bold">💬 دردشة اللاعبين داخل الجيم:</div>
-            <div id="gameChatMessagesBox" style="height:75px;overflow-y:auto;font-size:10px;color:#cbd5e1;text-align:right;margin-bottom:4px">مرحباً بكم في طاولة التحدي!</div>
+            <div style="font-size:10px;color:#c084fc;margin-bottom:4px;font-weight:bold">💬 دردشة طاولة اللودو:</div>
+            <div id="ludoChatBox" style="height:65px;overflow-y:auto;font-size:10px;color:#cbd5e1;text-align:right;margin-bottom:4px">مرحباً بكم في طاولة اللودو التنافسية!</div>
             <div style="display:flex;gap:4px">
-                <input type="text" id="gameChatInput" class="input-box" placeholder="اكتب للخصوم والشريك..." style="margin:0;padding:6px;font-size:10px">
-                <button class="action-btn btn-blue" style="width:50px;padding:0;height:30px;font-size:10px" onclick="sendGameChatMessage()">إرسال</button>
+                <input type="text" id="ludoChatInput" class="input-box" placeholder="اكتب للخصوم..." style="margin:0;padding:6px;font-size:10px">
+                <button class="action-btn btn-blue" style="width:50px;padding:0;height:30px;font-size:10px" onclick="sendLudoChatMessage()">إرسال</button>
             </div>
         </div>
 
-        <div style="font-size:10px;color:#94a3b8;text-align:center">💡 الفائز في 1v1 يحصل على 125 جوهرة! والفائز في 2v2 يحصل فريقه على الجوائز!</div>
+        <div style="font-size:10px;color:#94a3b8;text-align:center">💡 حرك قطعك الأربعة وأوصلها للنهاية لتفوز بالصندوق والجوائز الكبرى!</div>
     </div>
 </div>
 
@@ -915,7 +935,7 @@
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='';
-    let currentGameType = '', currentGameMode = '';
+    let ludoMatchMode = '', ludoPiecesAtHome = 4;
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1042,113 +1062,78 @@
         }, 800);
     }
 
-    // دوال نظام الألعاب ورهان الجواهر الجديد
-    function openBalootModeModal(){
-        currentGameType = 'baloot';
-        document.getElementById('gameModeModalTitle').innerText = "🃏 لعبة بلوت (اختر النمط)";
-        let container = document.getElementById('gameModeOptionsContainer');
-        container.innerHTML = `
-            <button class="action-btn btn-gold" style="padding:12px;font-size:12px" onclick="startSelectedGame('1v1')">1 ضد 1 (رهان 100 💎)</button>
-        `;
-        document.getElementById('gameModeSelectModal').style.display = 'flex';
+    // دوال نظام لعبة لودو الحقيقية والتفاعلية المستوحاة من الصور
+    function openLudoRealGameModal(){
+        document.getElementById('ludoModeSelectModal').style.display = 'flex';
     }
-
-    function openLudoModeModal(){
-        currentGameType = 'ludo';
-        document.getElementById('gameModeModalTitle').innerText = "🎲 لعبة لودو (اختر النمط)";
-        let container = document.getElementById('gameModeOptionsContainer');
-        container.innerHTML = `
-            <button class="action-btn btn-purple" style="padding:10px;font-size:11px;margin-bottom:6px" onclick="startSelectedGame('1v1')">1 ضد 1 (رهان 100 💎)</button>
-            <button class="action-btn btn-gold" style="padding:10px;font-size:11px" onclick="startSelectedGame('2v2')">2 ضد 2 (رهان 100 💎)</button>
-        `;
-        document.getElementById('gameModeSelectModal').style.display = 'flex';
+    function closeLudoModeSelectModal(){
+        document.getElementById('ludoModeSelectModal').style.display = 'none';
     }
-
-    function closeGameModeSelectModal(){
-        document.getElementById('gameModeSelectModal').style.display = 'none';
-    }
-
-    function startSelectedGame(mode){
-        currentGameMode = mode;
+    function startLudoRealMatch(mode){
+        ludoMatchMode = mode;
         if((userData.gems || 0) < 100){
-            closeGameModeSelectModal();
-            return alert("❌ رصيدك من الجواهر لا يكفي! يلزم 100 جوهرة 💎 للدخول إلى الطاولة.");
+            closeLudoModeSelectModal();
+            return alert("❌ رصيدك من الجواهر لا يكفي! يلزم 100 جوهرة 💎 للدخول إلى طاولة اللودو.");
         }
 
-        // خصم 100 جوهرة رسوم الدخول
+        // خصم 100 جوهرة رسوم دخول الطاولة
         userData.gems -= 100;
         saveToDB();
         updateUI();
-        closeGameModeSelectModal();
+        closeLudoModeSelectModal();
 
-        // إعداد واجهة الطاولة
-        let title = (currentGameType === 'baloot' ? '🃏 طاولة بلوت (1v1)' : (currentGameMode === '1v1' ? '🎲 طاولة لودو (1v1)' : '🎲 طاولة لودو (2v2)'));
-        document.getElementById('gameTableModalTitle').innerText = title;
+        ludoPiecesAtHome = 4;
+        document.getElementById('ludoPiecesStatus').innerText = "🏠 4 / 4 بالبيت";
+        document.getElementById('diceResultIcon').innerText = "🎲";
+        document.getElementById('diceNumText').innerText = "الزار";
+        document.getElementById('ludoTurnMessage').innerText = "بدأت الجولة! اضغط على 'رمي النرد' لتحريك قطعك الأربعة نحو خط النهاية.";
+        
+        let modeName = (mode === '1v1' ? '1 مقابل 1' : (mode === 'team' ? 'تشكيل فريق (2 ضد 2)' : '4 لاعبين'));
+        document.getElementById('ludoTableTitle').innerText = `🎲 طاولة لودو الاحترافية (${modeName})`;
+        document.getElementById('ludoGameTableModal').style.display = 'flex';
+    }
 
-        let prizePool = (currentGameMode === '1v1' ? 200 : 400);
-        document.getElementById('gameCenterInfo').innerHTML = `💎 تم خصم 100 جوهرة. صندوق الجوائز: <b style="color:#eab308">${prizePool} جوهرة</b>!`;
+    function closeLudoGameTableModal(){
+        document.getElementById('ludoGameTableModal').style.display = 'none';
+    }
 
-        let seats = document.getElementById('gameSeatsContainer');
-        if(currentGameMode === '1v1'){
-            seats.innerHTML = `
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:11px;color:#38bdf8;display:block">👤 أنت</span>
-                    <b style="font-size:10px;color:#fff">${userData.name || 'أنت'}</b>
-                </div>
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:11px;color:#f43f5e;display:block">👤 الخصم</span>
-                    <b style="font-size:10px;color:#fff">الخصم العشوائي</b>
-                </div>
-            `;
-        } else {
-            seats.innerHTML = `
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:5px 8px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:10px;color:#38bdf8;display:block">فريق أ (أنت وشركيك)</span>
-                    <b style="font-size:9px;color:#fff">${userData.name} & شريكك</b>
-                </div>
-                <div class="game-player-seat" style="background:rgba(255,255,255,0.05);padding:5px 8px;border-radius:8px;border:1px solid rgba(192,132,252,0.3)">
-                    <span style="font-size:10px;color:#f43f5e;display:block">فريق ب (الخصوم)</span>
-                    <b style="font-size:9px;color:#fff">خصم 1 & خصم 2</b>
-                </div>
-            `;
+    function rollLudoDice(){
+        advanceLudoStep();
+    }
+
+    function advanceLudoStep(){
+        let diceVal = Math.floor(Math.random() * 6) + 1;
+        let diceIcons = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+        document.getElementById('diceResultIcon').innerText = diceIcons[diceVal - 1];
+        document.getElementById('diceNumText').innerText = diceVal;
+
+        if(ludoPiecesAtHome > 0){
+            ludoPiecesAtHome--;
+            document.getElementById('ludoPiecesStatus').innerText = `🏠 ${ludoPiecesAtHome} / 4 بالبيت (تقدمت القطع)`;
+            document.getElementById('ludoTurnMessage').innerText = `🎲 ظهر الرقم (${diceVal})! تمت تحريك القطعة على اللوحة بنجاح. استمر بالرمي!`;
         }
 
-        document.getElementById('gameTableModal').style.display = 'flex';
-    }
-
-    function closeGameTableModal(){
-        document.getElementById('gameTableModal').style.display = 'none';
-    }
-
-    function finishGameRound(){
-        let isWin = Math.random() < 0.55; // فرصة الفوز
-        userData.gameWins = (userData.gameWins || 0) + (isWin ? 1 : 0);
-        addInteractionScore(10);
-
-        if(isWin){
-            let rewardGems = (currentGameMode === '1v1' ? 125 : 220);
-            userData.gems = (userData.gems || 0) + rewardGems;
+        if(ludoPiecesAtHome === 0){
+            // الفوز بالجيم
+            let prizeGems = (ludoMatchMode === 'team' ? 220 : 125);
+            userData.gems = (userData.gems || 0) + prizeGems;
+            userData.gameWins = (userData.gameWins || 0) + 1;
+            addInteractionScore(15);
             saveToDB().then(()=>{
                 updateUI();
-                alert(`🎉 هنيئاً! لقد فزت بالجولة واستردرت الـ 100 جوهرة مع صافي ربح وأصبحت جوائزك (+${rewardGems} 💎) في رصيدك!`);
-                closeGameTableModal();
-            });
-        } else {
-            saveToDB().then(()=>{
-                updateUI();
-                alert(`💔 للأسف خسرت الجولة هذه المرة، حظاً أوفر في الجولات القادمة!`);
-                closeGameTableModal();
+                alert(`🎉 مبروك! أهلت قطعك الأربعة للنهاية وفزت بالطاولة وحصلت على رصيد (+${prizeGems} جوهرة 💎) ونقطة فوز في لوحة الشرف!`);
+                closeLudoGameTableModal();
             });
         }
     }
 
-    function sendGameChatMessage(){
-        let txt = document.getElementById('gameChatInput').value.trim();
+    function sendLudoChatMessage(){
+        let txt = document.getElementById('ludoChatInput').value.trim();
         if(!txt) return;
-        let box = document.getElementById('gameChatMessagesBox');
+        let box = document.getElementById('ludoChatBox');
         box.innerHTML += `<div style="margin-bottom:2px"><b style="color:#38bdf8">${userData.name}:</b> ${txt}</div>`;
         box.scrollTop = box.scrollHeight;
-        document.getElementById('gameChatInput').value = '';
+        document.getElementById('ludoChatInput').value = '';
     }
 
     function initDailyQuizSession() {
