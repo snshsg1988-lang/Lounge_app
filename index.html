@@ -127,12 +127,22 @@
         .assets-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
         .asset-box{background:rgba(30,41,59,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:space-between}
         
-        /* شبكة الأزرار الرئيسية (أصبحت 3 أزرار مرتبة ونظيفة بدقة) */
+        /* شبكة الأزرار الرئيسية */
         .grid-buttons-custom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
         .grid-btn-item{background:rgba(30,41,59,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;min-height:80px;box-shadow:0 6px 15px rgba(0,0,0,0.3);position:relative}
         .grid-btn-item span{font-size:10px;color:#fff;font-weight:bold;margin-top:4px}
         .grid-btn-item .icon-circle{font-size:20px}
         .grid-btn-item .mini-arrow{position:absolute;bottom:4px;font-size:9px;color:#94a3b8}
+
+        /* أنيميشن التكبيس */
+        @keyframes clickPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.96); }
+            100% { transform: scale(1); }
+        }
+        .click-active-anim {
+            animation: clickPulse 0.12s ease-in-out;
+        }
 
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
@@ -339,14 +349,23 @@
             </div>
         </div>
 
-        <!-- شبكة الأزرار الرئيسية (تم إزالة بلوت والمتجر المكرر، وترتيب الأزرار بدقة) -->
+        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" الخرافي بمكان لعبة لودو -->
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
             
-            <!-- زر لعبة لودو الرئيسي تحت الأزرار مباشرة -->
-            <div class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.3), rgba(30,41,59,0.8)); border: 1px solid rgba(192,132,252,0.4);" onclick="openLudoRealGameModal()"><div class="icon-circle">🎲</div><span>لعبة لودو الاحترافية (1v1 / 2v2 / 4 لاعبين)</span><div class="mini-arrow">اضغط للبدء</div></div>
+            <!-- زر "كبس وأربح" التفاعلي الجديد (2M مليون تكبيسة = 100 نقطة و 100 جوهرة + عداد حي لحظي + حفظ التقدم) -->
+            <div id="clickAndWinMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.4), rgba(16,185,129,0.3)); border: 1.5px solid #c084fc; position:relative; overflow:hidden;" onclick="handleUserClickAndWin()">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="icon-circle" style="font-size:24px;">👇⚡</div>
+                    <div style="text-align:right;">
+                        <span style="font-size:13px; color:#fff; font-weight:900; display:block;">كبس وأربح (100 نقاط + 100 جواهر 💎)</span>
+                        <div style="font-size:11px; color:#34d399; font-weight:bold; margin-top:2px;" id="clickLiveCounterDisplay">العداد اللحظي: 0 / 2,000,000 تكبيسة</div>
+                    </div>
+                </div>
+                <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
+            </div>
         </div>
         
         <div class="bottom-nav-bar">
@@ -585,74 +604,6 @@
     </div>
 </div>
 
-<!-- مودال اختيار أنماط لعبة لودو الاحترافية المستوحاة من الصور (1 مقابل 1، 4 لاعبين، تشكيل فريق) -->
-<div id="ludoModeSelectModal" class="modal">
-    <div class="modal-content" style="max-width:360px;text-align:right">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 style="margin:0;color:#c084fc;font-size:14px">🎲 اختيار نمط لعبة لودو</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeLudoModeSelectModal()">✖</button>
-        </div>
-        <p style="font-size:11px;color:#cbd5e1;margin-bottom:12px">رسوم دخول الطاولة: <b style="color:#38bdf8">100 جوهرة 💎</b></p>
-        
-        <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="action-btn btn-blue" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('1v1')">
-                <span>1 مقابل 1 (فردي تنافسي)</span>
-                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">رهان 100 💎</span>
-            </button>
-            <button class="action-btn btn-purple" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('team')">
-                <span>تشكيل فريق (2 ضد 2 أصدقاء)</span>
-                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">صندوق 400 💎</span>
-            </button>
-            <button class="action-btn btn-gold" style="padding:12px;display:flex;justify-content:space-between;align-items:center" onclick="startLudoRealMatch('4players')">
-                <span>4 لاعبين (طاولة جماعية)</span>
-                <span style="background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;font-size:10px">جائزة مضاعفة</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- طاولة لودو الحقيقية والتفاعلية (النرد، رمي الأرقام، حركة القطع الأربعة، والربح) -->
-<div id="ludoGameTableModal" class="modal">
-    <div class="modal-content" style="max-width:400px;text-align:right">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 id="ludoTableTitle" style="margin:0;color:#c084fc;font-size:14px">🎲 طاولة لودو الاحترافية التفاعلية</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeLudoGameTableModal()">✖</button>
-        </div>
-        
-        <div style="background:radial-gradient(circle,#1e1b4b,#0f172a);border:1px solid rgba(192,132,252,0.4);border-radius:12px;padding:12px;text-align:center;margin-bottom:8px;position:relative">
-            <div style="font-size:11px;color:#38bdf8;margin-bottom:6px" id="ludoRoomStatusInfo">💎 تم خصم 100 جوهرة. الأجواء حماسية!</div>
-            
-            <!-- لوحة القطع الأربعة ونظام النرد -->
-            <div style="display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,0.4);padding:10px;border-radius:10px;margin-bottom:8px">
-                <div style="text-align:center">
-                    <div style="font-size:9px;color:#cbd5e1">قطعك الأربعة (البيت)</div>
-                    <div style="font-size:16px;font-weight:900;color:#34d399;margin-top:2px" id="ludoPiecesStatus">🏠 4 / 4 بالبيت</div>
-                </div>
-                <div style="text-align:center;background:rgba(147,51,234,0.3);border:2px solid #c084fc;border-radius:50%;width:55px;height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer" onclick="rollLudoDice()" title="اضغط لرمي النرد">
-                    <span style="font-size:18px" id="diceResultIcon">🎲</span>
-                    <span style="font-size:9px;font-weight:bold;color:#fff" id="diceNumText">الزار</span>
-                </div>
-            </div>
-
-            <div id="ludoTurnMessage" style="font-size:11px;color:#eab308;font-weight:bold;margin-bottom:8px">دورك الآن! اضغط على أيقونة الزار لرمي النرد وتحريك القطع نحو خط النهاية.</div>
-            
-            <button onclick="advanceLudoStep()" class="action-btn btn-gold" style="padding:8px;font-size:11px">🎲 رمي النرد وتحريك القطع 🚀</button>
-        </div>
-
-        <!-- شات اللاعبين داخل طاولة اللودو -->
-        <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;margin-bottom:8px">
-            <div style="font-size:10px;color:#c084fc;margin-bottom:4px;font-weight:bold">💬 دردشة طاولة اللودو:</div>
-            <div id="ludoChatBox" style="height:65px;overflow-y:auto;font-size:10px;color:#cbd5e1;text-align:right;margin-bottom:4px">مرحباً بكم في طاولة اللودو التنافسية!</div>
-            <div style="display:flex;gap:4px">
-                <input type="text" id="ludoChatInput" class="input-box" placeholder="اكتب للخصوم..." style="margin:0;padding:6px;font-size:10px">
-                <button class="action-btn btn-blue" style="width:50px;padding:0;height:30px;font-size:10px" onclick="sendLudoChatMessage()">إرسال</button>
-            </div>
-        </div>
-
-        <div style="font-size:10px;color:#94a3b8;text-align:center">💡 حرك قطعك الأربعة وأوصلها للنهاية لتفوز بالصندوق والجوائز الكبرى!</div>
-    </div>
-</div>
-
 <!-- مودال تقديم الوكالة (4 حقول مستمسكات) -->
 <div id="agentApplyModal" class="modal">
     <div class="modal-content" style="text-align:right">
@@ -688,7 +639,7 @@
     </div>
 </div>
 
-<!-- لوحة الإدارة بأزرار مصغرة بالكامل لتظهر بالكامل بكل جدارة -->
+<!-- لوحة الإدارة بأزرار مصغرة بالكامل -->
 <div id="adminPanelModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px;padding:10px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -726,7 +677,7 @@
             <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">⚙️ أزرار الطوارئ والإدارة</h4>
             <div style="display:flex;gap:4px;margin-bottom:4px">
                 <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleWithdrawFeature()">🔒 سحب الأرباح</button>
-                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleDailyCounterFeature()">⏳ العداد اليومي</button>
+                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleDailyCounterFeature()">⏳ العداد اليومي / التكبيس</button>
             </div>
             <div style="display:flex;gap:4px">
                 <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="flex:1;padding:5px;font-size:9px">📥 العدادات</button>
@@ -928,14 +879,13 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='';
-    let ludoMatchMode = '', ludoPiecesAtHome = 4;
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1045,6 +995,7 @@
     let correctAnswersCount = 0;
     let currentQuestion = null;
     let isCompletedToday = false;
+    let clickDebounceTimer = null;
 
     function initLoungeTickerAnimation(){
         const words = ["LOUNGE", "APP", "CHAT", "VIP"];
@@ -1062,78 +1013,41 @@
         }, 800);
     }
 
-    // دوال نظام لعبة لودو الحقيقية والتفاعلية المستوحاة من الصور
-    function openLudoRealGameModal(){
-        document.getElementById('ludoModeSelectModal').style.display = 'flex';
-    }
-    function closeLudoModeSelectModal(){
-        document.getElementById('ludoModeSelectModal').style.display = 'none';
-    }
-    function startLudoRealMatch(mode){
-        ludoMatchMode = mode;
-        if((userData.gems || 0) < 100){
-            closeLudoModeSelectModal();
-            return alert("❌ رصيدك من الجواهر لا يكفي! يلزم 100 جوهرة 💎 للدخول إلى طاولة اللودو.");
+    /* --- دالة التكبيس والربح الحصرية ("كبس وأربح") مع حفظ التقدم التلقائي وقفل الأمان --- */
+    function handleUserClickAndWin(){
+        if(globalAppSettings.dailyCounterLocked && currentUserKey !== 'msaftwtn_gmail_com'){
+            return alert('⚠️ عذراً، نظام التكبيس متوقف حالياً بأمر من الإدارة لمراجعة الأمن والعداد اليومي.');
         }
 
-        // خصم 100 جوهرة رسوم دخول الطاولة
-        userData.gems -= 100;
-        saveToDB();
-        updateUI();
-        closeLudoModeSelectModal();
-
-        ludoPiecesAtHome = 4;
-        document.getElementById('ludoPiecesStatus').innerText = "🏠 4 / 4 بالبيت";
-        document.getElementById('diceResultIcon').innerText = "🎲";
-        document.getElementById('diceNumText').innerText = "الزار";
-        document.getElementById('ludoTurnMessage').innerText = "بدأت الجولة! اضغط على 'رمي النرد' لتحريك قطعك الأربعة نحو خط النهاية.";
-        
-        let modeName = (mode === '1v1' ? '1 مقابل 1' : (mode === 'team' ? 'تشكيل فريق (2 ضد 2)' : '4 لاعبين'));
-        document.getElementById('ludoTableTitle').innerText = `🎲 طاولة لودو الاحترافية (${modeName})`;
-        document.getElementById('ludoGameTableModal').style.display = 'flex';
-    }
-
-    function closeLudoGameTableModal(){
-        document.getElementById('ludoGameTableModal').style.display = 'none';
-    }
-
-    function rollLudoDice(){
-        advanceLudoStep();
-    }
-
-    function advanceLudoStep(){
-        let diceVal = Math.floor(Math.random() * 6) + 1;
-        let diceIcons = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
-        document.getElementById('diceResultIcon').innerText = diceIcons[diceVal - 1];
-        document.getElementById('diceNumText').innerText = diceVal;
-
-        if(ludoPiecesAtHome > 0){
-            ludoPiecesAtHome--;
-            document.getElementById('ludoPiecesStatus').innerText = `🏠 ${ludoPiecesAtHome} / 4 بالبيت (تقدمت القطع)`;
-            document.getElementById('ludoTurnMessage').innerText = `🎲 ظهر الرقم (${diceVal})! تمت تحريك القطعة على اللوحة بنجاح. استمر بالرمي!`;
+        let btn = document.getElementById('clickAndWinMainBtn');
+        if(btn){
+            btn.classList.remove('click-active-anim');
+            void btn.offsetWidth;
+            btn.classList.add('click-active-anim');
         }
 
-        if(ludoPiecesAtHome === 0){
-            // الفوز بالجيم
-            let prizeGems = (ludoMatchMode === 'team' ? 220 : 125);
-            userData.gems = (userData.gems || 0) + prizeGems;
-            userData.gameWins = (userData.gameWins || 0) + 1;
-            addInteractionScore(15);
+        userData.userClicksCount = (userData.userClicksCount || 0) + 1;
+        let currentClicks = userData.userClicksCount;
+        let maxTarget = 2000000;
+
+        document.getElementById('clickLiveCounterDisplay').innerText = `العداد اللحظي: ${currentClicks.toLocaleString()} / ${maxTarget.toLocaleString()} تكبيسة`;
+
+        if(currentClicks >= maxTarget){
+            userData.userClicksCount = 0;
+            userData.points = (userData.points || 0) + 100;
+            userData.gems = (userData.gems || 0) + 100;
+            addInteractionScore(20);
+            
             saveToDB().then(()=>{
                 updateUI();
-                alert(`🎉 مبروك! أهلت قطعك الأربعة للنهاية وفزت بالطاولة وحصلت على رصيد (+${prizeGems} جوهرة 💎) ونقطة فوز في لوحة الشرف!`);
-                closeLudoGameTableModal();
+                alert("🎉 أسطورة! أكملت 2,000,000 تكبيسة وحصلت على 100 نقطة 🪙 و 100 جوهرة 💎 بنجاح! بدأ العداد من جديد 🚀");
             });
+        } else {
+            if(clickDebounceTimer) clearTimeout(clickDebounceTimer);
+            clickDebounceTimer = setTimeout(()=>{
+                saveToDB();
+            }, 600);
         }
-    }
-
-    function sendLudoChatMessage(){
-        let txt = document.getElementById('ludoChatInput').value.trim();
-        if(!txt) return;
-        let box = document.getElementById('ludoChatBox');
-        box.innerHTML += `<div style="margin-bottom:2px"><b style="color:#38bdf8">${userData.name}:</b> ${txt}</div>`;
-        box.scrollTop = box.scrollHeight;
-        document.getElementById('ludoChatInput').value = '';
     }
 
     function initDailyQuizSession() {
@@ -1344,7 +1258,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1394,6 +1308,12 @@
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         
+        let clickDisplay = document.getElementById('clickLiveCounterDisplay');
+        if(clickDisplay){
+            let curr = userData.userClicksCount || 0;
+            clickDisplay.innerText = `العداد اللحظي: ${curr.toLocaleString()} / 2,000,000 تكبيسة`;
+        }
+
         let pts = userData.points || 0;
         let lvlName = "مبتدئ 🌟";
         if(pts >= 100000) lvlName = "أسطورة 👑";
@@ -2160,7 +2080,11 @@
         });
     }
 
-    function adminToggleDailyCounterFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
+    function adminToggleDailyCounterFeature(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
+        let ns=!globalAppSettings.dailyCounterLocked;
+        rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي ونظام التكبيس.':'⚡ تم فتح العداد اليومي ونظام التكبيس.'));
+    }
 
     function openAdminPanelModal(){if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');document.getElementById('adminPanelModal').style.display='flex';loadAdminData();}
     function closeAdminPanelModal(){document.getElementById('adminPanelModal').style.display='none';}
