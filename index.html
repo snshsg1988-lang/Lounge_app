@@ -253,12 +253,10 @@
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ستايل صفحة الريلز المبسطة */
-        .reel-card { background: rgba(15,23,42,0.9); border: 1px solid rgba(192,132,252,0.3); border-radius: 16px; padding: 12px; margin-bottom: 15px; text-align: right; }
-        .reel-video { width: 100%; max-height: 380px; border-radius: 12px; background: #000; object-fit: contain; margin-top: 8px; }
-        .reel-actions { display: flex; justify-content: space-around; align-items: center; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; }
-        .reel-action-btn { background: none; border: none; color: #fff; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .reel-action-btn.active { color: #f43f5e; }
+        /* ستايل صفحة كنز لاونج الأسبوعي */
+        .treasure-box-card { background: rgba(15,23,42,0.9); border: 1.5px solid rgba(234,179,8,0.5); border-radius: 18px; padding: 15px; margin-bottom: 12px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+        .treasure-icon { font-size: 42px; margin-bottom: 6px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
+        @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
     </style>
 </head>
 <body>
@@ -356,7 +354,7 @@
             </div>
         </div>
 
-        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" + زر "ريلز Lounge" أسفله مباشرة -->
+        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" + زر "كنز لاونج الأسبوعي" أسفله مباشرة -->
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
@@ -374,16 +372,16 @@
                 <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
             </div>
 
-            <!-- زر " ريلز Lounge " المضاف تحت زر التكبيس مباشرة -->
-            <div id="reelsLoungeMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(244,63,94,0.35), rgba(168,85,247,0.35)); border: 1.5px solid #f43f5e; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('reelsScreen')">
+            <!-- زر " كنز لاونج الأسبوعي 🎁 " المضاف تحت زر التكبيس مباشرة -->
+            <div id="treasureLoungeMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(234,179,8,0.35), rgba(147,51,234,0.35)); border: 1.5px solid #eab308; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('treasureScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="icon-circle" style="font-size:24px;">🎬🎬</div>
+                    <div class="icon-circle" style="font-size:24px;">🎁👑</div>
                     <div style="text-align:right;">
-                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> ريلز Lounge </span>
-                        <div style="font-size:10px; color:#cbd5e1; margin-top:2px;">استعرض وانشر الفيديوهات القصيرة والتفاعل فوراً!</div>
+                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> كنز لاونج الأسبوعي 🎁 </span>
+                        <div style="font-size:10px; color:#fde047; margin-top:2px;">صناديق الحظ والمفاجآت الأسبوعية الجديدة!</div>
                     </div>
                 </div>
-                <div class="mini-arrow" style="color:#f43f5e;">اضغط لمشاهدة ونشر الريلز 🚀</div>
+                <div class="mini-arrow" style="color:#fde047;">اضغط لاكتشاف الصناديق وفتح الجوائز 🚀</div>
             </div>
         </div>
         
@@ -396,24 +394,20 @@
         </div>
     </div>
 
-    <!-- شاشة ريلز Lounge المحدثة (أقصى مدة 60 ثانية، لايك ومتابعة فقط، للجميع وصاحب الفيديو) -->
-    <div id="reelsScreen" class="screen-page">
+    <!-- شاشة كنز لاونج الأسبوعي (3 صناديق حظ مفاجأة مع السعر وتحديث الإدارة اليدوي) -->
+    <div id="treasureScreen" class="screen-page">
         <div class="top-nav">
-            <h3 style="margin:0;color:#f43f5e;font-size:15px">🎬  ريلز Lounge </h3>
+            <h3 style="margin:0;color:#eab308;font-size:15px">🎁 كنز لاونج الأسبوعي</h3>
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
-        <!-- قسم إضافة ونشر فيديو جديد -->
-        <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(244,63,94,0.4);margin-bottom:12px;text-align:right">
-            <h4 style="margin:0 0 6px 0;color:#f43f5e;font-size:13px">📹 نشر فيديو قصير جديد (أقصى مدة 60 ثانية)</h4>
-            <input type="text" id="reelTitleInput" class="input-box" placeholder="عنوان الفيديو" style="margin-bottom:6px">
-            <textarea id="reelDescInput" class="input-box" placeholder="وصف الفيديو..." style="margin-bottom:6px;height:55px;resize:none"></textarea>
-            <label style="font-size:11px;color:#cbd5e1;display:block;margin-bottom:4px">اختر الفيديو القصير (دقيقة كحد أقصى):</label>
-            <input type="file" id="reelFileInput" accept="video/*" class="input-box" style="margin-bottom:8px" onchange="validateReelDuration(event)">
-            <button class="action-btn" style="background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff" onclick="uploadAndPublishReel()">نشر عام (يظهر للجميع ولك) 🚀</button>
+        <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);margin-bottom:12px;text-align:center">
+            <h4 style="margin:0 0 4px 0;color:#eab308;font-size:13px">✨ صناديق الحظ والمفاجآت الأسبوعية</h4>
+            <p style="font-size:11px;color:#cbd5e1;margin:0">اختر صندوقك المفضل وافتحه لتربح جوائز ومفاجآت ضخمة! (تتجدد العروض كل يوم ثلاثاء).</p>
         </div>
-        <!-- قائمة الفيديوهات المنشورة -->
-        <div id="reelsListContainer">
-            <div style="text-align:center;color:#cbd5e1;font-size:12px;padding:20px">جاري تحميل الفيديوهات...</div>
+        
+        <!-- حاوية الصناديق الثلاثة (يتم جلبها ديناميكياً من تحكم الإدارة) -->
+        <div id="treasureBoxesContainer">
+            <div style="text-align:center;color:#cbd5e1;font-size:12px;padding:20px">جاري تحميل الصناديق العروض...</div>
         </div>
     </div>
 
@@ -537,7 +531,6 @@
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
             <div style="margin-top:2px;margin-bottom:6px">
                 <span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span>
-                <!-- إظهار عدد المتابعين بالملف الشخصي -->
                 <div style="font-size:12px;color:#38bdf8;font-weight:bold;margin-top:2px;" id="profileFollowersCountDisplay">👥 المتابعون: 0</div>
                 <div id="profileBadgeDisplay" style="margin-top:4px"></div>
             </div>
@@ -696,6 +689,27 @@
             <button class="action-btn btn-purple" style="padding:4px;font-size:10px" onclick="adminUpdateTicker()">نشر 🚀</button>
         </div>
 
+        <!-- قسم إدارة وتحديث "كنز لاونج الأسبوعي" الصناديق الثلاثة -->
+        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:6px;border-radius:8px;margin-bottom:6px">
+            <h4 style="margin:0 0 3px 0;color:#eab308;font-size:11px">🎁 إدارة صناديق "كنز لاونج الأسبوعي" (3 صناديق)</h4>
+            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الأول:</div>
+            <input type="text" id="adminBox1Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق البرونزي)" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox1Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox1Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
+
+            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الثاني:</div>
+            <input type="text" id="adminBox2Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق الفضي)" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox2Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox2Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
+
+            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الثالث:</div>
+            <input type="text" id="adminBox3Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق الذهبي الملكي)" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox3Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
+            <input type="number" id="adminBox3Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
+
+            <button class="action-btn btn-gold" style="padding:5px;font-size:10px" onclick="adminSaveTreasureBoxes()">تحديث وحفظ الصناديق الجديدة 💾</button>
+        </div>
+
         <!-- شحن النقاط أو حقيبة الوكيل -->
         <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:6px;border-radius:8px;margin-bottom:6px">
             <h4 style="margin:0 0 3px 0;color:#eab308;font-size:11px">⚡ شحن النقاط أو حقيبة الوكيل مباشرة</h4>
@@ -771,7 +785,6 @@
         </div>
         <div class="large-avatar-container" style="margin:0 auto 4px auto"><img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم"></div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:2px">ID: ---</span>
-        <!-- عرض عدد المتابعين عند زيارة الملف الشخصي -->
         <div style="font-size:12px;color:#38bdf8;font-weight:bold;margin-bottom:4px;" id="visitedUserFollowersDisplay">👥 المتابعون: 0</div>
         <div id="visitedUserBadgeArea" style="margin-bottom:6px"></div>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
@@ -1259,7 +1272,7 @@
         if(screenId==='agentsScreen')loadApprovedAgentsList();
         if(screenId==='profileScreen'){loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`; loadUserFollowersCount(currentUserKey, 'profileFollowersCountDisplay');}
         if(screenId==='leaderboardScreen')loadLeaderboardData();
-        if(screenId==='reelsScreen')loadReelsList();
+        if(screenId==='treasureScreen')loadTreasureBoxesList();
     }
     function openNotificationsPage(){document.querySelectorAll('.notification-badge').forEach(b=>b.style.display='none');navigateTo('notificationsScreen');}
     function switchAuthTab(type){
@@ -1402,7 +1415,7 @@
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
     
-    /* --- وظائف نظام ريلز Lounge المحدثة (60 ثانية كحد أقصى، لايك ومتابعة فقط، يظهر للجميع وصاحب الفيديو) --- */
+    /* --- وظائف نظام "كنز لاونج الأسبوعي" الصناديق الثلاثة وتحكم الإدارة --- */
     function loadUserFollowersCount(userKey, elementId){
         if(!userKey || !rtdb) return;
         rtdb.ref(`followers/${userKey}`).on('value', snap=>{
@@ -1414,121 +1427,76 @@
         });
     }
 
-    let validatedVideoData = "";
-    function validateReelDuration(e){
-        let file = e.target.files[0];
-        if(!file) return;
-        
-        let video = document.createElement('video');
-        video.preload = 'metadata';
-        video.onloadedmetadata = function() {
-            window.URL.revokeObjectURL(video.src);
-            if(video.duration > 60){
-                alert("⚠️ عذراً، أقصى مدة مسموحة للفيديو هي 60 ثانية (دقيقة واحدة)! يرجى اختيار فيديو أقصر.");
-                e.target.value = "";
-                validatedVideoData = "";
-            } else {
-                let reader = new FileReader();
-                reader.onload = function(evt){
-                    validatedVideoData = evt.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        video.src = URL.createObjectURL(file);
-    }
-
-    function uploadAndPublishReel(){
-        let title = document.getElementById('reelTitleInput').value.trim();
-        let desc = document.getElementById('reelDescInput').value.trim();
-        
-        if(!title || !validatedVideoData) return alert("⚠️ يرجى كتابة عنوان الفيديو واختيار فيديو قصير صالح (أقل من 60 ثانية)!");
-        
-        let newReelRef = rtdb.ref('reels').push();
-        newReelRef.set({
-            id: newReelRef.key,
-            authorKey: currentUserKey,
-            authorName: userData.name || 'مستخدم',
-            authorAvatar: userData.avatar || '',
-            title: title,
-            description: desc,
-            videoUrl: validatedVideoData,
-            timestamp: Date.now()
-        }).then(()=>{
-            document.getElementById('reelTitleInput').value = '';
-            document.getElementById('reelDescInput').value = '';
-            document.getElementById('reelFileInput').value = '';
-            validatedVideoData = "";
-            alert("🎉 تم نشر الريلز عام لجميع المستخدمين ولك بنجاح!");
-        });
-    }
-
-    function loadReelsList(){
+    function loadTreasureBoxesList(){
         if(!rtdb) return;
-        rtdb.ref('reels').on('value', snap=>{
-            let container = document.getElementById('reelsListContainer');
+        rtdb.ref('treasure_boxes').on('value', snap=>{
+            let container = document.getElementById('treasureBoxesContainer');
             if(!container) return;
-            if(!snap.exists()){
-                container.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;padding:20px">لا توجد فيديوهات ريلز منشورة بعد، كن أول من ينشر!</div>';
-                return;
-            }
+            
+            let boxes = snap.exists() ? snap.val() : {
+                box1: { title: "الصندوق البرونزي الحماسي", price: 500, reward: 1200 },
+                box2: { title: "الصندوق الفضي السريع", price: 1500, reward: 3500 },
+                box3: { title: "الصندوق الذهبي الملكي النادر", price: 4000, reward: 10000 }
+            };
+
             let html = '';
-            snap.forEach(child=>{
-                let reel = child.val();
-                html += `<div class="reel-card">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-                        <div style="display:flex;align-items:center;gap:8px">
-                            <img src="${reel.authorAvatar || 'https://via.placeholder.com/35'}" style="width:35px;height:35px;border-radius:50%;object-fit:cover" alt="ناشر">
-                            <div>
-                                <b style="color:#fff;font-size:12px;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${reel.authorKey}')">${reel.authorName}</b>
-                                <div style="font-size:9px;color:#94a3b8">${new Date(reel.timestamp).toLocaleDateString('ar-EG')}</div>
-                            </div>
-                        </div>
-                        <button class="action-btn btn-blue" style="width:auto;padding:3px 10px;font-size:10px" onclick="toggleFollowUser('${reel.authorKey}')">متابعة ➕</button>
-                    </div>
-                    <div style="font-weight:bold;color:#c084fc;font-size:13px;margin-bottom:2px">${reel.title}</div>
-                    <div style="font-size:11px;color:#cbd5e1;margin-bottom:6px">${reel.description||''}</div>
-                    <video src="${reel.videoUrl}" class="reel-video" controls playsinline></video>
-                    <div class="reel-actions">
-                        <button class="reel-action-btn" id="likeBtn_${reel.id}" onclick="toggleLikeReel('${reel.id}')">❤️ إعجاب (<span id="likesCount_${reel.id}">0</span>)</button>
-                    </div>
+            ['box1', 'box2', 'box3'].forEach((bKey, idx)=>{
+                let b = boxes[bKey] || { title: "صندوق الحظ", price: 1000, reward: 2000 };
+                let icons = ["🥉", "🥈", "👑"];
+                html += `<div class="treasure-card treasure-box-card">
+                    <div class="treasure-icon">${icons[idx]}</div>
+                    <h3 style="margin:4px 0;color:#fde047;font-size:15px">${b.title}</h3>
+                    <p style="font-size:11px;color:#cbd5e1;margin-bottom:8px">افتح الصندوق واكشف جائزتك المخفية (مفاجأة تضاعف رصيدك)!</p>
+                    <div style="font-size:12px;color:#34d399;font-weight:bold;margin-bottom:8px">السعر: ${Number(b.price).toLocaleString()} نقطة 🪙</div>
+                    <button class="action-btn btn-gold" style="padding:8px" onclick="openTreasureBox('${bKey}', ${b.price}, ${b.reward}, '${b.title}')">فتح الصندوق الآن 🎁</button>
                 </div>`;
             });
             container.innerHTML = html;
-            
-            // مزامنة أعداد الإعجابات والتفاعلات
-            snap.forEach(child=>{
-                let reelId = child.key;
-                rtdb.ref(`reel_likes/${reelId}`).on('value', lSnap=>{
-                    let count = lSnap.exists() ? Object.keys(lSnap.val()).length : 0;
-                    let elem = document.getElementById(`likesCount_${reelId}`);
-                    if(elem) elem.innerText = count;
-                });
-            });
         });
     }
 
-    function toggleLikeReel(reelId){
-        if(!currentUserKey || !rtdb) return;
-        let ref = rtdb.ref(`reel_likes/${reelId}/${currentUserKey}`);
-        ref.once('value').then(snap=>{
-            if(snap.exists()){
-                ref.remove();
-            } else {
-                ref.set(true);
-            }
+    function openTreasureBox(boxKey, price, hiddenReward, boxTitle){
+        let currentPts = userData.points || 0;
+        if(currentPts < price) {
+            return alert(`❌ نقاطك الحالية (${currentPts.toLocaleString()} نقطة) لا تكفي لفتح هذا الصندوق! سعره ${price.toLocaleString()} نقطة.`);
+        }
+
+        if(!confirm(`هل أنت متأكد من خصم ${price.toLocaleString()} نقطة وفتح (${boxTitle})؟`)) return;
+
+        userData.points = currentPts - price;
+        userData.points += hiddenReward;
+        addInteractionScore(15);
+
+        saveToDB().then(()=>{
+            updateUI();
+            alert(`🎉 مبروك أسطورة! فتحت (${boxTitle}) وظهرت بداخله مفاجأة مخفية بقيمة (${hiddenReward.toLocaleString()} نقطة 🪙)! تمت إضافتها لرصيدك بنجاح 🚀`);
         });
     }
 
-    function toggleFollowUser(targetUserKey){
-        if(!targetUserKey || targetUserKey === currentUserKey) return alert("⚠️ لا يمكنك متابعة نفسك!");
-        let ref = rtdb.ref(`followers/${targetUserKey}/${currentUserKey}`);
-        ref.once('value').then(snap=>{
-            if(snap.exists()){
-                ref.remove().then(()=>alert("تم إلغاء المتابعة."));
-            } else {
-                ref.set(true).then(()=>alert("✅ تم إرسال المتابعة بنجاح!"));
-            }
+    function adminSaveTreasureBoxes(){
+        if(currentUserKey !== 'msaftwtn_gmail_com') return;
+        let b1t = document.getElementById('adminBox1Title').value.trim();
+        let b1p = parseInt(document.getElementById('adminBox1Price').value);
+        let b1r = parseInt(document.getElementById('adminBox1Reward').value);
+
+        let b2t = document.getElementById('adminBox2Title').value.trim();
+        let b2p = parseInt(document.getElementById('adminBox2Price').value);
+        let b2r = parseInt(document.getElementById('adminBox2Reward').value);
+
+        let b3t = document.getElementById('adminBox3Title').value.trim();
+        let b3p = parseInt(document.getElementById('adminBox3Price').value);
+        let b3r = parseInt(document.getElementById('adminBox3Reward').value);
+
+        if(!b1t || isNaN(b1p) || isNaN(b1r) || !b2t || isNaN(b2p) || isNaN(b2r) || !b3t || isNaN(b3p) || isNaN(b3r)){
+            return alert("⚠️ يرجى ملء جميع حقول العناوين والأسعار والجوائز للصناديق الثلاثة بشكل صحيح!");
+        }
+
+        rtdb.ref('treasure_boxes').set({
+            box1: { title: b1t, price: b1p, reward: b1r },
+            box2: { title: b2t, price: b2p, reward: b2r },
+            box3: { title: b3t, price: b3p, reward: b3r }
+        }).then(()=>{
+            alert("✅ تم تحديث ونشر صناديق 'كنز لاونج الأسبوعي' بنجاح لجميع المستخدمين!");
         });
     }
 
@@ -1816,19 +1784,14 @@
         rtdb.ref('users').once('value').then(snap=>{
             if(!snap.exists())return;let users=[];snap.forEach(u=>{users.push({key:u.key,...u.val()});});
             
-            // الفئات الثلاثة: الهدايا، التكبيس، العجلة
             [{key:'weeklyGiftsSent',name:'الشحن والهدايا'},{key:'userClicksCount',name:'ملوك التكبيس'},{key:'weeklyWheelPoints',name:'رابحي العجلة'}].forEach(cat=>{
                 let s=[...users].sort((a,b)=>(b[cat.key]||0)-(a[cat.key]||0));
                 
-                // المركز الأول: 600 جوهرة
                 if(s[0]&&s[0][cat.key]>0){rtdb.ref(`users/${s[0].key}`).update({gems:(s[0].gems||0)+600});rtdb.ref(`notifications/${s[0].key}`).push({text:`🎉 مبروك! المركز الأول في (${cat.name})! فزت بـ 600 جوهرة 💎`,timestamp:Date.now()});}
-                // المركز الثاني: 300 جوهرة
                 if(s[1]&&s[1][cat.key]>0){rtdb.ref(`users/${s[1].key}`).update({gems:(s[1].gems||0)+300});rtdb.ref(`notifications/${s[1].key}`).push({text:`🎉 مبروك! المركز الثاني في (${cat.name})! فزت بـ 300 جوهرة 💎`,timestamp:Date.now()});}
-                // المركز الثالث: 150 جوهرة
                 if(s[2]&&s[2][cat.key]>0){rtdb.ref(`users/${s[2].key}`).update({gems:(s[2].gems||0)+150});rtdb.ref(`notifications/${s[2].key}`).push({text:`🎉 مبروك! المركز الثالث في (${cat.name})! فزت بـ 150 جوهرة 💎`,timestamp:Date.now()});}
             });
             
-            // تصفير التصنيفات الأسبوعية
             let up={};
             users.forEach(u=>{
                 up[`users/${u.key}/weeklyGiftsSent`]=0;
