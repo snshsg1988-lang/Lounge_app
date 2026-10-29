@@ -253,7 +253,7 @@
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ستايل صفحة كنز لاونج الأسبوعي (تم تصغير الحجم قليلاً وبشكل متناسق) */
+        /* ستايل صفحة كنز لاونج الأسبوعي (تصغير الحجم قليلاً وبشكل متناسق) */
         .treasure-box-card { background: rgba(15,23,42,0.9); border: 1.5px solid rgba(234,179,8,0.5); border-radius: 14px; padding: 10px; margin-bottom: 8px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -361,7 +361,7 @@
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
             
             <!-- زر "كبس وأربح" التفاعلي -->
-            <div id="clickAndWinMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.4), rgba(16,185,129,0.3)); border: 1.5px solid #c084fc; position:relative; overflow:hidden;" onclick="handleUserClickAndWin()">
+            <div id="clickAndWinMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.4), rgba(10,185,129,0.3)); border: 1.5px solid #c084fc; position:relative; overflow:hidden;" onclick="handleUserClickAndWin()">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">👇⚡</div>
                     <div style="text-align:right;">
@@ -674,7 +674,7 @@
     </div>
 </div>
 
-<!-- لوحة الإدارة -->
+<!-- لوحة الإدارة (تم إزالة قسم تعديل الصناديق منها تماماً كما طلبت) -->
 <div id="adminPanelModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px;padding:10px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -687,27 +687,6 @@
             <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">📢 شريط الإعلانات</h4>
             <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان الجديد..." style="margin-bottom:4px;padding:6px;font-size:11px">
             <button class="action-btn btn-purple" style="padding:4px;font-size:10px" onclick="adminUpdateTicker()">نشر 🚀</button>
-        </div>
-
-        <!-- قسم إدارة وتحديث "كنز لاونج الأسبوعي" الصناديق الثلاثة (متوفر للوحة التحكم أيضاً) -->
-        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#eab308;font-size:11px">🎁 إدارة صناديق "كنز لاونج الأسبوعي" (3 صناديق)</h4>
-            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الأول:</div>
-            <input type="text" id="adminBox1Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق البرونزي)" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox1Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox1Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
-
-            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الثاني:</div>
-            <input type="text" id="adminBox2Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق الفضي)" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox2Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox2Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
-
-            <div style="font-size:10px;color:#cbd5e1;margin-bottom:4px">الصندوق الثالث:</div>
-            <input type="text" id="adminBox3Title" class="input-box" placeholder="عنوان الصندوق (مثلاً: الصندوق الذهبي الملكي)" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox3Price" class="input-box" placeholder="سعر الشراء بالنقاط" style="margin-bottom:2px;padding:5px;font-size:10px">
-            <input type="number" id="adminBox3Reward" class="input-box" placeholder="النقاط المخفية بالداخل" style="margin-bottom:6px;padding:5px;font-size:10px">
-
-            <button class="action-btn btn-gold" style="padding:5px;font-size:10px" onclick="adminSaveTreasureBoxes()">تحديث وحفظ الصناديق الجديدة 💾</button>
         </div>
 
         <!-- شحن النقاط أو حقيبة الوكيل -->
@@ -824,7 +803,7 @@
     </div>
 </div>
 
-<!-- مودال تعديل الصناديق السريع للإدارة من داخل زر الكنز (بدل لوحة التحكم) -->
+<!-- مودال تعديل الصناديق السريع للإدارة من داخل زر كنز لاونج الأسبوعي حصراً -->
 <div id="adminTreasureEditModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -1442,7 +1421,7 @@
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
     
-    /* --- وظائف نظام "كنز لاونج الأسبوعي" الصناديق الثلاثة وتعديل الإدارة من زر الكنز مباشرة --- */
+    /* --- وظائف نظام "كنز لاونج الأسبوعي" الصناديق الثلاثة وتعديل الإدارة من زر الكنز حصراً --- */
     function loadUserFollowersCount(userKey, elementId){
         if(!userKey || !rtdb) return;
         rtdb.ref(`followers/${userKey}`).on('value', snap=>{
@@ -1473,7 +1452,7 @@
                 let b = boxes[bKey] || { title: "صندوق الحظ", price: 1000, reward: 2000 };
                 let icons = ["🥉", "🥈", "👑"];
                 
-                // القاعدة المطلوبة: إذا كان حساب الإدارة تظهر كلمة "تعديل الصندوق" بدل "فتح الصندوق" داخل زر كنز لاونج الأسبوعي
+                // القاعدة المطلوبة: للمستخدم العادي تظهر "فتح الصندوق"، وللإدارة تظهر "تعديل الصندوق" داخل زر كنز لاونج حصراً
                 let actionButtonHtml = '';
                 if(isAdmin){
                     actionButtonHtml = `<button class="action-btn btn-purple" style="padding:6px" onclick="openAdminTreasureEditModal()">تعديل الصندوق ⚙️</button>`;
