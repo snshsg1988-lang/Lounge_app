@@ -253,7 +253,7 @@
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ستايل صفحة الريلز */
+        /* ستايل صفحة الريلز المبسطة */
         .reel-card { background: rgba(15,23,42,0.9); border: 1px solid rgba(192,132,252,0.3); border-radius: 16px; padding: 12px; margin-bottom: 15px; text-align: right; }
         .reel-video { width: 100%; max-height: 380px; border-radius: 12px; background: #000; object-fit: contain; margin-top: 8px; }
         .reel-actions { display: flex; justify-content: space-around; align-items: center; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; }
@@ -396,7 +396,7 @@
         </div>
     </div>
 
-    <!-- شاشة ريلز Lounge الجديدة -->
+    <!-- شاشة ريلز Lounge المحدثة (أقصى مدة 60 ثانية، لايك ومتابعة فقط، للجميع وصاحب الفيديو) -->
     <div id="reelsScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#f43f5e;font-size:15px">🎬  ريلز Lounge </h3>
@@ -404,12 +404,12 @@
         </div>
         <!-- قسم إضافة ونشر فيديو جديد -->
         <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(244,63,94,0.4);margin-bottom:12px;text-align:right">
-            <h4 style="margin:0 0 6px 0;color:#f43f5e;font-size:13px">📹 نشر فيديو قصير جديد</h4>
+            <h4 style="margin:0 0 6px 0;color:#f43f5e;font-size:13px">📹 نشر فيديو قصير جديد (أقصى مدة 60 ثانية)</h4>
             <input type="text" id="reelTitleInput" class="input-box" placeholder="عنوان الفيديو" style="margin-bottom:6px">
             <textarea id="reelDescInput" class="input-box" placeholder="وصف الفيديو..." style="margin-bottom:6px;height:55px;resize:none"></textarea>
-            <label style="font-size:11px;color:#cbd5e1;display:block;margin-bottom:4px">اختر الفيديو القصير:</label>
-            <input type="file" id="reelFileInput" accept="video/*" class="input-box" style="margin-bottom:8px">
-            <button class="action-btn" style="background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff" onclick="uploadAndPublishReel()">نشر عام 🚀</button>
+            <label style="font-size:11px;color:#cbd5e1;display:block;margin-bottom:4px">اختر الفيديو القصير (دقيقة كحد أقصى):</label>
+            <input type="file" id="reelFileInput" accept="video/*" class="input-box" style="margin-bottom:8px" onchange="validateReelDuration(event)">
+            <button class="action-btn" style="background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff" onclick="uploadAndPublishReel()">نشر عام (يظهر للجميع ولك) 🚀</button>
         </div>
         <!-- قائمة الفيديوهات المنشورة -->
         <div id="reelsListContainer">
@@ -728,7 +728,7 @@
         </div>
         
         <!-- فحص المستخدم -->
-        <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
+        <div style="background:rgba(10,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
             <h4 style="margin:0 0 3px 0;color:#10b981;font-size:11px">🔍 فحص ملف المستخدم</h4>
             <div style="display:flex;gap:4px">
                 <input type="text" id="adminInspectIdInput" class="input-box" placeholder="ID المستخدم" style="margin:0;padding:5px;font-size:10px;flex:1">
@@ -1001,7 +1001,7 @@
         { id: 67, q: "ما هي عاصمة روسيا؟", correct: "موسكو", wrong: "سان بطرسبرغ" },
         { id: 68, q: "ما هو الحيوان الذي ينام إحدى عينيه مفتوحتين؟", correct: "الدلفين", wrong: "الأسد" },
         { id: 69, q: "ما هي عاصمة البرازيل؟", correct: "برازيليا", wrong: "ريو دي جانيرو" },
-        { id: 70, q: "ما هو الطائر الذي يستطيع تقليد أصوات البشر؟", correct: "الب ببغاء", wrong: "العصفور" },
+        { id: 70, q: "ما هو الطائر الذي يستطيع تقليد أصوات البشر؟", correct: "الببغاء", wrong: "العصفور" },
         { id: 71, q: "ما هي عاصمة الأرجنتين؟", correct: "بوينس آيرس", wrong: "قرطبة" },
         { id: 72, q: "ما هو أسرع طائر في العالم؟", correct: "صقر الشاهين", wrong: "النسر" },
         { id: 73, q: "ما هي عاصمة كندا؟", correct: "أوتاوا", wrong: "تورونتو" },
@@ -1402,7 +1402,7 @@
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
     
-    /* --- وظائف نظام ريلز Lounge والأعداد المتابعين --- */
+    /* --- وظائف نظام ريلز Lounge المحدثة (60 ثانية كحد أقصى، لايك ومتابعة فقط، يظهر للجميع وصاحب الفيديو) --- */
     function loadUserFollowersCount(userKey, elementId){
         if(!userKey || !rtdb) return;
         rtdb.ref(`followers/${userKey}`).on('value', snap=>{
@@ -1414,35 +1414,53 @@
         });
     }
 
+    let validatedVideoData = "";
+    function validateReelDuration(e){
+        let file = e.target.files[0];
+        if(!file) return;
+        
+        let video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function() {
+            window.URL.revokeObjectURL(video.src);
+            if(video.duration > 60){
+                alert("⚠️ عذراً، أقصى مدة مسموحة للفيديو هي 60 ثانية (دقيقة واحدة)! يرجى اختيار فيديو أقصر.");
+                e.target.value = "";
+                validatedVideoData = "";
+            } else {
+                let reader = new FileReader();
+                reader.onload = function(evt){
+                    validatedVideoData = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        video.src = URL.createObjectURL(file);
+    }
+
     function uploadAndPublishReel(){
         let title = document.getElementById('reelTitleInput').value.trim();
         let desc = document.getElementById('reelDescInput').value.trim();
-        let fileInput = document.getElementById('reelFileInput');
         
-        if(!title || !fileInput.files[0]) return alert("⚠️ يرجى كتابة عنوان الفيديو واختيار الفيديو القصير!");
+        if(!title || !validatedVideoData) return alert("⚠️ يرجى كتابة عنوان الفيديو واختيار فيديو قصير صالح (أقل من 60 ثانية)!");
         
-        let file = fileInput.files[0];
-        let reader = new FileReader();
-        reader.onload = function(e){
-            let videoData = e.target.result;
-            let newReelRef = rtdb.ref('reels').push();
-            newReelRef.set({
-                id: newReelRef.key,
-                authorKey: currentUserKey,
-                authorName: userData.name || 'مستخدم',
-                authorAvatar: userData.avatar || '',
-                title: title,
-                description: desc,
-                videoUrl: videoData,
-                timestamp: Date.now()
-            }).then(()=>{
-                document.getElementById('reelTitleInput').value = '';
-                document.getElementById('reelDescInput').value = '';
-                fileInput.value = '';
-                alert("🎉 تم نشر الريلز عام لجميع المستخدمين بنجاح!");
-            });
-        };
-        reader.readAsDataURL(file);
+        let newReelRef = rtdb.ref('reels').push();
+        newReelRef.set({
+            id: newReelRef.key,
+            authorKey: currentUserKey,
+            authorName: userData.name || 'مستخدم',
+            authorAvatar: userData.avatar || '',
+            title: title,
+            description: desc,
+            videoUrl: validatedVideoData,
+            timestamp: Date.now()
+        }).then(()=>{
+            document.getElementById('reelTitleInput').value = '';
+            document.getElementById('reelDescInput').value = '';
+            document.getElementById('reelFileInput').value = '';
+            validatedVideoData = "";
+            alert("🎉 تم نشر الريلز عام لجميع المستخدمين ولك بنجاح!");
+        });
     }
 
     function loadReelsList(){
@@ -1473,7 +1491,6 @@
                     <video src="${reel.videoUrl}" class="reel-video" controls playsinline></video>
                     <div class="reel-actions">
                         <button class="reel-action-btn" id="likeBtn_${reel.id}" onclick="toggleLikeReel('${reel.id}')">❤️ إعجاب (<span id="likesCount_${reel.id}">0</span>)</button>
-                        <button class="reel-action-btn" id="saveBtn_${reel.id}" onclick="toggleSaveReel('${reel.id}')">🔖 حفظ</button>
                     </div>
                 </div>`;
             });
@@ -1499,18 +1516,6 @@
                 ref.remove();
             } else {
                 ref.set(true);
-            }
-        });
-    }
-
-    function toggleSaveReel(reelId){
-        if(!currentUserKey || !rtdb) return;
-        let ref = rtdb.ref(`saved_reels/${currentUserKey}/${reelId}`);
-        ref.once('value').then(snap=>{
-            if(snap.exists()){
-                ref.remove().then(()=>alert("🗑️ تم إلغاء حفظ الريلز من قائمتك."));
-            } else {
-                ref.set(true).then(()=>alert("🔖 تم حفظ الريلز بنجاح!"));
             }
         });
     }
