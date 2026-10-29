@@ -144,6 +144,60 @@
             animation: clickPulse 0.12s ease-in-out;
         }
 
+        /* تصميم تركيبة الإطارات الاحترافية (Avatar Ring Container) */
+        .avatar-ring-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+        }
+        .avatar-ring-wrapper img.user-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        .avatar-ring-overlay {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* شبكة متجر الإطارات: 3 إطارات بأسفل كل صف */
+        .frame-shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .frame-item-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            border-radius: 12px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+        .frame-item-card.active-frame {
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 12px rgba(56,189,248,0.5);
+        }
+        .frame-preview-box {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 6px;
+        }
+
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
         .bottom-nav-item.active{color:#c084fc}
@@ -302,7 +356,10 @@
                     <div style="font-size:13px;font-weight:bold;color:#fff" id="headerUserName">المستخدم</div>
                     <div id="userHeaderBadgeArea"></div>
                 </div>
-                <img id="headerUserAvatar" src="https://via.placeholder.com/45" class="user-avatar-small" alt="صورة">
+                <div class="avatar-ring-wrapper" style="width:45px;height:45px">
+                    <img id="headerUserAvatar" src="https://via.placeholder.com/45" class="user-avatar-img user-avatar-small" alt="صورة">
+                    <div id="headerAvatarFrameArea" class="avatar-ring-overlay"></div>
+                </div>
             </div>
         </div>
         <div class="top-profile-card">
@@ -349,13 +406,13 @@
             </div>
         </div>
 
-        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" الخرافي بمكان لعبة لودو -->
+        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" الخرافي + زر متجر إطارات الصور المباشر -->
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
             
-            <!-- زر "كبس وأربح" التفاعلي الجديد (2M مليون تكبيسة = 100 نقطة و 100 جوهرة + عداد حي لحظي + حفظ التقدم) -->
+            <!-- زر "كبس وأربح" التفاعلي الجديد -->
             <div id="clickAndWinMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.4), rgba(16,185,129,0.3)); border: 1.5px solid #c084fc; position:relative; overflow:hidden;" onclick="handleUserClickAndWin()">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">👇⚡</div>
@@ -365,6 +422,18 @@
                     </div>
                 </div>
                 <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
+            </div>
+
+            <!-- زر "متجر إطارات الصور" المباشر أسفل زر التكبيس -->
+            <div id="avatarFrameShopMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(56,189,248,0.35), rgba(168,85,247,0.35)); border: 1.5px solid #38bdf8; position:relative; overflow:hidden;" onclick="openAvatarFrameShopModal()">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="icon-circle" style="font-size:24px;">🖼️👑</div>
+                    <div style="text-align:right;">
+                        <span style="font-size:13px; color:#fff; font-weight:900; display:block;">متجر إطارات الصور (11 إطار ملكي)</span>
+                        <div style="font-size:10px; color:#cbd5e1; font-weight:bold; margin-top:2px;">تمتع بإطار ملكي مميز حول صورتك بـ 1,000 نقطة فقط!</div>
+                    </div>
+                </div>
+                <div class="mini-arrow" style="color:#38bdf8;">اضغط لاستعراض الإطارات وشراء الإطار 🚀</div>
             </div>
         </div>
         
@@ -425,11 +494,11 @@
         <div class="card" style="text-align:right;background:rgba(30,41,59,0.7);border:1px solid rgba(192,132,252,0.4)">
             <div class="shop-tabs" style="margin-bottom:10px">
                 <button class="shop-tab-btn active-gold" id="lbTab1" onclick="switchLeaderboardTab('gifts')">🎁 الشحن والهدايا</button>
-                <button class="shop-tab-btn" id="lbTab2" onclick="switchLeaderboardTab('games')">🎮 أبطال الألعاب</button>
+                <button class="shop-tab-btn" id="lbTab2" onclick="switchLeaderboardTab('clicking')">👆 ملوك التكبيس</button>
                 <button class="shop-tab-btn" id="lbTab3" onclick="switchLeaderboardTab('wheel')">🎡 رابحي العجلة</button>
             </div>
             <div id="lbContentGifts" class="lb-pane-content"><div id="leaderboardGiftsList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
-            <div id="lbContentGames" class="lb-pane-content" style="display:none"><div id="leaderboardGamesList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
+            <div id="lbContentClicking" class="lb-pane-content" style="display:none"><div id="leaderboardClickingList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
             <div id="lbContentWheel" class="lb-pane-content" style="display:none"><div id="leaderboardWheelList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div></div>
         </div>
     </div>
@@ -493,7 +562,12 @@
             <button class="nav-btn back" onclick="navigateBackFromProfile()">⬅️ الرئيسية</button>
         </div>
         <div class="profile-box">
-            <div class="large-avatar-container" id="profileAvatarRingBox"><img id="avatarPreview" class="large-avatar" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية"></div>
+            <div class="large-avatar-container" id="profileAvatarRingBox">
+                <div class="avatar-ring-wrapper" style="width:85px;height:85px">
+                    <img id="avatarPreview" class="large-avatar user-avatar-img" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية">
+                    <div id="profileAvatarFrameArea" class="avatar-ring-overlay"></div>
+                </div>
+            </div>
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
             <div style="margin-top:2px;margin-bottom:6px">
                 <span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span>
@@ -600,6 +674,26 @@
                 <input type="text" id="isolatedMsgInput" class="input-box" placeholder="اكتب رسالة..." style="margin:0;flex:1">
                 <button class="action-btn btn-gold" style="width:55px;padding:0;height:38px" onclick="sendIsolatedMsg()">إرسال</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- مودال متجر إطارات الصور (العرض 3 وتحتها 3 بانتظام) -->
+<div id="avatarFrameShopModal" class="modal">
+    <div class="modal-content" style="text-align:center; max-width:400px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <h4 style="margin:0;color:#38bdf8;font-size:14px">🖼️ متجر إطارات الصور الملكية</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAvatarFrameShopModal()">✖</button>
+        </div>
+        <p style="font-size:11px;color:#cbd5e1;margin-bottom:10px">اختر إطارك المفضل بسعر موحد <b>(1,000 نقطة 🪙)</b> ليحيط بصورتك بالمللي!</p>
+        
+        <div id="framesShopContainer" class="frame-shop-grid">
+            <!-- سيتم توليد الـ 11 إطار ديناميكياً 3 بـ 3 بدون قص -->
+        </div>
+
+        <div style="margin-top:12px; display:flex; gap:6px;">
+            <button class="action-btn btn-purple" onclick="removeCurrentFrame()">إزالة الإطار الحالي 🗑️</button>
+            <button class="action-btn btn-blue" onclick="closeAvatarFrameShopModal()">إغلاق المتجر ✖</button>
         </div>
     </div>
 </div>
@@ -727,7 +821,12 @@
             <h4 style="margin:0;color:#c084fc;font-size:14px">👤 الملف الشخصي</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeUserProfileModal()">✖</button>
         </div>
-        <div class="large-avatar-container" style="margin:0 auto 4px auto"><img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم"></div>
+        <div class="large-avatar-container" style="margin:0 auto 4px auto">
+            <div class="avatar-ring-wrapper" style="width:85px;height:85px">
+                <img id="visitedUserAvatar" src="https://via.placeholder.com/85" class="user-avatar-img" style="border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم">
+                <div id="visitedAvatarFrameArea" class="avatar-ring-overlay"></div>
+            </div>
+        </div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:4px">ID: ---</span>
         <div id="visitedUserBadgeArea" style="margin-bottom:6px"></div>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
@@ -879,13 +978,28 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',equippedFrame:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='';
+
+    /* قائمة الإطارات الـ 11 وتصاميمها الدائرية المخصصة 100% بالمسطرة والمللي */
+    const AVATAR_FRAMES_LIST = [
+        { id: 'f1', name: 'الأسد الملكي 🦁', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#eab308" stroke-width="4" stroke-dasharray="6,2"/><circle cx="50" cy="50" r="49" fill="none" stroke="#ca8a04" stroke-width="1.5"/><text x="50" y="14" font-size="14" text-anchor="middle">👑</text><text x="50" y="96" font-size="12" text-anchor="middle">🦁</text></svg>` },
+        { id: 'f2', name: 'العلم العراقي 🇮🇶', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="47" fill="none" stroke="#ef4444" stroke-width="4"/><path d="M 10,50 A 40,40 0 0,1 90,50" fill="none" stroke="#10b981" stroke-width="3"/><circle cx="50" cy="50" r="44" fill="none" stroke="#ffffff" stroke-width="1.5"/><text x="50" y="14" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">الله أكبر</text></svg>` },
+        { id: 'f3', name: 'الغزال الذهبي 🦌', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGradiant)" stroke-width="4"/><defs><linearGradient id="goldGradiant" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#eab308"/></linearGradient></defs><text x="82" y="24" font-size="14" text-anchor="middle">🦌</text></svg>` },
+        { id: 'f4', name: 'الفيراري الوردي 🏎️', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#ec4899" stroke-width="4"/><circle cx="50" cy="50" r="49" fill="none" stroke="#f472b6" stroke-width="1.5"/><text x="50" y="14" font-size="12" text-anchor="middle">👑</text><text x="50" y="95" font-size="13" text-anchor="middle">🏎️</text></svg>` },
+        { id: 'f5', name: 'الجيمنج النيون 🎮', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#3b82f6" stroke-width="4"/><circle cx="50" cy="50" r="49" fill="none" stroke="#60a5fa" stroke-dasharray="4,4" stroke-width="2"/><text x="50" y="14" font-size="12" text-anchor="middle">👑</text><text x="50" y="95" font-size="12" font-weight="bold" fill="#38bdf8" text-anchor="middle">CHAT 🎮</text></svg>` },
+        { id: 'f6', name: 'العقرب الأسود 🦂', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#a855f7" stroke-width="4"/><circle cx="50" cy="50" r="49" fill="none" stroke="#6b21a8" stroke-width="2"/><text x="50" y="16" font-size="14" text-anchor="middle">🦂</text></svg>` },
+        { id: 'f7', name: 'الجبال والطبيعة 🏔️', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#0ea5e9" stroke-width="4"/><text x="50" y="16" font-size="13" text-anchor="middle">🏔️</text><text x="12" y="85" font-size="11" text-anchor="middle">🌲</text><text x="88" y="85" font-size="11" text-anchor="middle">🌲</text></svg>` },
+        { id: 'f8', name: 'الثلج والجليد ❄️', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-dasharray="8,3"/><text x="50" y="12" font-size="11" text-anchor="middle">❄️</text><text x="88" y="50" font-size="11" text-anchor="middle">❄️</text><text x="12" y="50" font-size="11" text-anchor="middle">❄️</text><text x="50" y="96" font-size="11" text-anchor="middle">❄️</text></svg>` },
+        { id: 'f9', name: 'الورود والزهور 🌸', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#f43f5e" stroke-width="3"/><text x="50" y="12" font-size="11" text-anchor="middle">🌸</text><text x="88" y="30" font-size="11" text-anchor="middle">🌸</text><text x="88" y="70" font-size="11" text-anchor="middle">🌸</text><text x="50" y="96" font-size="11" text-anchor="middle">🌸</text><text x="12" y="70" font-size="11" text-anchor="middle">🌸</text><text x="12" y="30" font-size="11" text-anchor="middle">🌸</text></svg>` },
+        { id: 'f10', name: 'الدولارات والثراء 💵', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#22c55e" stroke-width="4"/><text x="50" y="14" font-size="11" text-anchor="middle">💵</text><text x="88" y="50" font-size="11" text-anchor="middle">💵</text><text x="12" y="50" font-size="11" text-anchor="middle">💵</text><text x="50" y="95" font-size="11" text-anchor="middle">💵</text></svg>` },
+        { id: 'f11', name: 'الصقر الملكي 🦅', svg: `<svg viewBox="0 0 100 100" style="width:100%;height:100%"><circle cx="50" cy="50" r="46" fill="none" stroke="#b45309" stroke-width="4"/><circle cx="50" cy="50" r="49" fill="none" stroke="#d97706" stroke-width="1.5"/><text x="82" y="24" font-size="14" text-anchor="middle">🦅</text></svg>` }
+    ];
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1013,7 +1127,7 @@
         }, 800);
     }
 
-    /* --- دالة التكبيس والربح الحصرية ("كبس وأربح") مع حفظ التقدم التلقائي وقفل الأمان --- */
+    /* --- دالة التكبيس والربح الحصرية ("كبس وأربح") --- */
     function handleUserClickAndWin(){
         if(globalAppSettings.dailyCounterLocked && currentUserKey !== 'msaftwtn_gmail_com'){
             return alert('⚠️ عذراً، نظام التكبيس متوقف حالياً بأمر من الإدارة لمراجعة الأمن والعداد اليومي.');
@@ -1048,6 +1162,90 @@
                 saveToDB();
             }, 600);
         }
+    }
+
+    /* --- وظائف متجر إطارات الصور الملكية --- */
+    function openAvatarFrameShopModal(){
+        renderAvatarFrameShopItems();
+        document.getElementById('avatarFrameShopModal').style.display = 'flex';
+    }
+
+    function closeAvatarFrameShopModal(){
+        document.getElementById('avatarFrameShopModal').style.display = 'none';
+    }
+
+    function renderAvatarFrameShopItems(){
+        let container = document.getElementById('framesShopContainer');
+        if(!container) return;
+        let html = '';
+        
+        let sampleAvatar = userData.avatar || 'https://via.placeholder.com/60';
+
+        AVATAR_FRAMES_LIST.forEach(frame => {
+            let isEquipped = (userData.equippedFrame === frame.id);
+            html += `
+            <div class="frame-item-card ${isEquipped ? 'active-frame' : ''}">
+                <div class="frame-preview-box">
+                    <img src="${sampleAvatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover" alt="معاينة">
+                    <div class="avatar-ring-overlay">${frame.svg}</div>
+                </div>
+                <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:4px">${frame.name}</div>
+                <div style="font-size:9px;color:#c084fc;font-weight:bold;margin-bottom:6px">1,000 🪙</div>
+                <button class="action-btn ${isEquipped ? 'btn-green' : 'btn-gold'}" style="padding:4px;font-size:10px" onclick="buyOrEquipFrame('${frame.id}')">
+                    ${isEquipped ? 'مفعل ✔️' : 'شراء وتطبيق 🛒'}
+                </button>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function buyOrEquipFrame(frameId){
+        if(userData.equippedFrame === frameId){
+            return alert('⚠️ هذا الإطار مفعل بحسابك حالياً!');
+        }
+
+        let price = 1000;
+        if((userData.points || 0) < price){
+            return alert(`❌ نقاطك غير كافية! سعر الإطار هو ${price.toLocaleString()} نقطة.`);
+        }
+
+        userData.points = (userData.points || 0) - price;
+        userData.equippedFrame = frameId;
+        addInteractionScore(15);
+
+        saveToDB().then(()=>{
+            updateUI();
+            renderAvatarFrameShopItems();
+            alert('🎉 مبروك! تم شراء الإطار وتطبيقه على صورتك الشخصية بالمللي بنجاح!');
+        });
+    }
+
+    function removeCurrentFrame(){
+        if(!userData.equippedFrame){
+            return alert('⚠️ لا يوجد إطار مفعل حالياً إزالته!');
+        }
+        userData.equippedFrame = '';
+        saveToDB().then(()=>{
+            updateUI();
+            renderAvatarFrameShopItems();
+            alert('🗑️ تم إزالة الإطار من صورتك الشخصية بنجاح.');
+        });
+    }
+
+    function getFrameSvgById(frameId){
+        if(!frameId) return '';
+        let found = AVATAR_FRAMES_LIST.find(f => f.id === frameId);
+        return found ? found.svg : '';
+    }
+
+    function applyAvatarFramesUI(){
+        let frameSvg = getFrameSvgById(userData.equippedFrame);
+        let headerFrameArea = document.getElementById('headerAvatarFrameArea');
+        if(headerFrameArea) headerFrameArea.innerHTML = frameSvg;
+
+        let profileFrameArea = document.getElementById('profileAvatarFrameArea');
+        if(profileFrameArea) profileFrameArea.innerHTML = frameSvg;
     }
 
     function initDailyQuizSession() {
@@ -1258,7 +1456,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',equippedFrame:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1308,6 +1506,8 @@
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         
+        applyAvatarFramesUI();
+
         let clickDisplay = document.getElementById('clickLiveCounterDisplay');
         if(clickDisplay){
             let curr = userData.userClicksCount || 0;
@@ -1589,18 +1789,30 @@
     }
     function switchLeaderboardTab(tab){
         document.getElementById('lbTab1').className="shop-tab-btn "+(tab==='gifts'?"active-gold":"");
-        document.getElementById('lbTab2').className="shop-tab-btn "+(tab==='games'?"active-gold":"");
+        document.getElementById('lbTab2').className="shop-tab-btn "+(tab==='clicking'?"active-gold":"");
         document.getElementById('lbTab3').className="shop-tab-btn "+(tab==='wheel'?"active-gold":"");
         document.getElementById('lbContentGifts').style.display=tab==='gifts'?'block':'none';
-        document.getElementById('lbContentGames').style.display=tab==='games'?'block':'none';
+        document.getElementById('lbContentClicking').style.display=tab==='clicking'?'block':'none';
         document.getElementById('lbContentWheel').style.display=tab==='wheel'?'block':'none';
     }
     function loadLeaderboardData(){
         rtdb.ref('users').once('value').then(snap=>{
             if(!snap.exists())return;let users=[];
-            snap.forEach(u=>{let d=u.val();users.push({key:u.key,name:d.name||'مستخدم',customId:d.customId||'---',avatar:d.avatar||'',gifts:d.weeklyGiftsSent||0,wheel:d.weeklyWheelPoints||0,wins:d.gameWins||0});});
+            snap.forEach(u=>{
+                let d=u.val();
+                users.push({
+                    key:u.key,
+                    name:d.name||'مستخدم',
+                    customId:d.customId||'---',
+                    avatar:d.avatar||'',
+                    equippedFrame:d.equippedFrame||'',
+                    gifts:d.weeklyGiftsSent||0,
+                    clicking:d.userClicksCount||0,
+                    wheel:d.weeklyWheelPoints||0
+                });
+            });
             renderLeaderboardList('leaderboardGiftsList',[...users].sort((a,b)=>b.gifts-a.gifts).slice(0,10),'gifts','نقطة مصروفة');
-            renderLeaderboardList('leaderboardGamesList',[...users].sort((a,b)=>b.wins-a.wins).slice(0,10),'wins','انتصار بالجيم');
+            renderLeaderboardList('leaderboardClickingList',[...users].sort((a,b)=>b.clicking-a.clicking).slice(0,10),'clicking','تكبيسة');
             renderLeaderboardList('leaderboardWheelList',[...users].sort((a,b)=>b.wheel-a.wheel).slice(0,10),'wheel','نقطة مربوحة');
         });
     }
@@ -1609,13 +1821,17 @@
         if(list.length===0||list[0][key]===0){c.innerHTML="<div style='text-align:center;padding:15px;color:#94a3b8'>لا توجد بيانات مسجلة.</div>";return;}
         let html='';list.forEach((it,i)=>{
             let r=i+1,cr=r===1?'👑 ':(r===2?'🥈 ':(r===3?'🥉 ':''));
+            let fSvg = getFrameSvgById(it.equippedFrame);
             html+=`<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,0.05)">
                 <div style="display:flex;align-items:center;gap:8px">
                     <span style="font-weight:900;font-size:12px;color:#c084fc;width:22px;text-align:center">#${r}</span>
-                    <img src="${it.avatar||'https://via.placeholder.com/38'}" style="width:38px;height:38px;border-radius:50%;object-fit:cover" alt="صورة">
+                    <div class="avatar-ring-wrapper" style="width:38px;height:38px">
+                        <img src="${it.avatar||'https://via.placeholder.com/38'}" class="user-avatar-img" style="border-radius:50%;object-fit:cover" alt="صورة">
+                        <div class="avatar-ring-overlay">${fSvg}</div>
+                    </div>
                     <div><b style="color:#fff;font-size:12px;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${it.key}')">${cr}${it.name}</b><div style="font-size:10px;color:#94a3b8">ID: ${it.customId}</div></div>
                 </div>
-                <div style="text-align:left"><span style="color:#34d399;font-weight:bold;font-size:12px">${it[key]}</span><div style="font-size:9px;color:#94a3b8">${unit}</div></div>
+                <div style="text-align:left"><span style="color:#34d399;font-weight:bold;font-size:12px">${it[key].toLocaleString()}</span><div style="font-size:9px;color:#94a3b8">${unit}</div></div>
             </div>`;
         });
         c.innerHTML=html;
@@ -1629,13 +1845,26 @@
     function executeAutomatedWeeklyRewards(){
         rtdb.ref('users').once('value').then(snap=>{
             if(!snap.exists())return;let users=[];snap.forEach(u=>{users.push({key:u.key,...u.val()});});
-            [{key:'weeklyGiftsSent',name:'الهدايا'},{key:'weeklyWheelPoints',name:'العجلة'}].forEach(cat=>{
+            
+            // الفئات الثلاثة: الهدايا، التكبيس، العجلة
+            [{key:'weeklyGiftsSent',name:'الشحن والهدايا'},{key:'userClicksCount',name:'ملوك التكبيس'},{key:'weeklyWheelPoints',name:'رابحي العجلة'}].forEach(cat=>{
                 let s=[...users].sort((a,b)=>(b[cat.key]||0)-(a[cat.key]||0));
-                if(s[0]&&s[0][cat.key]>0){rtdb.ref(`users/${s[0].key}`).update({gems:(s[0].gems||0)+1000});rtdb.ref(`notifications/${s[0].key}`).push({text:`🎉 المركز الأول في (${cat.name})! جائزة 1000 جوهرة`,timestamp:Date.now()});}
-                if(s[1]&&s[1][cat.key]>0){rtdb.ref(`users/${s[1].key}`).update({gems:(s[1].gems||0)+500});rtdb.ref(`notifications/${s[1].key}`).push({text:`🎉 المركز الثاني في (${cat.name})! جائزة 500 جوهرة`,timestamp:Date.now()});}
-                if(s[2]&&s[2][cat.key]>0){rtdb.ref(`users/${s[2].key}`).update({gems:(s[2].gems||0)+250});rtdb.ref(`notifications/${s[2].key}`).push({text:`🎉 المركز الثالث في (${cat.name})! جائزة 250 جوهرة`,timestamp:Date.now()});}
+                
+                // المركز الأول: 600 جوهرة
+                if(s[0]&&s[0][cat.key]>0){rtdb.ref(`users/${s[0].key}`).update({gems:(s[0].gems||0)+600});rtdb.ref(`notifications/${s[0].key}`).push({text:`🎉 مبروك! المركز الأول في (${cat.name})! فزت بـ 600 جوهرة 💎`,timestamp:Date.now()});}
+                // المركز الثاني: 300 جوهرة
+                if(s[1]&&s[1][cat.key]>0){rtdb.ref(`users/${s[1].key}`).update({gems:(s[1].gems||0)+300});rtdb.ref(`notifications/${s[1].key}`).push({text:`🎉 مبروك! المركز الثاني في (${cat.name})! فزت بـ 300 جوهرة 💎`,timestamp:Date.now()});}
+                // المركز الثالث: 150 جوهرة
+                if(s[2]&&s[2][cat.key]>0){rtdb.ref(`users/${s[2].key}`).update({gems:(s[2].gems||0)+150});rtdb.ref(`notifications/${s[2].key}`).push({text:`🎉 مبروك! المركز الثالث في (${cat.name})! فزت بـ 150 جوهرة 💎`,timestamp:Date.now()});}
             });
-            let up={};users.forEach(u=>{up[`users/${u.key}/weeklyGiftsSent`]=0;up[`users/${u.key}/weeklyWheelPoints`]=0;});
+            
+            // تصفير التصنيفات الأسبوعية
+            let up={};
+            users.forEach(u=>{
+                up[`users/${u.key}/weeklyGiftsSent`]=0;
+                up[`users/${u.key}/userClicksCount`]=0;
+                up[`users/${u.key}/weeklyWheelPoints`]=0;
+            });
             rtdb.ref().update(up);
         });
     }
@@ -1753,6 +1982,10 @@
             document.getElementById('visitedUserCustomId').innerText=`ID: ${u.customId||'---'}`;
             document.getElementById('visitedUserAvatar').src=u.avatar?u.avatar:'https://via.placeholder.com/85';
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
+
+            let vFrameSvg = getFrameSvgById(u.equippedFrame);
+            let visitedFrameArea = document.getElementById('visitedAvatarFrameArea');
+            if(visitedFrameArea) visitedFrameArea.innerHTML = vFrameSvg;
 
             let vPts = u.points || 0;
             let vLvl = "مبتدئ 🌟";
