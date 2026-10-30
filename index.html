@@ -151,7 +151,6 @@
         .grid-btn-item .icon-circle{font-size:20px}
         .grid-btn-item .mini-arrow{position:absolute;bottom:4px;font-size:9px;color:#94a3b8}
 
-        /* أنيميشن التكبيس */
         @keyframes clickPulse {
             0% { transform: scale(1); }
             50% { transform: scale(0.96); }
@@ -270,7 +269,6 @@
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ستايل صفحة كنز لاونج الأسبوعي */
         .treasure-box-card { background: rgba(15,23,42,0.9); border: 1.5px solid rgba(234,179,8,0.5); border-radius: 14px; padding: 10px; margin-bottom: 8px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -377,7 +375,6 @@
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
             
-            <!-- زر "كبس وأربح" التفاعلي -->
             <div id="clickAndWinMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(147,51,234,0.4), rgba(10,185,129,0.3)); border: 1.5px solid #c084fc; position:relative; overflow:hidden;" onclick="handleUserClickAndWin()">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">👇⚡</div>
@@ -389,7 +386,6 @@
                 <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
             </div>
 
-            <!-- زر " كنز لاونج الأسبوعي 🎁 " -->
             <div id="treasureLoungeMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(234,179,8,0.35), rgba(147,51,234,0.35)); border: 1.5px solid #eab308; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('treasureScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">🎁👑</div>
@@ -536,7 +532,7 @@
         </div>
     </div>
 
-    <!-- شاشة الملف الشخصي (مُتضمنة حقل توثيق الحساب وإزالة المتابعين) -->
+    <!-- شاشة الملف الشخصي (مُتضمنة إخفاء حقل التوثيق وإظهار الرقم الموثق مع الشارة الملكية بجانبه) -->
     <div id="profileScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#c084fc;font-size:15px">👤 الملف الشخصي</h3>
@@ -550,14 +546,9 @@
                 <div id="profileBadgeDisplay" style="margin-top:4px"></div>
             </div>
             
-            <!-- حقل طلب توثيق الحساب بالرقم -->
-            <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:8px;margin-bottom:8px;text-align:right">
-                <div style="font-size:11px;color:#c084fc;font-weight:bold;margin-bottom:4px">🛡️ طلب توثيق الحساب بالعلامة الزرقاء:</div>
-                <div style="display:flex;gap:4px">
-                    <input type="text" id="verificationPhoneInput" class="input-box" placeholder="أدخل رقم الهاتف للتوثيق" style="margin:0;flex:1;padding:7px;font-size:11px">
-                    <button class="action-btn btn-purple" style="width:40px;height:34px;padding:0;font-size:14px" onclick="submitVerificationRequest()" title="إرسال طلب التوثيق">✔️</button>
-                </div>
-                <div id="verificationStatusDisplay" style="font-size:10px;color:#38bdf8;margin-top:4px"></div>
+            <!-- قسم إدارة التوثيق (يختفي حقل الطلب عند التوثيق ويظهر الرقم الموثق مع الشارة بجانبه) -->
+            <div id="verificationSectionContainer" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:8px;margin-bottom:8px;text-align:right">
+                <div id="verificationStatusDisplay" style="font-size:11px;color:#38bdf8">جاري التحميل...</div>
             </div>
 
             <input type="text" id="profileNameInput" class="input-box" placeholder="تعديل الاسم" style="margin-top:4px;margin-bottom:6px">
@@ -700,7 +691,7 @@
     </div>
 </div>
 
-<!-- لوحة تحكم الإدارة (مُصغرة الأزرار بنسبة 50% + قسم طلبات التوثيق المعلقة بالرقم) -->
+<!-- لوحة تحكم الإدارة -->
 <div id="adminPanelModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px;padding:8px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
@@ -708,7 +699,7 @@
             <button style="background:none;border:none;color:#ef4444;font-size:15px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
         </div>
         
-        <!-- قسم طلبات التوثيق المعلقة الجديد -->
+        <!-- قسم طلبات التوثيق المعلقة -->
         <div style="background:rgba(168,85,247,0.15);border:1px solid #a855f7;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">🪪 طلبات التوثيق المعلقة (بالرقم)</h4>
             <div id="adminVerificationRequestsList" style="max-height:90px;overflow-y:auto;font-size:9px">جاري التحميل...</div>
@@ -732,7 +723,7 @@
             </div>
         </div>
 
-        <!-- ميزة تجميد/إيقاف الحسابات المؤقتة -->
+        <!-- تجميد الحساب -->
         <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#ef4444;font-size:10px">🚫 تجميد الحساب</h4>
             <input type="text" id="adminFreezeTargetId" class="input-box" placeholder="ID المستخدم" style="margin-bottom:4px;padding:4px;font-size:10px">
@@ -767,7 +758,7 @@
     </div>
 </div>
 
-<!-- مودال استعراض طلبات الوكلاء والمستمسكات الأربعة -->
+<!-- مودال طلبات الوكلاء -->
 <div id="adminAgentAppsModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -788,7 +779,7 @@
     </div>
 </div>
 
-<!-- مودال الملف الشخصي للزائر (تمت إزالة عداد المتابعين منه أيضاً) -->
+<!-- مودال الملف الشخصي للزائر -->
 <div id="userProfileModal" class="modal">
     <div class="modal-content" style="text-align:center">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -835,7 +826,7 @@
     </div>
 </div>
 
-<!-- مودال تعديل الصناديق السريع للإدارة من داخل زر كنز لاونج الأسبوعي حصراً -->
+<!-- مودال تعديل الصناديق السريع للإدارة -->
 <div id="adminTreasureEditModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -1451,7 +1442,7 @@
         updateVerificationStatusUI();
     }
 
-    /* --- وظائف نظام توثيق الحساب بالرقم (شعار التوثيق البنفسجي المسنن) --- */
+    /* --- التعديل الذكي المطلوب: إخفاء حقل الطلب عند التوثيق وإظهار الرقم الموثق مع الشارة بجانبه مباشرة --- */
     function submitVerificationRequest(){
         let phone = document.getElementById('verificationPhoneInput').value.trim();
         if(!phone) return alert("⚠️ يرجى إدخال رقم الهاتف أولاً للتوثيق!");
@@ -1475,17 +1466,24 @@
 
     function updateVerificationStatusUI(){
         let statusDisp = document.getElementById('verificationStatusDisplay');
-        let phoneInput = document.getElementById('verificationPhoneInput');
         if(!statusDisp) return;
         
         if(userData.isVerified){
-            statusDisp.innerHTML = `<span style="color:#22c55e;font-weight:bold">✔ حسابك موثق رسمياً بالشارة الزرقاء/البنفسجية 🛡️</span>`;
-            if(phoneInput && userData.verificationPhone) phoneInput.value = userData.verificationPhone;
+            let verifiedBadge = `<span class="verified-badge-icon" title="موثق">✔</span>`;
+            statusDisp.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 2px;">
+                <span style="color:#22c55e;font-weight:bold;font-size:11px;">رقم الهاتف الموثق: ${userData.verificationPhone || '---'}</span>
+                <span>${verifiedBadge} <b style="color:#c084fc;font-size:10px;">موثق رسمياً</b></span>
+            </div>`;
         } else if(userData.verificationStatus === 'pending'){
-            statusDisp.innerHTML = `<span style="color:#eab308;font-weight:bold">⏳ طلب التوثيق قيد المراجعة من الإدارة...</span>`;
-            if(phoneInput && userData.verificationPhone) phoneInput.value = userData.verificationPhone;
+            statusDisp.innerHTML = `<span style="color:#eab308;font-weight:bold">⏳ طلب التوثيق بالرقم (${userData.verificationPhone || ''}) قيد المراجعة من الإدارة...</span>`;
         } else {
-            statusDisp.innerHTML = `أدخل رقم هاتفك واضغط ✔️ لإرسال الطلب للإدارة.`;
+            statusDisp.innerHTML = `
+                <div style="font-size:11px;color:#c084fc;font-weight:bold;margin-bottom:4px">🛡️ طلب توثيق الحساب بالعلامة الزرقاء:</div>
+                <div style="display:flex;gap:4px">
+                    <input type="text" id="verificationPhoneInput" class="input-box" placeholder="أدخل رقم الهاتف للتوثيق" style="margin:0;flex:1;padding:7px;font-size:11px">
+                    <button class="action-btn btn-purple" style="width:40px;height:34px;padding:0;font-size:14px" onclick="submitVerificationRequest()" title="إرسال طلب التوثيق">✔️</button>
+                </div>
+            `;
         }
     }
 
@@ -1500,7 +1498,7 @@
                 h += `<div style="background:rgba(255,255,255,0.03);padding:4px;border-radius:4px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center">
                     <div><b>${d.userName}</b> (ID: ${d.userId})<br>الرقم: <span style="color:#38bdf8">${d.phone}</span></div>
                     <div style="display:flex;gap:2px">
-                        <button onclick="adminApproveVerification('${d.userKey}','${req.key}')" style="background:#10b981;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:8px">موافقة ✔️</button>
+                        <button onclick="adminApproveVerification('${d.userKey}','${req.key}','${d.phone}')" style="background:#10b981;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:8px">موافقة ✔️</button>
                         <button onclick="adminRejectVerification('${d.userKey}','${req.key}')" style="background:#ef4444;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:8px">رفض ✖</button>
                     </div>
                 </div>`;
@@ -1509,17 +1507,18 @@
         });
     }
 
-    function adminApproveVerification(targetKey, reqKey){
+    function adminApproveVerification(targetKey, reqKey, phone){
         rtdb.ref(`users/${targetKey}`).update({
             isVerified: true,
-            verificationStatus: 'approved'
+            verificationStatus: 'approved',
+            verificationPhone: phone
         }).then(()=>{
             rtdb.ref(`notifications/${targetKey}`).push({
-                text: `🎉 مبروك! وافقت الإدارة على طلب توثيق حسابك وتم تفعيل الشارة البنفسجية الملكية بجانب اسمك! 🛡️`,
+                text: `🎉 مبروك! وافقت الإدارة على طلب توثيق حسابك بالرقم وتم تفعيل الشارة البنفسجية الملكية بجانب اسمك! 🛡️`,
                 timestamp: Date.now()
             });
             rtdb.ref(`verification_requests/${reqKey}`).remove();
-            alert("✅ تم توثيق الحساب ومنح الشارة الزرقاء/البنفسجية بنجاح!");
+            alert("✅ تم توثيق الحساب ومنح الشارة البنفسجية بنجاح وتثبيت الرقم في ملفه!");
         });
     }
 
@@ -2634,7 +2633,7 @@
             let h=`<div style="padding:8px;background:rgba(192,132,252,0.15);border:1px solid #c084fc;border-radius:6px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="selectTargetAndCloseModal('all','الكل (عام)')"><span style="color:#c084fc;font-weight:bold">🌍 إرسال للجميع في الغرفة (Broadcast)</span><span style="font-size:10px;color:#38bdf8">تحديد</span></div>`;
             snap.forEach(occ=>{
                 let uk=occ.key,ud=occ.val();if(uk!==currentUserKey){
-                    h+=`<div style="padding:6px 8px;background:rgba(255,255,255,0.03);border-radius:6px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="selectTargetAndCloseModal('${uk}','${ud.name.replace(/'/g,"\\'")}')"><span style="color:#fff;font-weight:bold">🟢 ${ud.name}</span><span style="font-size:10px;color:#38bdf8">تحديد</span></div>`;
+                    h+=`<div style="padding:6px 8px;background:rgba(255,255,255,0.03);border-radius:6px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="selectTargetAndCloseModal('${uk}','${ud.name.replace(/'/g,"\\'")}','')"><span style="color:#fff;font-weight:bold">🟢 ${ud.name}</span><span style="font-size:10px;color:#38bdf8">تحديد</span></div>`;
                 }
             });
             c.innerHTML=h;document.getElementById('targetSelectorModal').style.display='flex';
