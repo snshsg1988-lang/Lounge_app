@@ -51,7 +51,7 @@
             100% { transform: translate3d(100%, 0, 0); }
         }
 
-        /* شارات المستويات والأوسمة */
+        /* شارات المستويات والأوسمة وشعار التوثيق البنفسجي المسنن */
         .badge-tag {
             display: inline-flex;
             align-items: center;
@@ -71,6 +71,23 @@
         .badge-tag.level {
             background: linear-gradient(135deg, #0ea5e9, #0284c7);
             color: #fff;
+        }
+
+        /* شارة التوثيق البنفسجية المسننة تماماً كالصورة */
+        .verified-badge-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            background: #a855f7;
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            clip-path: polygon(50% 0%, 65% 15%, 85% 10%, 90% 30%, 105% 45%, 90% 60%, 85% 80%, 65% 85%, 50% 100%, 35% 85%, 15% 80%, 10% 60%, -5% 45%, 10% 30%, 15% 10%, 35% 15%);
+            box-shadow: 0 0 6px rgba(168,85,247,0.8);
+            margin-right: 4px;
+            vertical-align: middle;
         }
 
         @keyframes darkHorrorWave {
@@ -253,7 +270,7 @@
         @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ستايل صفحة كنز لاونج الأسبوعي (تصغير الحجم قليلاً وبشكل متناسق) */
+        /* ستايل صفحة كنز لاونج الأسبوعي */
         .treasure-box-card { background: rgba(15,23,42,0.9); border: 1.5px solid rgba(234,179,8,0.5); border-radius: 14px; padding: 10px; margin-bottom: 8px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -354,7 +371,7 @@
             </div>
         </div>
 
-        <!-- شبكة الأزرار الرئيسية + زر "كبس وأربح" + زر "كنز لاونج الأسبوعي" أسفله مباشرة -->
+        <!-- شبكة الأزرار الرئيسية -->
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
@@ -372,7 +389,7 @@
                 <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
             </div>
 
-            <!-- زر " كنز لاونج الأسبوعي 🎁 " المضاف تحت زر التكبيس مباشرة -->
+            <!-- زر " كنز لاونج الأسبوعي 🎁 " -->
             <div id="treasureLoungeMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(234,179,8,0.35), rgba(147,51,234,0.35)); border: 1.5px solid #eab308; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('treasureScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">🎁👑</div>
@@ -394,7 +411,7 @@
         </div>
     </div>
 
-    <!-- شاشة كنز لاونج الأسبوعي (3 صناديق حظ مفاجأة - تظهر "فتح الصندوق" للمستخدم و "تعديل الصندوق" لحساب الإدارة) -->
+    <!-- شاشة كنز لاونج الأسبوعي -->
     <div id="treasureScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#eab308;font-size:15px">🎁 كنز لاونج الأسبوعي</h3>
@@ -404,8 +421,6 @@
             <h4 style="margin:0 0 4px 0;color:#eab308;font-size:13px">✨ صناديق الحظ والمفاجآت الأسبوعية</h4>
             <p style="font-size:11px;color:#cbd5e1;margin:0">اختر صندوقك المفضل وافتحه لتربح جوائز ومفاجآت ضخمة! (تتجدد العروض كل يوم ثلاثاء).</p>
         </div>
-        
-        <!-- حاوية الصناديق الثلاثة (يتم جلبها ديناميكياً مع تخصيص زر الإدارة والعميل) -->
         <div id="treasureBoxesContainer">
             <div style="text-align:center;color:#cbd5e1;font-size:12px;padding:20px">جاري تحميل الصناديق...</div>
         </div>
@@ -521,6 +536,7 @@
         </div>
     </div>
 
+    <!-- شاشة الملف الشخصي (مُتضمنة حقل توثيق الحساب وإزالة المتابعين) -->
     <div id="profileScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#c084fc;font-size:15px">👤 الملف الشخصي</h3>
@@ -531,9 +547,19 @@
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
             <div style="margin-top:2px;margin-bottom:6px">
                 <span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span>
-                <div style="font-size:12px;color:#38bdf8;font-weight:bold;margin-top:2px;" id="profileFollowersCountDisplay">👥 المتابعون: 0</div>
                 <div id="profileBadgeDisplay" style="margin-top:4px"></div>
             </div>
+            
+            <!-- حقل طلب توثيق الحساب بالرقم -->
+            <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:8px;margin-bottom:8px;text-align:right">
+                <div style="font-size:11px;color:#c084fc;font-weight:bold;margin-bottom:4px">🛡️ طلب توثيق الحساب بالعلامة الزرقاء:</div>
+                <div style="display:flex;gap:4px">
+                    <input type="text" id="verificationPhoneInput" class="input-box" placeholder="أدخل رقم الهاتف للتوثيق" style="margin:0;flex:1;padding:7px;font-size:11px">
+                    <button class="action-btn btn-purple" style="width:40px;height:34px;padding:0;font-size:14px" onclick="submitVerificationRequest()" title="إرسال طلب التوثيق">✔️</button>
+                </div>
+                <div id="verificationStatusDisplay" style="font-size:10px;color:#38bdf8;margin-top:4px"></div>
+            </div>
+
             <input type="text" id="profileNameInput" class="input-box" placeholder="تعديل الاسم" style="margin-top:4px;margin-bottom:6px">
             <input type="text" id="profileBioInput" class="input-box" placeholder="اكتب البايو الخاص بك (60 حرف كحد أقصى)" maxlength="60" oninput="validateBioLength(this)" style="margin-top:2px;margin-bottom:6px;font-size:11px">
             <div id="bioCounter" style="font-size:9px;color:#94a3b8;text-align:left;margin-bottom:6px">0 / 60</div>
@@ -639,7 +665,7 @@
     </div>
 </div>
 
-<!-- مودال تقديم الوكالة (4 حقول مستمسكات) -->
+<!-- مودال تقديم الوكالة -->
 <div id="agentApplyModal" class="modal">
     <div class="modal-content" style="text-align:right">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -674,64 +700,70 @@
     </div>
 </div>
 
-<!-- لوحة الإدارة (تم إزالة قسم تعديل الصناديق منها تماماً كما طلبت) -->
+<!-- لوحة تحكم الإدارة (مُصغرة الأزرار بنسبة 50% + قسم طلبات التوثيق المعلقة بالرقم) -->
 <div id="adminPanelModal" class="modal">
-    <div class="modal-content" style="text-align:right;max-width:390px;padding:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-            <h4 style="margin:0;color:#ef4444;font-size:13px">👑 لوحة تحكم الإدارة</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
+    <div class="modal-content" style="text-align:right;max-width:390px;padding:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <h4 style="margin:0;color:#ef4444;font-size:12px">👑 لوحة تحكم الإدارة (مدمجة)</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:15px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
         </div>
         
+        <!-- قسم طلبات التوثيق المعلقة الجديد -->
+        <div style="background:rgba(168,85,247,0.15);border:1px solid #a855f7;padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">🪪 طلبات التوثيق المعلقة (بالرقم)</h4>
+            <div id="adminVerificationRequestsList" style="max-height:90px;overflow-y:auto;font-size:9px">جاري التحميل...</div>
+        </div>
+
         <!-- إعلان -->
-        <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">📢 شريط الإعلانات</h4>
-            <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان الجديد..." style="margin-bottom:4px;padding:6px;font-size:11px">
-            <button class="action-btn btn-purple" style="padding:4px;font-size:10px" onclick="adminUpdateTicker()">نشر 🚀</button>
+        <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">📢 شريط الإعلانات</h4>
+            <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان..." style="margin-bottom:2px;padding:4px;font-size:10px">
+            <button class="action-btn btn-purple" style="padding:3px;font-size:9px" onclick="adminUpdateTicker()">نشر 🚀</button>
         </div>
 
         <!-- شحن النقاط أو حقيبة الوكيل -->
-        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#eab308;font-size:11px">⚡ شحن النقاط أو حقيبة الوكيل مباشرة</h4>
-            <input type="text" id="adminDualTargetId" class="input-box" placeholder="أدخل ID المستخدم أو الوكيل (أرقام فقط)" style="margin-bottom:4px;padding:6px;font-size:11px">
-            <input type="number" id="adminDualPointsAmount" class="input-box" placeholder="عدد النقاط" style="margin-bottom:6px;padding:6px;font-size:11px">
-            <div style="display:flex;gap:6px">
-                <button class="action-btn" style="flex:1;padding:6px;font-size:10px;background:#0ea5e9;color:#fff" onclick="adminDualChargeAgentBag()">شحن حقيبة الوكيل 🎒</button>
-                <button class="action-btn" style="flex:1;padding:6px;font-size:10px;background:#f59e0b;color:#000" onclick="adminDualChargeDirectPoints()">شحن النقاط 🪙</button>
+        <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#eab308;font-size:10px">⚡ شحن النقاط أو حقيبة الوكيل</h4>
+            <input type="text" id="adminDualTargetId" class="input-box" placeholder="ID المستخدم أو الوكيل" style="margin-bottom:2px;padding:4px;font-size:10px">
+            <input type="number" id="adminDualPointsAmount" class="input-box" placeholder="عدد النقاط" style="margin-bottom:4px;padding:4px;font-size:10px">
+            <div style="display:flex;gap:4px">
+                <button class="action-btn" style="flex:1;padding:4px;font-size:9px;background:#0ea5e9;color:#fff" onclick="adminDualChargeAgentBag()">شحن الحقيبة 🎒</button>
+                <button class="action-btn" style="flex:1;padding:4px;font-size:9px;background:#f59e0b;color:#000" onclick="adminDualChargeDirectPoints()">شحن النقاط 🪙</button>
             </div>
         </div>
 
         <!-- ميزة تجميد/إيقاف الحسابات المؤقتة -->
-        <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#ef4444;font-size:11px">🚫 إيقاف / تجميد الحساب مؤقتاً</h4>
-            <input type="text" id="adminFreezeTargetId" class="input-box" placeholder="أدخل ID المستخدم المراد إيقافه" style="margin-bottom:6px;padding:6px;font-size:11px">
-            <button class="action-btn" style="padding:6px;font-size:10px;background:#ef4444;color:#fff" onclick="adminToggleFreezeUser()">تجميد / إلغاء تجميد الحساب ⚠️</button>
+        <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#ef4444;font-size:10px">🚫 تجميد الحساب</h4>
+            <input type="text" id="adminFreezeTargetId" class="input-box" placeholder="ID المستخدم" style="margin-bottom:4px;padding:4px;font-size:10px">
+            <button class="action-btn" style="padding:4px;font-size:9px;background:#ef4444;color:#fff" onclick="adminToggleFreezeUser()">تجميد / إلغاء تجميد ⚠️</button>
         </div>
 
         <!-- إعدادات وقفل -->
-        <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#c084fc;font-size:11px">⚙️ أزرار الطوارئ والإدارة</h4>
-            <div style="display:flex;gap:4px;margin-bottom:4px">
-                <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleWithdrawFeature()">🔒 سحب الأرباح</button>
-                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="flex:1;padding:5px;font-size:9px" onclick="adminToggleDailyCounterFeature()">⏳ العداد اليومي / التكبيس</button>
+        <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">⚙️ أزرار الطوارئ والإدارة</h4>
+            <div style="display:flex;gap:3px;margin-bottom:3px">
+                <button id="adminToggleWithdrawBtn" class="action-btn btn-purple" style="flex:1;padding:4px;font-size:8px" onclick="adminToggleWithdrawFeature()">🔒 سحب الأرباح</button>
+                <button id="adminToggleDailyCounterBtn" class="action-btn btn-blue" style="flex:1;padding:4px;font-size:8px" onclick="adminToggleDailyCounterFeature()">⏳ العداد اليومي</button>
             </div>
-            <div style="display:flex;gap:4px">
-                <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="flex:1;padding:5px;font-size:9px">📥 العدادات</button>
-                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="flex:1;padding:5px;font-size:9px">📝 الوكلاء</button>
+            <div style="display:flex;gap:3px">
+                <button onclick="openAdminCounterOrders()" class="action-btn btn-gold" style="flex:1;padding:4px;font-size:8px">📥 العدادات</button>
+                <button onclick="openAdminAgentApplications()" class="action-btn btn-green" style="flex:1;padding:4px;font-size:8px">📝 الوكلاء</button>
             </div>
         </div>
         
         <!-- فحص المستخدم -->
-        <div style="background:rgba(10,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:6px;border-radius:8px;margin-bottom:6px">
-            <h4 style="margin:0 0 3px 0;color:#10b981;font-size:11px">🔍 فحص ملف المستخدم</h4>
-            <div style="display:flex;gap:4px">
-                <input type="text" id="adminInspectIdInput" class="input-box" placeholder="ID المستخدم" style="margin:0;padding:5px;font-size:10px;flex:1">
-                <button class="action-btn btn-green" style="width:auto;padding:5px 8px;font-size:10px" onclick="adminInspectUser()">فحص 🔎</button>
+        <div style="background:rgba(10,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:5px;border-radius:6px;margin-bottom:5px">
+            <h4 style="margin:0 0 2px 0;color:#10b981;font-size:10px">🔍 فحص ملف المستخدم</h4>
+            <div style="display:flex;gap:3px">
+                <input type="text" id="adminInspectIdInput" class="input-box" placeholder="ID المستخدم" style="margin:0;padding:4px;font-size:9px;flex:1">
+                <button class="action-btn btn-green" style="width:auto;padding:4px 6px;font-size:9px" onclick="adminInspectUser()">فحص 🔎</button>
             </div>
-            <div id="adminInspectResult" style="font-size:10px;color:#cbd5e1;margin-top:4px;background:rgba(0,0,0,0.3);padding:4px;border-radius:4px;display:none;"></div>
+            <div id="adminInspectResult" style="font-size:9px;color:#cbd5e1;margin-top:3px;background:rgba(0,0,0,0.3);padding:3px;border-radius:3px;display:none;"></div>
         </div>
 
-        <div style="font-size:11px;color:#c084fc;margin-bottom:4px"><b>طلبات السحب المعلقة:</b></div>
-        <div id="adminWithdrawalsArea" class="admin-tab-content" style="max-height:120px;overflow-y:auto;font-size:10px">جاري التحميل...</div>
+        <div style="font-size:10px;color:#c084fc;margin-bottom:2px"><b>طلبات السحب المعلقة:</b></div>
+        <div id="adminWithdrawalsArea" class="admin-tab-content" style="max-height:90px;overflow-y:auto;font-size:9px">جاري التحميل...</div>
     </div>
 </div>
 
@@ -756,6 +788,7 @@
     </div>
 </div>
 
+<!-- مودال الملف الشخصي للزائر (تمت إزالة عداد المتابعين منه أيضاً) -->
 <div id="userProfileModal" class="modal">
     <div class="modal-content" style="text-align:center">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -764,7 +797,6 @@
         </div>
         <div class="large-avatar-container" style="margin:0 auto 4px auto"><img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم"></div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:2px">ID: ---</span>
-        <div style="font-size:12px;color:#38bdf8;font-weight:bold;margin-bottom:4px;" id="visitedUserFollowersDisplay">👥 المتابعون: 0</div>
         <div id="visitedUserBadgeArea" style="margin-bottom:6px"></div>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
         <h3 id="visitedUserName" style="margin:0 0 2px 0;color:#fff;font-size:15px">اسم المستخدم</h3>
@@ -942,7 +974,7 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
@@ -1076,7 +1108,6 @@
         }, 800);
     }
 
-    /* --- دالة التكبيس والربح الحصرية ("كبس وأربح") مع حفظ التقدم التلقائي وقفل الأمان --- */
     function handleUserClickAndWin(){
         if(globalAppSettings.dailyCounterLocked && currentUserKey !== 'msaftwtn_gmail_com'){
             return alert('⚠️ عذراً، نظام التكبيس متوقف حالياً بأمر من الإدارة لمراجعة الأمن والعداد اليومي.');
@@ -1276,7 +1307,11 @@
         if(screenId==='quizScreen') initDailyQuizSession();
         if(screenId==='friendsScreen')loadFriendSystem();
         if(screenId==='agentsScreen')loadApprovedAgentsList();
-        if(screenId==='profileScreen'){loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`; loadUserFollowersCount(currentUserKey, 'profileFollowersCountDisplay');}
+        if(screenId==='profileScreen'){
+            loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');
+            let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`;
+            updateVerificationStatusUI();
+        }
         if(screenId==='leaderboardScreen')loadLeaderboardData();
         if(screenId==='treasureScreen')loadTreasureBoxesList();
     }
@@ -1322,7 +1357,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1363,8 +1398,11 @@
         document.getElementById('userGems').innerText=userData.gems||0;
         document.getElementById('displayUserId').innerText=`ID: ${userData.customId||'---'}`;
         let pId=document.getElementById('displayUserIdProfile');if(pId)pId.innerText=`ID: ${userData.customId||'---'}`;
-        document.getElementById('headerUserName').innerText=userData.name||'المستخدم';
+        
+        let verifiedIconHtml = userData.isVerified ? `<span class="verified-badge-icon" title="حساب موثق">✔</span>` : '';
+        document.getElementById('headerUserName').innerHTML=`${userData.name||'المستخدم'} ${verifiedIconHtml}`;
         document.getElementById('profileNameInput').value=userData.name||'';
+        
         let bioInput=document.getElementById('profileBioInput');
         if(bioInput){bioInput.value=userData.bio||'';document.getElementById('bioCounter').innerText=`${bioInput.value.length} / 60`;}
         let av=userData.avatar?userData.avatar:'https://via.placeholder.com/45';
@@ -1410,7 +1448,94 @@
                 adminBtn.style.display='none';
             }
         }
+        updateVerificationStatusUI();
     }
+
+    /* --- وظائف نظام توثيق الحساب بالرقم (شعار التوثيق البنفسجي المسنن) --- */
+    function submitVerificationRequest(){
+        let phone = document.getElementById('verificationPhoneInput').value.trim();
+        if(!phone) return alert("⚠️ يرجى إدخال رقم الهاتف أولاً للتوثيق!");
+        
+        userData.verificationPhone = phone;
+        userData.verificationStatus = 'pending';
+        
+        rtdb.ref(`verification_requests/${currentUserKey}`).set({
+            userKey: currentUserKey,
+            userName: userData.name || 'مستخدم',
+            userId: userData.customId || '---',
+            phone: phone,
+            timestamp: Date.now()
+        }).then(()=>{
+            saveToDB().then(()=>{
+                updateVerificationStatusUI();
+                alert("✅ تم إرسال طلب توثيق الحساب بالرقم إلى لوحة تحكم الإدارة بنجاح!");
+            });
+        });
+    }
+
+    function updateVerificationStatusUI(){
+        let statusDisp = document.getElementById('verificationStatusDisplay');
+        let phoneInput = document.getElementById('verificationPhoneInput');
+        if(!statusDisp) return;
+        
+        if(userData.isVerified){
+            statusDisp.innerHTML = `<span style="color:#22c55e;font-weight:bold">✔ حسابك موثق رسمياً بالشارة الزرقاء/البنفسجية 🛡️</span>`;
+            if(phoneInput && userData.verificationPhone) phoneInput.value = userData.verificationPhone;
+        } else if(userData.verificationStatus === 'pending'){
+            statusDisp.innerHTML = `<span style="color:#eab308;font-weight:bold">⏳ طلب التوثيق قيد المراجعة من الإدارة...</span>`;
+            if(phoneInput && userData.verificationPhone) phoneInput.value = userData.verificationPhone;
+        } else {
+            statusDisp.innerHTML = `أدخل رقم هاتفك واضغط ✔️ لإرسال الطلب للإدارة.`;
+        }
+    }
+
+    function loadAdminVerificationRequests(){
+        rtdb.ref('verification_requests').on('value', snap=>{
+            let c = document.getElementById('adminVerificationRequestsList');
+            if(!c) return;
+            if(!snap.exists()){ c.innerHTML = "لا توجد طلبات توثيق معلقة."; return; }
+            let h = '';
+            snap.forEach(req=>{
+                let d = req.val();
+                h += `<div style="background:rgba(255,255,255,0.03);padding:4px;border-radius:4px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center">
+                    <div><b>${d.userName}</b> (ID: ${d.userId})<br>الرقم: <span style="color:#38bdf8">${d.phone}</span></div>
+                    <div style="display:flex;gap:2px">
+                        <button onclick="adminApproveVerification('${d.userKey}','${req.key}')" style="background:#10b981;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:8px">موافقة ✔️</button>
+                        <button onclick="adminRejectVerification('${d.userKey}','${req.key}')" style="background:#ef4444;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:8px">رفض ✖</button>
+                    </div>
+                </div>`;
+            });
+            c.innerHTML = h;
+        });
+    }
+
+    function adminApproveVerification(targetKey, reqKey){
+        rtdb.ref(`users/${targetKey}`).update({
+            isVerified: true,
+            verificationStatus: 'approved'
+        }).then(()=>{
+            rtdb.ref(`notifications/${targetKey}`).push({
+                text: `🎉 مبروك! وافقت الإدارة على طلب توثيق حسابك وتم تفعيل الشارة البنفسجية الملكية بجانب اسمك! 🛡️`,
+                timestamp: Date.now()
+            });
+            rtdb.ref(`verification_requests/${reqKey}`).remove();
+            alert("✅ تم توثيق الحساب ومنح الشارة الزرقاء/البنفسجية بنجاح!");
+        });
+    }
+
+    function adminRejectVerification(targetKey, reqKey){
+        rtdb.ref(`users/${targetKey}`).update({
+            verificationStatus: 'rejected'
+        }).then(()=>{
+            rtdb.ref(`notifications/${targetKey}`).push({
+                text: `⚠️ عذراً، تم رفض طلب توثيق حسابك من قبل الإدارة.`,
+                timestamp: Date.now()
+            });
+            rtdb.ref(`verification_requests/${reqKey}`).remove();
+            alert("❌ تم رفض الطلب.");
+        });
+    }
+
     function saveToDB(){
         if(!currentUserKey||!rtdb)return Promise.resolve();
         if((userData.points<0||userData.gems<0)&&currentUserKey!=='msaftwtn_gmail_com'){
@@ -1421,18 +1546,6 @@
     }
     function handleLogout(){if(timerInterval)clearInterval(timerInterval);try{localStorage.removeItem('dinarUserKey');}catch(e){}currentEmail='';currentUserKey='';navigateTo('authScreen');}
     
-    /* --- وظائف نظام "كنز لاونج الأسبوعي" الصناديق الثلاثة وتعديل الإدارة من زر الكنز حصراً --- */
-    function loadUserFollowersCount(userKey, elementId){
-        if(!userKey || !rtdb) return;
-        rtdb.ref(`followers/${userKey}`).on('value', snap=>{
-            let elem = document.getElementById(elementId);
-            if(elem){
-                let count = snap.exists() ? Object.keys(snap.val()).length : 0;
-                elem.innerText = `👥 المتابعون: ${count.toLocaleString()}`;
-            }
-        });
-    }
-
     function loadTreasureBoxesList(){
         if(!rtdb) return;
         rtdb.ref('treasure_boxes').on('value', snap=>{
@@ -1452,7 +1565,6 @@
                 let b = boxes[bKey] || { title: "صندوق الحظ", price: 1000, reward: 2000 };
                 let icons = ["🥉", "🥈", "👑"];
                 
-                // القاعدة المطلوبة: للمستخدم العادي تظهر "فتح الصندوق"، وللإدارة تظهر "تعديل الصندوق" داخل زر كنز لاونج حصراً
                 let actionButtonHtml = '';
                 if(isAdmin){
                     actionButtonHtml = `<button class="action-btn btn-purple" style="padding:6px" onclick="openAdminTreasureEditModal()">تعديل الصندوق ⚙️</button>`;
@@ -1956,12 +2068,12 @@
         if(!targetKey||!rtdb)return;visitedProfileTargetKey=targetKey;
         rtdb.ref(`users/${targetKey}`).once('value').then(snap=>{
             if(!snap.exists())return alert("❌ لم يتم العثور على المستخدم!");let u=snap.val();
-            document.getElementById('visitedUserName').innerText=u.name||'مستخدم';
+            
+            let vVerifiedIcon = u.isVerified ? `<span class="verified-badge-icon" title="موثق">✔</span>` : '';
+            document.getElementById('visitedUserName').innerHTML=`${u.name||'مستخدم'} ${vVerifiedIcon}`;
             document.getElementById('visitedUserCustomId').innerText=`ID: ${u.customId||'---'}`;
             document.getElementById('visitedUserAvatar').src=u.avatar?u.avatar:'https://via.placeholder.com/85';
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
-
-            loadUserFollowersCount(targetKey, 'visitedUserFollowersDisplay');
 
             let vPts = u.points || 0;
             let vLvl = "مبتدئ 🌟";
@@ -2295,7 +2407,12 @@
         rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي ونظام التكبيس.':'⚡ تم فتح العداد اليومي ونظام التكبيس.'));
     }
 
-    function openAdminPanelModal(){if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');document.getElementById('adminPanelModal').style.display='flex';loadAdminData();}
+    function openAdminPanelModal(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
+        document.getElementById('adminPanelModal').style.display='flex';
+        loadAdminData();
+        loadAdminVerificationRequests();
+    }
     function closeAdminPanelModal(){document.getElementById('adminPanelModal').style.display='none';}
     
     function openAdminCounterOrders(){
@@ -2321,7 +2438,7 @@
     function loadAdminData(){
         rtdb.ref('admin_withdrawals').on('value',snap=>{
             let a=document.getElementById('adminWithdrawalsArea');if(!snap.exists()){a.innerHTML="لا توجد طلبات سحب.";return;}let h='';
-            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:6px;border-radius:6px;margin-bottom:4px"><b>${d.userName} (${d.userId})</b>: ${d.amount}$ <button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:2px 6px;border-radius:4px;cursor:pointer;float:left">حذف 🗑️</button></div>`;});
+            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:4px;border-radius:4px;margin-bottom:3px"><b>${d.userName} (${d.userId})</b>: ${d.amount}$ <button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:1px 4px;border-radius:3px;cursor:pointer;float:left">حذف 🗑️</button></div>`;});
             a.innerHTML=h;
         });
     }
@@ -2438,8 +2555,10 @@
                     let bg=isMe?"background:#ef4444;color:#fff":"background:#10b981;color:#fff";
                     let q=msg.replyTo?`<div style="background:rgba(0,0,0,0.25);border-right:2px solid #38bdf8;padding:3px 6px;border-radius:4px;margin-bottom:4px;font-size:10px;color:#cbd5e1"><b style="color:#38bdf8">${msg.replyTo.senderName}:</b> ${msg.replyTo.text}</div>`:'';
                     
+                    let msgVerifiedIcon = msg.isVerified ? `<span class="verified-badge-icon" style="width:12px;height:12px;font-size:8px;">✔</span>` : '';
+
                     h+=`<div class="chat-msg-row" style="text-align:${isMe?'left':'right'};margin-bottom:5px" data-sender="${msg.senderName.replace(/'/g,"\\'")}" data-text="${(msg.text||'').replace(/'/g,"\\'")}">
-                        <div style="font-size:9px;color:#38bdf8;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${msg.sender}')"><b>${msg.senderName}</b> ${gft}</div>
+                        <div style="font-size:9px;color:#38bdf8;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${msg.sender}')"><b>${msg.senderName}</b> ${msgVerifiedIcon} ${gft}</div>
                         <div class="msg-bubble-container chat-bubble-swipe" style="${bg}" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event, '${msg.senderName.replace(/'/g,"\\'")}', '${(msg.text||'').replace(/'/g,"\\'")}')">
                             <div>${rep}</div>
                             <div style="flex:1;text-align:right">${q}<span>${msg.text}</span></div>
@@ -2485,7 +2604,7 @@
     }
     function sendIsolatedMsg(){
         let txt=document.getElementById('isolatedMsgInput').value.trim();if(!txt||!isolatedActiveRoomId)return;
-        let obj={sender:currentUserKey,senderName:userData.name,text:txt,timestamp:Date.now()};
+        let obj={sender:currentUserKey,senderName:userData.name,text:txt,isVerified:!!userData.isVerified,timestamp:Date.now()};
         if(currentReplyTarget)obj.replyTo={senderName:currentReplyTarget.senderName,text:currentReplyTarget.text};
         addInteractionScore(1);
         rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push(obj);
