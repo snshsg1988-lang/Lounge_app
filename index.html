@@ -257,16 +257,25 @@
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
-        /* تنسيقات شاشة رحلة استثمار 🌴 */
         .investment-card { background: rgba(15,23,42,0.95); border: 1.5px solid rgba(16,185,129,0.5); border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
-        .palm-container { width: 130px; height: 130px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-size: 65px; position: relative; filter: drop-shadow(0 0 12px rgba(16,185,129,0.4)); animation: palmSway 3s ease-in-out infinite alternate; }
-        @keyframes palmSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+        .tree-container { width: 140px; height: 140px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; position: relative; }
+        .tree-container img { width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(16,185,129,0.6)); animation: treeGlow 3s ease-in-out infinite alternate; }
+        @keyframes treeGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16,185,129,0.4)); } 100% { transform: scale(1.04); filter: drop-shadow(0 0 20px rgba(52,211,153,0.8)); } }
+        
         .ground-area { width: 100%; height: 35px; border-radius: 50%; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; transition: background 0.5s ease; border: 1px dashed rgba(255,255,255,0.2); }
         .ground-dry { background: #78350f; color: #fde047; }
         .ground-wet { background: #065f46; color: #34d399; box-shadow: inset 0 0 10px rgba(52,211,153,0.5); }
         .water-animation-box { position: relative; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
         @keyframes dropFall { 0% { transform: translateY(-20px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(15px); opacity: 0; } }
         .water-drop { font-size: 22px; position: absolute; animation: dropFall 0.8s linear infinite; display: none; }
+
+        /* تنسيقات زر صندوق التبرعات والعداد التفاعلي */
+        .donation-modal-card { background: url('43994.png') no-repeat center center; background-size: cover; border: 2px solid #eab308; border-radius: 20px; padding: 20px; text-align: center; position: relative; }
+        .donation-opt-btn { background: rgba(30,41,59,0.85); border: 2px solid rgba(234,179,8,0.5); border-radius: 12px; padding: 10px; font-size: 14px; font-weight: bold; color: #fde047; cursor: pointer; text-align: center; }
+        .donation-opt-btn.selected { border-color: #22c55e; background: rgba(16,185,129,0.3); box-shadow: 0 0 15px rgba(34,197,94,0.6); }
+
+        .agent-modal-input-group input, .agent-modal-input-group select { padding: 6px !important; font-size: 10px !important; margin-bottom: 5px !important; }
+        .agent-modal-input-group label { font-size: 9px !important; color: #cbd5e1; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
@@ -392,16 +401,15 @@
                 <div class="mini-arrow" style="color:#fde047;">اضغط لاكتشاف الصناديق وفتح الجوائز 🚀</div>
             </div>
 
-            <!-- الزر الجديد: رحلة استثمار 🌴 (مباشرة تحت كنز لاونج الأسبوعي) -->
             <div id="investmentMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(59,7,100,0.4)); border: 1.5px solid #10b981; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('investmentScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="icon-circle" style="font-size:24px;">🌴💧</div>
+                    <div class="icon-circle" style="font-size:24px;">🌳💧</div>
                     <div style="text-align:right;">
-                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> رحلة استثمار 🌴 </span>
-                        <div style="font-size:10px; color:#34d399; margin-top:2px;">اسقِ نخلتك يومياً واكسب النقاط وتطورها!</div>
+                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> شجرة الحياة 🌳 </span>
+                        <div style="font-size:10px; color:#34d399; margin-top:2px;">اسقِ شجرة الحياة يومياً واكسب النقاط وتطورها!</div>
                     </div>
                 </div>
-                <div class="mini-arrow" style="color:#34d399;">اضغط لدخول بستان النخلة وسقيها 🚀</div>
+                <div class="mini-arrow" style="color:#34d399;">اضغط لدخول بستان شجرة الحياة وسقيها 🚀</div>
             </div>
         </div>
         
@@ -414,16 +422,18 @@
         </div>
     </div>
 
-    <!-- شاشة رحلة استثمار 🌴 الجديدة كلياً -->
+    <!-- شاشة شجرة الحياة 🌳 -->
     <div id="investmentScreen" class="screen-page">
         <div class="top-nav">
-            <h3 style="margin:0;color:#10b981;font-size:15px">🌴 رحلة استثمار (بستان النخلة)</h3>
+            <h3 style="margin:0;color:#10b981;font-size:15px">🌳 شجرة الحياة (بستان النماء)</h3>
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
         <div class="investment-card">
-            <div class="palm-container" id="palmVisualDisplay">🌱</div>
-            <h4 id="palmStageTitle" style="margin:0 0 4px 0;color:#34d399;font-size:14px">المرحلة: نبتة صغيرة</h4>
-            <p style="font-size:10px;color:#cbd5e1;margin-bottom:12px">استمر بسقي نخلتك مرتين يومياً (كل 12 ساعة سقية) لتكبر وتثمر تمراً جمالياً!</p>
+            <div class="tree-container">
+                <img id="treeVisualDisplay" src="43997.jpg" alt="شجرة الحياة">
+            </div>
+            <h4 id="palmStageTitle" style="margin:0 0 4px 0;color:#34d399;font-size:14px">شجرة الحياة الفخمة</h4>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:12px">اسقِ شجرة الحياة مرتين يومياً (كل 12 ساعة سقية) لتحصل على النقاط وتظل مزهرة ومثمرة!</p>
             
             <div class="water-animation-box">
                 <div class="water-drop" id="waterDrop1">💧</div>
@@ -435,7 +445,7 @@
             
             <div style="font-family:monospace; font-size:12px; color:#fde047; font-weight:bold; margin-bottom:10px;" id="investmentTimerDisplay">جاهزة للسقي الآن ⚡</div>
 
-            <button id="waterPalmBtn" class="action-btn btn-green" style="padding:11px;font-size:13px" onclick="startWateringPalm()">💧 اسقِ النخلة الآن (+5 نقاط)</button>
+            <button id="waterPalmBtn" class="action-btn btn-green" style="padding:11px;font-size:13px" onclick="startWateringPalm()">💧 اسقِ شجرة الحياة الآن (+5 نقاط)</button>
         </div>
     </div>
 
@@ -462,7 +472,7 @@
         </div>
         <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);margin-bottom:10px;text-align:right">
             <h4 style="margin:0 0 6px 0;color:#eab308;font-size:13px">🤝 التقديم على وكالة معتمدة</h4>
-            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">رسوم الوكالة المخفضة أصبحت (1,000,000 نقطة) أو تحويل (2,000,000 د.ع) عبر زين كاش مع إرفاق المستمسكات:</p>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">رسوم الوكالة المخفضة أصبحت (1,000,000 نقطة) أو تحويل (1,000,000 د.ع) عبر زين كاش مع إرفاق المستمسكات:</p>
             <button class="action-btn btn-gold" style="padding:8px;font-size:11px" onclick="openAgentApplyModal()">تقديم طلب وكالة جديد 📝</button>
         </div>
         <div class="card" style="text-align:right">
@@ -511,6 +521,7 @@
         </div>
     </div>
 
+    <!-- متجر العدادات المتضمن زر صندوق التبرعات -->
     <div id="shopScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#c084fc;font-size:15px">🛒 متجر العدادات</h3>
@@ -547,6 +558,11 @@
                 <div class="counter-row"><div><b>عداد 30.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 6.000.000 نقطة (1.800.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(30000,6000000, 'عداد 30.000 نقطة يومياً')">شراء 🛒</button></div>
                 <div class="counter-row"><div><b>عداد 40.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 8.000.000 نقطة (2.400.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(40000,8000000, 'عداد 40.000 نقطة يومياً')">شراء 🛒</button></div>
             </div>
+        </div>
+
+        <!-- زر صندوق التبرعات حصراً داخل المتجر وتحت العدادات -->
+        <div style="margin-top:10px;">
+            <button class="action-btn btn-gold" style="padding:12px;font-size:13px;border-radius:14px;background:linear-gradient(135deg,#eab308,#ca8a04);color:#000;box-shadow:0 5px 15px rgba(234,179,8,0.4);" onclick="openDonationModal()">صندوق التبرعات</button>
         </div>
     </div>
 
@@ -688,42 +704,71 @@
 
 <!-- مودال تقديم الوكالة -->
 <div id="agentApplyModal" class="modal">
-    <div class="modal-content" style="text-align:right">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 style="margin:0;color:#eab308;font-size:14px">📝 التقديم على وكالة معتمدة</h4>
-            <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAgentApplyModal()">✖</button>
+    <div class="modal-content agent-modal-input-group" style="text-align:right; max-width:320px; padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <h4 style="margin:0;color:#eab308;font-size:12px">📝 التقديم على وكالة معتمدة</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:15px;cursor:pointer" onclick="closeAgentApplyModal()">✖</button>
         </div>
-        <label style="font-size:11px;color:#cbd5e1">اسم المحافظة (التابعة للوكالة):</label>
-        <input type="text" id="agentProvinceInput" class="input-box" placeholder="مثال: بغداد، البصرة، اربيل...">
+        <label>اسم المحافظة:</label>
+        <input type="text" id="agentProvinceInput" class="input-box" placeholder="مثال: بغداد...">
 
-        <label style="font-size:11px;color:#cbd5e1">يوزر التليجرام الخاص بك:</label>
+        <label>يوزر التليجرام:</label>
         <input type="text" id="agentTelegramInput" class="input-box" placeholder="@username">
         
-        <label style="font-size:11px;color:#cbd5e1">رقم الواتساب الخاص بك:</label>
+        <label>رقم الواتساب:</label>
         <input type="text" id="agentWhatsappInput" class="input-box" placeholder="07xxxxxxxxx">
 
-        <label style="font-size:11px;color:#cbd5e1">صورة الظهور الخاصة بالوكيل (في القائمة):</label>
+        <label>صورة الوكيل:</label>
         <input type="file" id="agentAvatarInput" accept="image/*" class="input-box">
         
-        <label style="font-size:11px;color:#cbd5e1">طريقة دفع رسم التقديم (المخفضة 1M):</label>
+        <label>طريقة دفع الرسوم (1M):</label>
         <select id="agentPaymentMethod" class="select-box">
-            <option value="points">خصم 1,000,000 نقطة من الرصيد</option>
-            <option value="zaincash">تحويل 2,000,000 د.ع عبر زين كاش</option>
+            <option value="points">خصم 1M نقطة من الرصيد</option>
+            <option value="zaincash">تحويل 1,000,000 د.ع زين كاش</option>
         </select>
         
-        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (الأمامية):</label>
+        <label>بطاقة السكن (أمام):</label>
         <input type="file" id="agentHousingFront" accept="image/*" class="input-box">
         
-        <label style="font-size:11px;color:#cbd5e1">بطاقة السكن (الخلفية):</label>
+        <label>بطاقة السكن (خلف):</label>
         <input type="file" id="agentHousingBack" accept="image/*" class="input-box">
         
-        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (الأمامية):</label>
+        <label>البطاقة الوطنية (أمام):</label>
         <input type="file" id="agentNationalFront" accept="image/*" class="input-box">
         
-        <label style="font-size:11px;color:#cbd5e1">البطاقة الوطنية (الخلفية):</label>
+        <label>البطاقة الوطنية (خلف):</label>
         <input type="file" id="agentNationalBack" accept="image/*" class="input-box">
 
-        <button class="action-btn btn-gold" style="margin-top:10px" onclick="submitAgentApplication()">إرسال الطلب للإدارة 🚀</button>
+        <button class="action-btn btn-gold" style="margin-top:6px; padding:6px; font-size:10px;" onclick="submitAgentApplication()">إرسال الطلب للإدارة 🚀</button>
+    </div>
+</div>
+
+<!-- مودال صندوق التبرعات التفاعلي مع العداد العام وزر التصفير السري للإدارة -->
+<div id="donationModal" class="modal">
+    <div class="modal-content donation-modal-card">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+            <button style="background:rgba(0,0,0,0.6);border:none;color:#fff;font-size:16px;cursor:pointer;border-radius:50%;width:26px;height:26px;" onclick="closeDonationModal()">✖</button>
+        </div>
+        <div style="font-size:18px;font-weight:900;color:#fde047;text-shadow:0 2px 4px rgba(0,0,0,0.8);margin-bottom:8px;">صندوق التبرعات</div>
+        
+        <!-- عداد التبرعات العام المرئي للجميع -->
+        <div style="background:rgba(15,23,42,0.85); border:1px solid rgba(234,179,8,0.5); border-radius:12px; padding:8px; margin-bottom:12px; text-align:center;">
+            <div style="font-size:10px; color:#94a3b8;">إجمالي التبرعات الحالية في الصندوق:</div>
+            <div style="font-size:16px; font-weight:900; color:#34d399; margin-top:2px;" id="totalDonationsDisplay">0 🪙</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+            <div class="donation-opt-btn" id="donOpt150" onclick="selectDonationAmount(150, this)">🪙 150</div>
+            <div class="donation-opt-btn" id="donOpt250" onclick="selectDonationAmount(250, this)">🪙 250</div>
+            <div class="donation-opt-btn" id="donOpt500" onclick="selectDonationAmount(500, this)">🪙 500</div>
+        </div>
+
+        <button class="action-btn" style="background:linear-gradient(135deg,#facc15,#eab308);color:#000;font-size:14px;padding:9px;border-radius:12px;box-shadow:0 4px 15px rgba(234,179,8,0.6);font-weight:900;margin-bottom:8px;" onclick="confirmDonation()">حسناً</button>
+
+        <!-- زر تصفير العداد (يظهر حصراً لحساب الإدارة داخل نافذة التبرع) -->
+        <div id="adminDonationResetArea" style="display:none; margin-top:6px; border-top:1px dashed rgba(255,255,255,0.2); padding-top:6px;">
+            <button class="action-btn" style="background:rgba(239,68,68,0.2); border:1px solid #ef4444; color:#ef4444; font-size:10px; padding:6px; border-radius:8px;" onclick="adminResetDonationsCounter()">🗑️ تصفير عداد التبرعات (خاص بالإدارة)</button>
+        </div>
     </div>
 </div>
 
@@ -788,7 +833,7 @@
     </div>
 </div>
 
-<!-- مودال طلبات الوكلاء (متضمن أزرار تنزيل وعرض المستمسكات للإدارة) -->
+<!-- مودال طلبات الوكلاء -->
 <div id="adminAgentAppsModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -1001,6 +1046,8 @@
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='', agentAvatar64='';
+    let selectedDonationAmountValue = 150; 
+    let globalTotalDonations = 0; // متغير إجمالي التبرعات العام
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1038,36 +1085,10 @@
         }, 800);
     }
 
-    // دوال رحلة استثمار (سقي النخلة 🌴)
     function updateInvestmentUI(){
-        let palmDisplay = document.getElementById('palmVisualDisplay');
-        let stageTitle = document.getElementById('palmStageTitle');
-        let groundBox = document.getElementById('groundStateBox');
         let timerDisplay = document.getElementById('investmentTimerDisplay');
         let waterBtn = document.getElementById('waterPalmBtn');
-        
-        if(!palmDisplay) return;
-        
-        let waterCount = userData.palmWaterCount || 0;
-        let stageIcon = "🌱";
-        let stageName = "نبتة صغيرة (المرحلة 1)";
-        
-        if(waterCount >= 10){
-            stageIcon = "🌴✨";
-            stageName = "نخلة مثمرة مباركة (المرحلة النهائية)";
-        } else if(waterCount >= 7){
-            stageIcon = "🌴";
-            stageName = "نخلة كاملة النمو (المرحلة 4)";
-        } else if(waterCount >= 4){
-            stageIcon = "🌿";
-            stageName = "شتلة طولية (المرحلة 3)";
-        } else if(waterCount >= 2){
-            stageIcon = "🌱🌿";
-            stageName = "نبتة متفرعة (المرحلة 2)";
-        }
-        
-        palmDisplay.innerText = stageIcon;
-        stageTitle.innerText = `المرحلة: ${stageName} (${waterCount} سقيات)`;
+        if(!timerDisplay) return;
         
         let lastTime = userData.lastPalmWaterTime || 0;
         let now = Date.now();
@@ -1084,13 +1105,13 @@
             waterBtn.disabled = true;
             waterBtn.style.background = '#475569';
             waterBtn.style.cursor = 'not-allowed';
-            waterBtn.innerText = "أرض نخلتك مروية حالياً ⏳";
+            waterBtn.innerText = "شجرة الحياة مروية حالياً ⏳";
         } else {
             timerDisplay.innerText = "جاهزة للسقي الآن ⚡ (تحصل على 5 نقاط)";
             waterBtn.disabled = false;
             waterBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
             waterBtn.style.cursor = 'pointer';
-            waterBtn.innerText = "💧 اسقِ النخلة الآن (+5 نقاط)";
+            waterBtn.innerText = "💧 اسقِ شجرة الحياة الآن (+5 نقاط)";
         }
     }
 
@@ -1098,7 +1119,7 @@
         let lastTime = userData.lastPalmWaterTime || 0;
         let now = Date.now();
         let twelveHours = 12 * 60 * 60 * 1000;
-        if(now - lastTime < twelveHours) return alert("⚠️ أرض النخلة ما زالت رطبة! انتظر حتى ينتهي وقت الـ 12 ساعة للسقي مجدداً.");
+        if(now - lastTime < twelveHours) return alert("⚠️ شجرة الحياة ما زالت رطبة! انتظر حتى ينتهي وقت الـ 12 ساعة للسقي مجدداً.");
 
         let waterBtn = document.getElementById('waterPalmBtn');
         let groundBox = document.getElementById('groundStateBox');
@@ -1107,11 +1128,10 @@
         let drop3 = document.getElementById('waterDrop3');
 
         waterBtn.disabled = true;
-        waterBtn.innerText = "جاري سقي الأرض... 💧";
+        waterBtn.innerText = "جاري سقي شجرة الحياة... 💧";
         
-        // تفعيل أرسام الماي وتغيير لون الأرض إلى رطبة
         groundBox.className = "ground-area ground-wet";
-        groundBox.innerText = "💧 الأرض رطبة ومخصبة الآن (تتغذى النخلة)...";
+        groundBox.innerText = "💧 الأرض رطبة ومخصبة الآن (تتغذى شجرة الحياة)...";
         drop1.style.display = 'block';
         drop2.style.display = 'block';
         drop3.style.display = 'block';
@@ -1131,9 +1151,63 @@
                 updateInvestmentUI();
                 groundBox.className = "ground-area ground-dry";
                 groundBox.innerText = "🏜️ الأرض جافة وعطشانة... انقر للسقي";
-                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 ونموت نخلتك خطوة للأمام 🌴");
+                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 وزادت نضارة شجرة الحياة 🌳");
             });
-        }, 5000); // 5 ثواني سقي واضحة
+        }, 5000);
+    }
+
+    // دوال صندوق التبرعات والعداد العام وزر تصفير الإدارة
+    function openDonationModal(){
+        document.getElementById('donationModal').style.display = 'flex';
+        let firstBtn = document.getElementById('donOpt150');
+        if(firstBtn) selectDonationAmount(150, firstBtn);
+
+        // إظهار زر التصفير حصراً لحساب الإدارة (المالك)
+        let resetArea = document.getElementById('adminDonationResetArea');
+        if(resetArea){
+            if(currentUserKey === 'msaftwtn_gmail_com' || currentEmail === 'msaftwtn@gmail.com' || userData.customId === '1'){
+                resetArea.style.display = 'block';
+            } else {
+                resetArea.style.display = 'none';
+            }
+        }
+    }
+    function closeDonationModal(){
+        document.getElementById('donationModal').style.display = 'none';
+    }
+    function selectDonationAmount(amt, btnElem){
+        selectedDonationAmountValue = amt;
+        document.querySelectorAll('.donation-opt-btn').forEach(b => b.classList.remove('selected'));
+        if(btnElem) btnElem.classList.add('selected');
+    }
+    function confirmDonation(){
+        let currentPts = userData.points || 0;
+        if(currentPts < selectedDonationAmountValue){
+            return alert(`❌ نقاطك الحالية (${currentPts.toLocaleString()} نقطة) لا تكفي للتبرع بهذا المبلغ (${selectedDonationAmountValue} نقطة)!`);
+        }
+
+        userData.points = currentPts - selectedDonationAmountValue;
+        addInteractionScore(10);
+
+        // تحديث وزيادة العداد العام للتبرعات بقاعدة البيانات مباشرة
+        rtdb.ref('global_donations_total').transaction(current => {
+            return (current || 0) + selectedDonationAmountValue;
+        }).then(()=>{
+            saveToDB().then(()=>{
+                updateUI();
+                closeDonationModal();
+                alert(`✅ تم التبرع بنجاح بـ (${selectedDonationAmountValue} نقطة)! شكراً لعطائك وتمت إضافة التبرع للعداد العام للشفافية 💖`);
+            });
+        });
+    }
+
+    function adminResetDonationsCounter(){
+        if(currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com' && userData.customId !== '1') return alert("⚠️ غير مسموح.");
+        if(!confirm("⚠️ هل أنت متأكد من تصفير عداد التبرعات العام وإرجاعه إلى الصفر للبدء من جديد؟")) return;
+
+        rtdb.ref('global_donations_total').set(0).then(()=>{
+            alert("🗑️ تم تصفير عداد التبرعات العام بنجاح!");
+        });
     }
 
     function handleUserClickAndWin(){
@@ -1420,6 +1494,14 @@
             let tickerElem = document.getElementById('tickerTextDisplay');
             if(tickerElem && globalAppSettings.tickerText) tickerElem.innerText = globalAppSettings.tickerText;
         });
+
+        // مزامنة عداد التبرعات العام لحظياً للجميع
+        rtdb.ref('global_donations_total').on('value', snap=>{
+            globalTotalDonations = snap.exists() ? snap.val() : 0;
+            let donDisp = document.getElementById('totalDonationsDisplay');
+            if(donDisp) donDisp.innerText = `${globalTotalDonations.toLocaleString()} 🪙`;
+        });
+
         loadNotifications();loadFriendSystem();
     }
     function updateUI(){
@@ -2368,7 +2450,7 @@
                     <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
                     <b>المحافظة:</b> <span style="color:#facc15">${d.province||'غير محدد'}</span><br>
                     <b>تليجرام:</b> ${d.telegram} | <b>واتساب:</b> ${d.whatsapp}<br>
-                    <b>طريقة الدفع:</b> ${d.method==='points'?'1,000,000 نقطة':'تحويل زين كاش 2M'}<br>
+                    <b>طريقة الدفع:</b> ${d.method==='points'?'1,000,000 نقطة':'تحويل زين كاش 1M'}<br>
                     <div style="margin:4px 0;display:flex;gap:4px;flex-wrap:wrap">
                         ${d.agentAvatar?`<a href="${d.agentAvatar}" target="_blank" download="agent_avatar.png" style="color:#38bdf8">👤 صورة الوكيل (تنزيل)</a> | `:''}
                         <a href="${d.housingFront}" target="_blank" download="housing_front.png" style="color:#38bdf8">🖼️ سكن (أمام) 📥</a> | 
