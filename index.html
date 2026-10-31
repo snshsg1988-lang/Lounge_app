@@ -51,7 +51,6 @@
             100% { transform: translate3d(100%, 0, 0); }
         }
 
-        /* شارات المستويات والأوسمة وشعار التوثيق البنفسجي المسنن */
         .badge-tag {
             display: inline-flex;
             align-items: center;
@@ -73,7 +72,6 @@
             color: #fff;
         }
 
-        /* شارة التوثيق البنفسجية المسننة تماماً كالصورة */
         .verified-badge-icon {
             display: inline-flex;
             align-items: center;
@@ -144,7 +142,6 @@
         .assets-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
         .asset-box{background:rgba(30,41,59,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:space-between}
         
-        /* شبكة الأزرار الرئيسية */
         .grid-buttons-custom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
         .grid-btn-item{background:rgba(30,41,59,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;min-height:80px;box-shadow:0 6px 15px rgba(0,0,0,0.3);position:relative}
         .grid-btn-item span{font-size:10px;color:#fff;font-weight:bold;margin-top:4px}
@@ -156,9 +153,7 @@
             50% { transform: scale(0.96); }
             100% { transform: scale(1); }
         }
-        .click-active-anim {
-            animation: clickPulse 0.12s ease-in-out;
-        }
+        .click-active-anim { animation: clickPulse 0.12s ease-in-out; }
 
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
@@ -239,19 +234,8 @@
         }
 
         #c4GiftOverlay {
-          position: fixed;
-          inset: 0;
-          z-index: 999999;
-          display: none;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          pointer-events: none;
-          background: radial-gradient(
-            ellipse at center,
-            rgba(28, 20, 65, .48),
-            rgba(0, 0, 0, .80)
-          );
+          position: fixed; inset: 0; z-index: 999999; display: none; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;
+          background: radial-gradient(ellipse at center, rgba(28, 20, 65, .48), rgba(0, 0, 0, .80));
         }
         #c4GiftOverlay.c4-show { display: flex; animation: c4FadeIn .25s ease both; }
         #c4GiftOverlay.c4-hide { animation: c4FadeOut .35s ease both; }
@@ -272,6 +256,17 @@
         .treasure-box-card { background: rgba(15,23,42,0.9); border: 1.5px solid rgba(234,179,8,0.5); border-radius: 14px; padding: 10px; margin-bottom: 8px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+        /* تنسيقات شاشة رحلة استثمار 🌴 */
+        .investment-card { background: rgba(15,23,42,0.95); border: 1.5px solid rgba(16,185,129,0.5); border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+        .palm-container { width: 130px; height: 130px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-size: 65px; position: relative; filter: drop-shadow(0 0 12px rgba(16,185,129,0.4)); animation: palmSway 3s ease-in-out infinite alternate; }
+        @keyframes palmSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+        .ground-area { width: 100%; height: 35px; border-radius: 50%; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; transition: background 0.5s ease; border: 1px dashed rgba(255,255,255,0.2); }
+        .ground-dry { background: #78350f; color: #fde047; }
+        .ground-wet { background: #065f46; color: #34d399; box-shadow: inset 0 0 10px rgba(52,211,153,0.5); }
+        .water-animation-box { position: relative; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        @keyframes dropFall { 0% { transform: translateY(-20px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(15px); opacity: 0; } }
+        .water-drop { font-size: 22px; position: absolute; animation: dropFall 0.8s linear infinite; display: none; }
     </style>
 </head>
 <body>
@@ -396,6 +391,18 @@
                 </div>
                 <div class="mini-arrow" style="color:#fde047;">اضغط لاكتشاف الصناديق وفتح الجوائز 🚀</div>
             </div>
+
+            <!-- الزر الجديد: رحلة استثمار 🌴 (مباشرة تحت كنز لاونج الأسبوعي) -->
+            <div id="investmentMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(59,7,100,0.4)); border: 1.5px solid #10b981; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('investmentScreen')">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="icon-circle" style="font-size:24px;">🌴💧</div>
+                    <div style="text-align:right;">
+                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> رحلة استثمار 🌴 </span>
+                        <div style="font-size:10px; color:#34d399; margin-top:2px;">اسقِ نخلتك يومياً واكسب النقاط وتطورها!</div>
+                    </div>
+                </div>
+                <div class="mini-arrow" style="color:#34d399;">اضغط لدخول بستان النخلة وسقيها 🚀</div>
+            </div>
         </div>
         
         <div class="bottom-nav-bar">
@@ -404,6 +411,31 @@
             <div class="bottom-nav-wheel-circle" onclick="navigateTo('wheelScreen')" title="عجلة الحظ">🎡</div>
             <button class="bottom-nav-item" onclick="navigateTo('friendsScreen')"><span>👥</span><div>الأصدقاء</div></button>
             <button class="bottom-nav-item" onclick="navigateTo('shopScreen')"><span>🛒</span><div>المتجر</div></button>
+        </div>
+    </div>
+
+    <!-- شاشة رحلة استثمار 🌴 الجديدة كلياً -->
+    <div id="investmentScreen" class="screen-page">
+        <div class="top-nav">
+            <h3 style="margin:0;color:#10b981;font-size:15px">🌴 رحلة استثمار (بستان النخلة)</h3>
+            <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
+        </div>
+        <div class="investment-card">
+            <div class="palm-container" id="palmVisualDisplay">🌱</div>
+            <h4 id="palmStageTitle" style="margin:0 0 4px 0;color:#34d399;font-size:14px">المرحلة: نبتة صغيرة</h4>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:12px">استمر بسقي نخلتك مرتين يومياً (كل 12 ساعة سقية) لتكبر وتثمر تمراً جمالياً!</p>
+            
+            <div class="water-animation-box">
+                <div class="water-drop" id="waterDrop1">💧</div>
+                <div class="water-drop" id="waterDrop2" style="animation-delay: 0.3s">💧</div>
+                <div class="water-drop" id="waterDrop3" style="animation-delay: 0.6s">💧</div>
+            </div>
+
+            <div id="groundStateBox" class="ground-area ground-dry">🏜️ الأرض جافة وعطشانة... انقر للسقي</div>
+            
+            <div style="font-family:monospace; font-size:12px; color:#fde047; font-weight:bold; margin-bottom:10px;" id="investmentTimerDisplay">جاهزة للسقي الآن ⚡</div>
+
+            <button id="waterPalmBtn" class="action-btn btn-green" style="padding:11px;font-size:13px" onclick="startWateringPalm()">💧 اسقِ النخلة الآن (+5 نقاط)</button>
         </div>
     </div>
 
@@ -430,12 +462,12 @@
         </div>
         <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);margin-bottom:10px;text-align:right">
             <h4 style="margin:0 0 6px 0;color:#eab308;font-size:13px">🤝 التقديم على وكالة معتمدة</h4>
-            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">رسوم الوكالة تقتطع (7,000,000 نقطة) أو تحويل (2,000,000 د.ع) عبر زين كاش مع إرفاق المستندات:</p>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">رسوم الوكالة المخفضة أصبحت (1,000,000 نقطة) أو تحويل (2,000,000 د.ع) عبر زين كاش مع إرفاق المستمسكات:</p>
             <button class="action-btn btn-gold" style="padding:8px;font-size:11px" onclick="openAgentApplyModal()">تقديم طلب وكالة جديد 📝</button>
         </div>
         <div class="card" style="text-align:right">
             <h4 style="margin:0 0 8px 0;color:#38bdf8;font-size:13px">⭐ قائمة الوكلاء المعتمدين</h4>
-            <div id="approvedAgentsList" style="font-size:11px;color:#cbd5e1">جاري التحميل...</div>
+            <div id="approvedAgentsList" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:11px;color:#cbd5e1">جاري التحميل...</div>
         </div>
     </div>
 
@@ -532,7 +564,6 @@
         </div>
     </div>
 
-    <!-- شاشة الملف الشخصي (مُتضمنة إخفاء حقل التوثيق وإظهار الرقم الموثق مع الشارة الملكية بجانبه) -->
     <div id="profileScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#c084fc;font-size:15px">👤 الملف الشخصي</h3>
@@ -546,7 +577,6 @@
                 <div id="profileBadgeDisplay" style="margin-top:4px"></div>
             </div>
             
-            <!-- قسم إدارة التوثيق (يختفي حقل الطلب عند التوثيق ويظهر الرقم الموثق مع الشارة بجانبه) -->
             <div id="verificationSectionContainer" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:8px;margin-bottom:8px;text-align:right">
                 <div id="verificationStatusDisplay" style="font-size:11px;color:#38bdf8">جاري التحميل...</div>
             </div>
@@ -663,15 +693,21 @@
             <h4 style="margin:0;color:#eab308;font-size:14px">📝 التقديم على وكالة معتمدة</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeAgentApplyModal()">✖</button>
         </div>
+        <label style="font-size:11px;color:#cbd5e1">اسم المحافظة (التابعة للوكالة):</label>
+        <input type="text" id="agentProvinceInput" class="input-box" placeholder="مثال: بغداد، البصرة، اربيل...">
+
         <label style="font-size:11px;color:#cbd5e1">يوزر التليجرام الخاص بك:</label>
         <input type="text" id="agentTelegramInput" class="input-box" placeholder="@username">
         
         <label style="font-size:11px;color:#cbd5e1">رقم الواتساب الخاص بك:</label>
         <input type="text" id="agentWhatsappInput" class="input-box" placeholder="07xxxxxxxxx">
+
+        <label style="font-size:11px;color:#cbd5e1">صورة الظهور الخاصة بالوكيل (في القائمة):</label>
+        <input type="file" id="agentAvatarInput" accept="image/*" class="input-box">
         
-        <label style="font-size:11px;color:#cbd5e1">طريقة دفع رسم التقديم:</label>
+        <label style="font-size:11px;color:#cbd5e1">طريقة دفع رسم التقديم (المخفضة 1M):</label>
         <select id="agentPaymentMethod" class="select-box">
-            <option value="points">خصم 7,000,000 نقطة من الرصيد</option>
+            <option value="points">خصم 1,000,000 نقطة من الرصيد</option>
             <option value="zaincash">تحويل 2,000,000 د.ع عبر زين كاش</option>
         </select>
         
@@ -699,20 +735,17 @@
             <button style="background:none;border:none;color:#ef4444;font-size:15px;cursor:pointer" onclick="closeAdminPanelModal()">✖</button>
         </div>
         
-        <!-- قسم طلبات التوثيق المعلقة -->
         <div style="background:rgba(168,85,247,0.15);border:1px solid #a855f7;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">🪪 طلبات التوثيق المعلقة (بالرقم)</h4>
             <div id="adminVerificationRequestsList" style="max-height:90px;overflow-y:auto;font-size:9px">جاري التحميل...</div>
         </div>
 
-        <!-- إعلان -->
         <div style="background:rgba(147,51,234,0.15);border:1px solid #9333ea;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">📢 شريط الإعلانات</h4>
             <input type="text" id="adminTickerInput" class="input-box" placeholder="نص الإعلان..." style="margin-bottom:2px;padding:4px;font-size:10px">
             <button class="action-btn btn-purple" style="padding:3px;font-size:9px" onclick="adminUpdateTicker()">نشر 🚀</button>
         </div>
 
-        <!-- شحن النقاط أو حقيبة الوكيل -->
         <div style="background:rgba(234,179,8,0.15);border:1px solid #eab308;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#eab308;font-size:10px">⚡ شحن النقاط أو حقيبة الوكيل</h4>
             <input type="text" id="adminDualTargetId" class="input-box" placeholder="ID المستخدم أو الوكيل" style="margin-bottom:2px;padding:4px;font-size:10px">
@@ -723,14 +756,12 @@
             </div>
         </div>
 
-        <!-- تجميد الحساب -->
         <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#ef4444;font-size:10px">🚫 تجميد الحساب</h4>
             <input type="text" id="adminFreezeTargetId" class="input-box" placeholder="ID المستخدم" style="margin-bottom:4px;padding:4px;font-size:10px">
             <button class="action-btn" style="padding:4px;font-size:9px;background:#ef4444;color:#fff" onclick="adminToggleFreezeUser()">تجميد / إلغاء تجميد ⚠️</button>
         </div>
 
-        <!-- إعدادات وقفل -->
         <div style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.3);padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#c084fc;font-size:10px">⚙️ أزرار الطوارئ والإدارة</h4>
             <div style="display:flex;gap:3px;margin-bottom:3px">
@@ -743,7 +774,6 @@
             </div>
         </div>
         
-        <!-- فحص المستخدم -->
         <div style="background:rgba(10,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:5px;border-radius:6px;margin-bottom:5px">
             <h4 style="margin:0 0 2px 0;color:#10b981;font-size:10px">🔍 فحص ملف المستخدم</h4>
             <div style="display:flex;gap:3px">
@@ -758,7 +788,7 @@
     </div>
 </div>
 
-<!-- مودال طلبات الوكلاء -->
+<!-- مودال طلبات الوكلاء (متضمن أزرار تنزيل وعرض المستمسكات للإدارة) -->
 <div id="adminAgentAppsModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -779,7 +809,6 @@
     </div>
 </div>
 
-<!-- مودال الملف الشخصي للزائر -->
 <div id="userProfileModal" class="modal">
     <div class="modal-content" style="text-align:center">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -965,13 +994,13 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none', palmWaterCount:0, lastPalmWaterTime:0};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let globalRoomsList = [];
-    let hFront64='', hBack64='', nFront64='', nBack64='';
+    let hFront64='', hBack64='', nFront64='', nBack64='', agentAvatar64='';
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -983,97 +1012,7 @@
         { id: 7, q: "ما هو أطول نهر في العالم؟", correct: "نهر النيل", wrong: "نهر دجلة" },
         { id: 8, q: "من هو النبي الملقب بكليم الله؟", correct: "موسى عليه السلام", wrong: "عيسى عليه السلام" },
         { id: 9, q: "كم عدد ألوان قوس قزح؟", correct: "7 ألوان", wrong: "5 ألوان" },
-        { id: 10, q: "ما هو أسرع حيوان بري في العالم؟", correct: "الفهد", wrong: "الأسد" },
-        { id: 11, q: "في أي سنة اندلعت الحرب العالمية الأولى؟", correct: "1914", wrong: "1939" },
-        { id: 12, q: "ما هي عاصمة دولة مصر؟", correct: "القاهرة", wrong: "الإسكندرية" },
-        { id: 13, q: "ما هو الكوكب الأقرب إلى الشمس؟", correct: "عطارد", wrong: "المشتري" },
-        { id: 14, q: "ما هي أكبر قارة في العالم من حيث المساحة؟", correct: "آسيا", wrong: "أوروبا" },
-        { id: 15, q: "كم عدد أضلاع المثلث؟", correct: "3 أضلاع", wrong: "4 أضلاع" },
-        { id: 16, q: "ما هو الحيوان المعروف بسفينة الصحراء؟", correct: "الجمل", wrong: "الحصان" },
-        { id: 17, q: "ما هو الغاز الأساسي الذي يتنفسه الإنسان؟", correct: "الأكسجين", wrong: "ثاني أكسيد الكربون" },
-        { id: 18, q: "كم يبلغ عدد أشهر السنة الميلادية؟", correct: "12 شهراً", wrong: "10 أشهر" },
-        { id: 19, q: "ما هي عاصمة فرنسا؟", correct: "باريس", wrong: "مدريد" },
-        { id: 20, q: "أي عضو في جسم الإنسان مسؤول عن ضخ الدم؟", correct: "القلب", wrong: "المعدة" },
-        { id: 21, q: "ما هي عاصمة دولة الإمارات العربية المتحدة؟", correct: "أبوظبي", wrong: "دبي" },
-        { id: 22, q: "من هو خوارزمي علم الجبر؟", correct: "محمد بن موسى الخوارزمي", wrong: "ابن سينا" },
-        { id: 23, q: "كم عدد عظام جسم الإنسان البالغ؟", correct: "206 عظمة", wrong: "300 عظمة" },
-        { id: 24, q: "ما هو المعدن السائل في درجة حرارة الغرفة؟", correct: "الزئبق", wrong: "الحديد" },
-        { id: 25, q: "ما هي عاصمة دولة الكويت؟", correct: "مدينة الكويت", wrong: "الجهراء" },
-        { id: 26, q: "في أي دولة توجد اهرامات الجيزة؟", correct: "مصر", wrong: "السودان" },
-        { id: 27, q: "ما هي الدولة الأكثر سكاناً في العالم؟", correct: "الهند", wrong: "اليابان" },
-        { id: 28, q: "كم عدد اللاعبين في فريق كرة القدم الأساسي؟", correct: "11 لاعب", wrong: "7 لاعبين" },
-        { id: 29, q: "ما هي عاصمة سوريا؟", correct: "دمشق", wrong: "حلب" },
-        { id: 30, q: "من هو مؤلف كتاب البخلاء؟", correct: "الجاحظ", wrong: "المتنبي" },
-        { id: 31, q: "ما هي عاصمة الأردن؟", correct: "عمان", wrong: "إربد" },
-        { id: 32, q: "ما هو أكبر كوكب في المجموعة الشمسية؟", correct: "المشتري", wrong: "زحل" },
-        { id: 33, q: "ما هي عاصمة لبنان؟", correct: "بيروت", wrong: "طرابلس" },
-        { id: 34, q: "كم عدد أركان الإسلام؟", correct: "5 أركان", wrong: "6 أركان" },
-        { id: 35, q: "ما هي عاصمة سلطنة عمان؟", correct: "مسقط", wrong: "صلالة" },
-        { id: 36, q: "من هو أول الخلفاء الراشدين؟", correct: "أبو بكر الصديق", wrong: "عمر بن الخطاب" },
-        { id: 37, q: "ما هي عاصمة فلسطين؟", correct: "القدس", wrong: "غزة" },
-        { id: 38, q: "ما هو الحيوان المسمى بملك الغابة؟", correct: "الأسد", wrong: "النمر" },
-        { id: 39, q: "ما هي عاصمة قطر؟", correct: "الدوحة", wrong: "الخور" },
-        { id: 40, q: "كم عدد أركان الإيمان؟", correct: "6 أركان", wrong: "5 أركان" },
-        { id: 41, q: "ما هي عاصمة المغرب؟", correct: "الرباط", wrong: "الدار البيضاء" },
-        { id: 42, q: "ما هو البحر الذي يقع بين إفريقيا وأوروبا؟", correct: "البحر الأبيض المتوسط", wrong: "البحر الأحمر" },
-        { id: 43, q: "ما هي عاصمة الجزائر؟", correct: "الجزائر العاصمة", wrong: "وهران" },
-        { id: 44, q: "من هو طارق بن زياد؟", correct: "قائد عسكري إسلامي فاتح الأندلس", wrong: "شاعر جاهلي" },
-        { id: 45, q: "ما هي عاصمة ليبيا؟", correct: "طرابلس", wrong: "بنغازي" },
-        { id: 46, q: "ما هي الدولة التي تُعرف ببلاد الرافدين؟", correct: "العراق", wrong: "مصر" },
-        { id: 47, q: "ما هي عاصمة البحرين؟", correct: "المحرق", wrong: "المنامة" },
-        { id: 48, q: "ما هو أطول سور في العالم؟", correct: "سور الصين العظيم", wrong: "سور بغداد" },
-        { id: 49, q: "ما هي عاصمة السودان؟", correct: "الخرطوم", wrong: "أم درمان" },
-        { id: 50, q: "كم عدد القارات في العالم؟", correct: "7 قارات", wrong: "5 قارات" },
-        { id: 51, q: "ما هي عاصمة اليمن؟", correct: "صنعاء", wrong: "عدن" },
-        { id: 52, q: "ما هو الكوكب المسمى بالكوكب الأحمر؟", correct: "المريخ", wrong: "الزهرة" },
-        { id: 53, q: "ما هي عاصمة تونس؟", correct: "تونس", wrong: "سوسة" },
-        { id: 54, q: "من هو النبي الذي فداه الله بذبح عظيم؟", correct: "إسماعيل عليه السلام", wrong: "يوسف عليه السلام" },
-        { id: 55, q: "ما هي عاصمة إيطاليا؟", correct: "روما", wrong: "ميلانو" },
-        { id: 56, q: "ما هو الجهاز المسؤول عن التفكير في جسم الإنسان؟", correct: "الدماغ", wrong: "القلب" },
-        { id: 57, q: "ما هي عاصمة إسبانيا؟", correct: "مدريد", wrong: "برشلونة" },
-        { id: 58, q: "ما هي عاصمة ألمانيا؟", correct: "برلين", wrong: "ميونخ" },
-        { id: 59, q: "ما هي عاصمة تركيا؟", correct: "أنقرة", wrong: "إسطنبول" },
-        { id: 60, q: "من هو مكتشف أمريكا؟", correct: "كريستوفر كولومبوس", wrong: "فاسكو دا جاما" },
-        { id: 61, q: "ما هي عاصمة إيران؟", correct: "طهران", wrong: "أصفهان" },
-        { id: 62, q: "ما هو أكبر محيط في العالم؟", correct: "المحيط الهادئ", wrong: "المحيط الأطلسي" },
-        { id: 63, q: "ما هي عاصمة اليابان؟", correct: "طوكيو", wrong: "أوساكا" },
-        { id: 64, q: "كم عدد ساعات اليوم الواحد؟", correct: "24 ساعة", wrong: "12 ساعة" },
-        { id: 65, q: "ما هي عاصمة الصين؟", correct: "بكين", wrong: "شانغهاي" },
-        { id: 66, q: "ما هي عاصمة الهند؟", correct: "نيودلهي", wrong: "مومباي" },
-        { id: 67, q: "ما هي عاصمة روسيا؟", correct: "موسكو", wrong: "سان بطرسبرغ" },
-        { id: 68, q: "ما هو الحيوان الذي ينام إحدى عينيه مفتوحتين؟", correct: "الدلفين", wrong: "الأسد" },
-        { id: 69, q: "ما هي عاصمة البرازيل؟", correct: "برازيليا", wrong: "ريو دي جانيرو" },
-        { id: 70, q: "ما هو الطائر الذي يستطيع تقليد أصوات البشر؟", correct: "الببغاء", wrong: "العصفور" },
-        { id: 71, q: "ما هي عاصمة الأرجنتين؟", correct: "بوينس آيرس", wrong: "قرطبة" },
-        { id: 72, q: "ما هو أسرع طائر في العالم؟", correct: "صقر الشاهين", wrong: "النسر" },
-        { id: 73, q: "ما هي عاصمة كندا؟", correct: "أوتاوا", wrong: "تورونتو" },
-        { id: 74, q: "من هو أول من صعد إلى الفضاء؟", correct: "يوري جاجارين", wrong: "نيل أرمسترونغ" },
-        { id: 75, q: "ما هي عاصمة أستراليا؟", correct: "كانبرا", wrong: "سيدني" },
-        { id: 76, q: "كم عدد ألوان العلم العراقي؟", correct: "4 ألوان", wrong: "3 ألوان" },
-        { id: 77, q: "ما هي عاصمة اليونان؟", correct: "أثينا", wrong: "سالونيك" },
-        { id: 78, q: "ما هو الحيوان الذي يمتلك ثلاثة قلوب؟", correct: "الأخطبوط", wrong: "القرش" },
-        { id: 79, q: "ما هي عاصمة بريطانيا؟", correct: "لندن", wrong: "مانشستر" },
-        { id: 80, q: "ما هو الغاز الذي تحتاجه النباتات لعملية البناء الضوئي؟", correct: "ثاني أكسيد الكربون", wrong: "الأكسجين" },
-        { id: 81, q: "ما هي عاصمة السويد؟", correct: "ستوكهولم", wrong: "مالمو" },
-        { id: 82, q: "ما هي عاصمة النرويج؟", correct: "أوسلو", wrong: "برغن" },
-        { id: 83, q: "ما هي عاصمة سويسرا؟", correct: "برن", wrong: "زيورخ" },
-        { id: 84, q: "ما هو أكبر طائر في العالم؟", correct: "النعامة", wrong: "البطريق" },
-        { id: 85, q: "ما هي عاصمة هولندا؟", correct: "أمستردام", wrong: "روتردام" },
-        { id: 86, q: "من هو الشاعر الجاهلي صاحب المعلقة الشهيرة الملقب بالملك الضليل؟", correct: "امرؤ القيس", wrong: "زهير بن أبي سلمى" },
-        { id: 87, q: "ما هي عاصمة بلجيكا؟", correct: "بروكسل", wrong: "أنتويرب" },
-        { id: 88, q: "ما هو اسم أطول برج في العالم حالياً؟", correct: "برج خليفة", wrong: "برج إيفل" },
-        { id: 89, q: "ما هي عاصمة البرتغال؟", correct: "لشبونة", wrong: "بورتو" },
-        { id: 90, q: "كم عدد حروف الهجاء في اللغة العربية؟", correct: "28 حرفاً", wrong: "26 حرفاً" },
-        { id: 91, q: "ما هي عاصمة كوريا الجنوبية؟", correct: "سيول", wrong: "بوسان" },
-        { id: 92, q: "ما هو الحيوان الذي يُعرف بأنه أعمى لكنه حساس للصوت؟", correct: "الخلد", wrong: "الخفاش" },
-        { id: 93, q: "ما هي عاصمة المكسيك؟", correct: "مكسيكو سيتي", wrong: "كانكون" },
-        { id: 94, q: "ما هو الطائر الذي لا يمكنه الطيران ويعيش في القطب الجنوبي؟", correct: "البطريق", wrong: "النورس" },
-        { id: 95, q: "ما هي عاصمة باكستان؟", correct: "إسلام آباد", wrong: "كراتشي" },
-        { id: 96, q: "من هو مخترع المصباح الكهربائي؟", correct: "توماس إديسون", wrong: "أينشتاين" },
-        { id: 97, q: "ما هي عاصمة جنوب إفريقيا؟", correct: "بريتوريا", wrong: "كيب تاون" },
-        { id: 98, q: "ما هي عاصمة النمسا؟", correct: "فيينا", wrong: "سالزبورغ" },
-        { id: 99, q: "ما هو أصل الحصان العربي الأصيل؟", correct: "شبه الجزيرة العربية", wrong: "أوروبا" },
-        { id: 100, q: "ما هي عاصمة ماليزيا؟", correct: "كوالالمبور", wrong: "بيانغ" }
+        { id: 10, q: "ما هو أسرع حيوان بري في العالم؟", correct: "الفهد", wrong: "الأسد" }
     ];
 
     let currentDailyQuestions = [];
@@ -1097,6 +1036,104 @@
                 wIdx = (wIdx + 1) % words.length;
             }
         }, 800);
+    }
+
+    // دوال رحلة استثمار (سقي النخلة 🌴)
+    function updateInvestmentUI(){
+        let palmDisplay = document.getElementById('palmVisualDisplay');
+        let stageTitle = document.getElementById('palmStageTitle');
+        let groundBox = document.getElementById('groundStateBox');
+        let timerDisplay = document.getElementById('investmentTimerDisplay');
+        let waterBtn = document.getElementById('waterPalmBtn');
+        
+        if(!palmDisplay) return;
+        
+        let waterCount = userData.palmWaterCount || 0;
+        let stageIcon = "🌱";
+        let stageName = "نبتة صغيرة (المرحلة 1)";
+        
+        if(waterCount >= 10){
+            stageIcon = "🌴✨";
+            stageName = "نخلة مثمرة مباركة (المرحلة النهائية)";
+        } else if(waterCount >= 7){
+            stageIcon = "🌴";
+            stageName = "نخلة كاملة النمو (المرحلة 4)";
+        } else if(waterCount >= 4){
+            stageIcon = "🌿";
+            stageName = "شتلة طولية (المرحلة 3)";
+        } else if(waterCount >= 2){
+            stageIcon = "🌱🌿";
+            stageName = "نبتة متفرعة (المرحلة 2)";
+        }
+        
+        palmDisplay.innerText = stageIcon;
+        stageTitle.innerText = `المرحلة: ${stageName} (${waterCount} سقيات)`;
+        
+        let lastTime = userData.lastPalmWaterTime || 0;
+        let now = Date.now();
+        let twelveHours = 12 * 60 * 60 * 1000;
+        let diff = now - lastTime;
+        
+        if(diff < twelveHours){
+            let rem = twelveHours - diff;
+            let h = Math.floor(rem / (1000 * 60 * 60));
+            let m = Math.floor((rem % (1000 * 60 * 60)) / (1000 * 60));
+            let s = Math.floor((rem % (1000 * 60)) / 1000);
+            
+            timerDisplay.innerText = `⏳ متبقي للسقي القادم: ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            waterBtn.disabled = true;
+            waterBtn.style.background = '#475569';
+            waterBtn.style.cursor = 'not-allowed';
+            waterBtn.innerText = "أرض نخلتك مروية حالياً ⏳";
+        } else {
+            timerDisplay.innerText = "جاهزة للسقي الآن ⚡ (تحصل على 5 نقاط)";
+            waterBtn.disabled = false;
+            waterBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+            waterBtn.style.cursor = 'pointer';
+            waterBtn.innerText = "💧 اسقِ النخلة الآن (+5 نقاط)";
+        }
+    }
+
+    function startWateringPalm(){
+        let lastTime = userData.lastPalmWaterTime || 0;
+        let now = Date.now();
+        let twelveHours = 12 * 60 * 60 * 1000;
+        if(now - lastTime < twelveHours) return alert("⚠️ أرض النخلة ما زالت رطبة! انتظر حتى ينتهي وقت الـ 12 ساعة للسقي مجدداً.");
+
+        let waterBtn = document.getElementById('waterPalmBtn');
+        let groundBox = document.getElementById('groundStateBox');
+        let drop1 = document.getElementById('waterDrop1');
+        let drop2 = document.getElementById('waterDrop2');
+        let drop3 = document.getElementById('waterDrop3');
+
+        waterBtn.disabled = true;
+        waterBtn.innerText = "جاري سقي الأرض... 💧";
+        
+        // تفعيل أرسام الماي وتغيير لون الأرض إلى رطبة
+        groundBox.className = "ground-area ground-wet";
+        groundBox.innerText = "💧 الأرض رطبة ومخصبة الآن (تتغذى النخلة)...";
+        drop1.style.display = 'block';
+        drop2.style.display = 'block';
+        drop3.style.display = 'block';
+
+        setTimeout(()=>{
+            drop1.style.display = 'none';
+            drop2.style.display = 'none';
+            drop3.style.display = 'none';
+            
+            userData.palmWaterCount = (userData.palmWaterCount || 0) + 1;
+            userData.lastPalmWaterTime = Date.now();
+            userData.points = (userData.points || 0) + 5;
+            addInteractionScore(5);
+
+            saveToDB().then(()=>{
+                updateUI();
+                updateInvestmentUI();
+                groundBox.className = "ground-area ground-dry";
+                groundBox.innerText = "🏜️ الأرض جافة وعطشانة... انقر للسقي";
+                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 ونموت نخلتك خطوة للأمام 🌴");
+            });
+        }, 5000); // 5 ثواني سقي واضحة
     }
 
     function handleUserClickAndWin(){
@@ -1298,6 +1335,7 @@
         if(screenId==='quizScreen') initDailyQuizSession();
         if(screenId==='friendsScreen')loadFriendSystem();
         if(screenId==='agentsScreen')loadApprovedAgentsList();
+        if(screenId==='investmentScreen')updateInvestmentUI();
         if(screenId==='profileScreen'){
             loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');
             let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`;
@@ -1348,7 +1386,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,agentProvince:'',agentAvatar:'',interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none',palmWaterCount:0,lastPalmWaterTime:0};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1440,9 +1478,9 @@
             }
         }
         updateVerificationStatusUI();
+        updateInvestmentUI();
     }
 
-    /* --- التعديل الذكي المطلوب: إخفاء حقل الطلب عند التوثيق وإظهار الرقم الموثق مع الشارة بجانبه مباشرة --- */
     function submitVerificationRequest(){
         let phone = document.getElementById('verificationPhoneInput').value.trim();
         if(!phone) return alert("⚠️ يرجى إدخال رقم الهاتف أولاً للتوثيق!");
@@ -1720,86 +1758,100 @@
     function closeAgentApplyModal(){ document.getElementById('agentApplyModal').style.display='none'; }
 
     function submitAgentApplication(){
+        let prov = document.getElementById('agentProvinceInput').value.trim();
         let tg = document.getElementById('agentTelegramInput').value.trim();
         let wa = document.getElementById('agentWhatsappInput').value.trim();
         let method = document.getElementById('agentPaymentMethod').value;
+        let aImg = document.getElementById('agentAvatarInput').files[0];
         let hF = document.getElementById('agentHousingFront').files[0];
         let hB = document.getElementById('agentHousingBack').files[0];
         let nF = document.getElementById('agentNationalFront').files[0];
         let nB = document.getElementById('agentNationalBack').files[0];
 
-        if(!tg || !wa || !hF || !hB || !nF || !nB) return alert("⚠️ يرجى ملء اليوزر والواتساب ورفع المستمسكات الأربعة (أمام وخلف لكل من السكن والوطنية)!");
+        if(!prov || !tg || !wa || !aImg || !hF || !hB || !nF || !nB) return alert("⚠️ يرجى ملء المحافظة، اليوزر، الواتساب، رفع صورة الوكيل، والمستمسكات الأربعة!");
 
-        if(method === 'points' && (userData.points||0) < 7000000){
-            return alert("❌ نقاطك الحالية أقل من 7,000,000 نقطة المطلوبة للتقديم بها!");
+        if(method === 'points' && (userData.points||0) < 1000000){
+            return alert("❌ نقاطك الحالية أقل من 1,000,000 نقطة المطلوبة للتقديم بها!");
         }
 
-        let r1 = new FileReader(), r2 = new FileReader(), r3 = new FileReader(), r4 = new FileReader();
-        r1.onload = (e1)=>{
-            hFront64 = e1.target.result;
-            r2.onload = (e2)=>{
-                hBack64 = e2.target.result;
-                r3.onload = (e3)=>{
-                    nFront64 = e3.target.result;
-                    r4.onload = (e4)=>{
-                        nBack64 = e4.target.result;
+        let rA = new FileReader(), r1 = new FileReader(), r2 = new FileReader(), r3 = new FileReader(), r4 = new FileReader();
+        rA.onload = (eA)=>{
+            agentAvatar64 = eA.target.result;
+            r1.onload = (e1)=>{
+                hFront64 = e1.target.result;
+                r2.onload = (e2)=>{
+                    hBack64 = e2.target.result;
+                    r3.onload = (e3)=>{
+                        nFront64 = e3.target.result;
+                        r4.onload = (e4)=>{
+                            nBack64 = e4.target.result;
 
-                        if(method === 'points'){
-                            userData.points -= 7000000;
-                            saveToDB();
-                        }
+                            if(method === 'points'){
+                                userData.points -= 1000000;
+                                saveToDB();
+                            }
 
-                        rtdb.ref('agent_applications').push({
-                            userKey: currentUserKey,
-                            userName: userData.name,
-                            userId: userData.customId,
-                            telegram: tg,
-                            whatsapp: wa,
-                            method: method,
-                            housingFront: hFront64,
-                            housingBack: hBack64,
-                            nationalFront: nFront64,
-                            nationalBack: nBack64,
-                            timestamp: Date.now()
-                        }).then(()=>{
-                            closeAgentApplyModal();
-                            alert("✅ تم إرسال طلب الوكالة والمستمسكات الأربعة بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
-                        });
+                            rtdb.ref('agent_applications').push({
+                                userKey: currentUserKey,
+                                userName: userData.name,
+                                userId: userData.customId,
+                                province: prov,
+                                telegram: tg,
+                                whatsapp: wa,
+                                agentAvatar: agentAvatar64,
+                                method: method,
+                                housingFront: hFront64,
+                                housingBack: hBack64,
+                                nationalFront: nFront64,
+                                nationalBack: nBack64,
+                                timestamp: Date.now()
+                            }).then(()=>{
+                                closeAgentApplyModal();
+                                alert("✅ تم إرسال طلب الوكالة والمستمسكات وصورة الوكيل بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
+                            });
+                        };
+                        r4.readAsDataURL(nB);
                     };
-                    r4.readAsDataURL(nB);
+                    r3.readAsDataURL(nF);
                 };
-                r3.readAsDataURL(nF);
+                r2.readAsDataURL(hB);
             };
-            r2.readAsDataURL(hB);
+            r1.readAsDataURL(hF);
         };
-        r1.readAsDataURL(hF);
+        rA.readAsDataURL(aImg);
     }
 
     function loadApprovedAgentsList(){
         rtdb.ref('users').once('value').then(snap=>{
             let c = document.getElementById('approvedAgentsList'); if(!c) return;
-            if(!snap.exists()){ c.innerHTML = "لا يوجد وكلاء حالياً"; return; }
+            if(!snap.exists()){ c.innerHTML = "<div style='grid-column:span 2;text-align:center;'>لا يوجد وكلاء حالياً</div>"; return; }
             let h = '';
             snap.forEach(u=>{
                 let d = u.val();
                 if(d.isAgent){
-                    h += `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(234,179,8,0.3);padding:8px;border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center">
-                        <div>
-                            <b style="color:#eab308;font-size:12px">💼 ${d.name}</b>
-                            <div style="font-size:10px;color:#cbd5e1;margin-top:2px">
-                                تليجرام: ${d.agentTelegram||'---'} 
-                                <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentTelegram||''}')">📋 نسخ</button>
-                            </div>
-                            <div style="font-size:10px;color:#cbd5e1;margin-top:2px">
-                                واتساب: ${d.agentWhatsapp||'---'} 
-                                <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentWhatsapp||''}')">📋 نسخ</button>
+                    let prov = d.agentProvince || 'العراق';
+                    let av = d.agentAvatar || d.avatar || 'https://via.placeholder.com/45';
+                    h += `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(234,179,8,0.3);padding:6px;border-radius:10px;text-align:right;position:relative;">
+                        <div style="font-size:11px;color:#facc15;font-weight:bold;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:2px;">📍 ${prov}</div>
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                            <img src="${av}" style="width:35px;height:35px;border-radius:50%;object-fit:cover;border:1px solid #eab308;" alt="وكيل">
+                            <div>
+                                <b style="color:#fff;font-size:11px">${d.name}</b>
+                                <div style="font-size:9px;color:#cbd5e1;">⭐ وكيل معتمد</div>
                             </div>
                         </div>
-                        <span style="font-size:18px">⭐</span>
+                        <div style="font-size:9px;color:#cbd5e1;margin-bottom:2px;">
+                            تليجرام: ${d.agentTelegram||'---'} 
+                            <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentTelegram||''}')">📋 نسخ</button>
+                        </div>
+                        <div style="font-size:9px;color:#cbd5e1;">
+                            واتساب: ${d.agentWhatsapp||'---'} 
+                            <button class="agent-copy-btn" onclick="copyTextToClipboard('${d.agentWhatsapp||''}')">📋 نسخ</button>
+                        </div>
                     </div>`;
                 }
             });
-            c.innerHTML = h || "لا يوجد وكلاء معتمدون حتى الآن.";
+            c.innerHTML = h || "<div style='grid-column:span 2;text-align:center;'>لا يوجد وكلاء معتمدون حتى الآن.</div>";
         });
     }
 
@@ -2119,7 +2171,9 @@
             isAgent: false,
             agentTelegram: '',
             agentWhatsapp: '',
-            agentBag: 0
+            agentBag: 0,
+            agentProvince: '',
+            agentAvatar: ''
         }).then(()=>{
             rtdb.ref(`notifications/${targetKey}`).push({
                 text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`,
@@ -2312,15 +2366,17 @@
                 let d = item.val();
                 h += `<div style="background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:6px">
                     <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
+                    <b>المحافظة:</b> <span style="color:#facc15">${d.province||'غير محدد'}</span><br>
                     <b>تليجرام:</b> ${d.telegram} | <b>واتساب:</b> ${d.whatsapp}<br>
-                    <b>طريقة الدفع:</b> ${d.method==='points'?'7,000,000 نقطة':'تحويل زين كاش 2M'}<br>
+                    <b>طريقة الدفع:</b> ${d.method==='points'?'1,000,000 نقطة':'تحويل زين كاش 2M'}<br>
                     <div style="margin:4px 0;display:flex;gap:4px;flex-wrap:wrap">
-                        <a href="${d.housingFront}" target="_blank" style="color:#38bdf8">🖼️ سكن (أمام)</a> | 
-                        <a href="${d.housingBack}" target="_blank" style="color:#38bdf8">🖼️ سكن (خلف)</a> | 
-                        <a href="${d.nationalFront}" target="_blank" style="color:#38bdf8">🖼️ وطنية (أمام)</a> | 
-                        <a href="${d.nationalBack}" target="_blank" style="color:#38bdf8">🖼️ وطنية (خلف)</a>
+                        ${d.agentAvatar?`<a href="${d.agentAvatar}" target="_blank" download="agent_avatar.png" style="color:#38bdf8">👤 صورة الوكيل (تنزيل)</a> | `:''}
+                        <a href="${d.housingFront}" target="_blank" download="housing_front.png" style="color:#38bdf8">🖼️ سكن (أمام) 📥</a> | 
+                        <a href="${d.housingBack}" target="_blank" download="housing_back.png" style="color:#38bdf8">🖼️ سكن (خلف) 📥</a> | 
+                        <a href="${d.nationalFront}" target="_blank" download="national_front.png" style="color:#38bdf8">🖼️ وطنية (أمام) 📥</a> | 
+                        <a href="${d.nationalBack}" target="_blank" download="national_back.png" style="color:#38bdf8">🖼️ وطنية (خلف) 📥</a>
                     </div>
-                    <button onclick="adminApproveAgent('${d.userKey}','${d.telegram}','${d.whatsapp}','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وتفعيل الوكالة ✔️</button>
+                    <button onclick="adminApproveAgent('${d.userKey}','${d.telegram}','${d.whatsapp}','${d.province||''}','${d.agentAvatar||''}','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وتفعيل الوكالة ✔️</button>
                     <button onclick="adminDeleteRef('agent_applications','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;margin-right:4px;cursor:pointer">رفض 🗑️</button>
                 </div>`;
             });
@@ -2329,11 +2385,13 @@
     }
     function closeAdminAgentApplications(){ document.getElementById('adminAgentAppsModal').style.display='none'; }
 
-    function adminApproveAgent(userKey, tg, wa, appKey){
+    function adminApproveAgent(userKey, tg, wa, prov, agentAv, appKey){
         rtdb.ref(`users/${userKey}`).update({
             isAgent: true,
             agentTelegram: tg,
-            agentWhatsapp: wa
+            agentWhatsapp: wa,
+            agentProvince: prov,
+            agentAvatar: agentAv
         }).then(()=>{
             rtdb.ref(`notifications/${userKey}`).push({
                 text: `🎉 مبروك! وافقت الإدارة على طلبك وأصبحت وكيلاً معتمداً للبرنامج.`,
@@ -2380,7 +2438,9 @@
             isAgent: false,
             agentTelegram: '',
             agentWhatsapp: '',
-            agentBag: 0
+            agentBag: 0,
+            agentProvince: '',
+            agentAvatar: ''
         }).then(()=>{
             rtdb.ref(`notifications/${userKey}`).push({
                 text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`,
