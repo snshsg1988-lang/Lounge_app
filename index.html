@@ -167,7 +167,7 @@
         .btn-green{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
         .shop-tabs{display:flex;gap:5px;margin-bottom:10px}
         .shop-tab-btn{flex:1;padding:7px;background:rgba(30,41,59,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#94a3b8;font-weight:bold;font-size:11px;cursor:pointer;text-align:center}
-        .shop-tab-btn.active-gold{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff}
+        .shop-tab-btn.active-gold{background:linear-gradient(135deg,#9333ea,#c084fc);color:#fff}
         .shop-tab-btn.active-diamond{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff}
         .shop-tab-btn.active-legend{background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff}
         .shop-tier-content{display:none}
@@ -259,8 +259,10 @@
 
         .investment-card { background: rgba(15,23,42,0.95); border: 1.5px solid rgba(16,185,129,0.5); border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
         .tree-container { width: 140px; height: 140px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; position: relative; }
-        .tree-container img { width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(16,185,129,0.6)); animation: treeGlow 3s ease-in-out infinite alternate; }
-        @keyframes treeGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16,185,129,0.4)); } 100% { transform: scale(1.04); filter: drop-shadow(0 0 20px rgba(52,211,153,0.8)); } }
+        
+        /* تطوير مظهر شجرة الحياة برمز إيموجي وحجم وتوهج فخم مضمون الظهور 100% */
+        .tree-emoji-art { font-size: 75px; line-height: 1; filter: drop-shadow(0 0 18px rgba(16,185,129,0.8)); animation: treeGlow 3s ease-in-out infinite alternate; user-select: none; }
+        @keyframes treeGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16,185,129,0.4)); } 100% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(52,211,153,0.9)); } }
         
         .ground-area { width: 100%; height: 35px; border-radius: 50%; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; transition: background 0.5s ease; border: 1px dashed rgba(255,255,255,0.2); }
         .ground-dry { background: #78350f; color: #fde047; }
@@ -422,7 +424,7 @@
         </div>
     </div>
 
-    <!-- شاشة شجرة الحياة 🌳 -->
+    <!-- شاشة شجرة الحياة 🌳 (المحدثة بمظهر إيموجي فخم وتطور حسب السقي) -->
     <div id="investmentScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#10b981;font-size:15px">🌳 شجرة الحياة (بستان النماء)</h3>
@@ -430,7 +432,7 @@
         </div>
         <div class="investment-card">
             <div class="tree-container">
-                <img id="treeVisualDisplay" src="43997.jpg" alt="شجرة الحياة">
+                <div id="treeEmojiDisplay" class="tree-emoji-art">🌱</div>
             </div>
             <h4 id="palmStageTitle" style="margin:0 0 4px 0;color:#34d399;font-size:14px">شجرة الحياة الفخمة</h4>
             <p style="font-size:10px;color:#cbd5e1;margin-bottom:12px">اسقِ شجرة الحياة مرتين يومياً (كل 12 ساعة سقية) لتحصل على النقاط وتظل مزهرة ومثمرة!</p>
@@ -1047,7 +1049,7 @@
     let globalRoomsList = [];
     let hFront64='', hBack64='', nFront64='', nBack64='', agentAvatar64='';
     let selectedDonationAmountValue = 150; 
-    let globalTotalDonations = 0; // متغير إجمالي التبرعات العام
+    let globalTotalDonations = 0;
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1088,8 +1090,22 @@
     function updateInvestmentUI(){
         let timerDisplay = document.getElementById('investmentTimerDisplay');
         let waterBtn = document.getElementById('waterPalmBtn');
+        let treeEmoji = document.getElementById('treeEmojiDisplay');
+        let palmTitle = document.getElementById('palmStageTitle');
         if(!timerDisplay) return;
         
+        let waterCount = userData.palmWaterCount || 0;
+        if(waterCount < 5){
+            if(treeEmoji) treeEmoji.innerText = "🌱";
+            if(palmTitle) palmTitle.innerText = "شتلة الحياة الصغيرة (المرحلة الأولى)";
+        } else if(waterCount < 15){
+            if(treeEmoji) treeEmoji.innerText = "🌿";
+            if(palmTitle) palmTitle.innerText = "شجرة الحياة النامية (المرحلة الثانية)";
+        } else {
+            if(treeEmoji) treeEmoji.innerText = "🌳";
+            if(palmTitle) palmTitle.innerText = "شجرة الحياة الفخمة المزهرة والمثمرة 🌟";
+        }
+
         let lastTime = userData.lastPalmWaterTime || 0;
         let now = Date.now();
         let twelveHours = 12 * 60 * 60 * 1000;
@@ -1151,18 +1167,16 @@
                 updateInvestmentUI();
                 groundBox.className = "ground-area ground-dry";
                 groundBox.innerText = "🏜️ الأرض جافة وعطشانة... انقر للسقي";
-                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 وزادت نضارة شجرة الحياة 🌳");
+                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 وزادت نضارة وتطور شجرة الحياة 🌳");
             });
         }, 5000);
     }
 
-    // دوال صندوق التبرعات والعداد العام وزر تصفير الإدارة
     function openDonationModal(){
         document.getElementById('donationModal').style.display = 'flex';
         let firstBtn = document.getElementById('donOpt150');
         if(firstBtn) selectDonationAmount(150, firstBtn);
 
-        // إظهار زر التصفير حصراً لحساب الإدارة (المالك)
         let resetArea = document.getElementById('adminDonationResetArea');
         if(resetArea){
             if(currentUserKey === 'msaftwtn_gmail_com' || currentEmail === 'msaftwtn@gmail.com' || userData.customId === '1'){
@@ -1189,7 +1203,6 @@
         userData.points = currentPts - selectedDonationAmountValue;
         addInteractionScore(10);
 
-        // تحديث وزيادة العداد العام للتبرعات بقاعدة البيانات مباشرة
         rtdb.ref('global_donations_total').transaction(current => {
             return (current || 0) + selectedDonationAmountValue;
         }).then(()=>{
@@ -1495,7 +1508,6 @@
             if(tickerElem && globalAppSettings.tickerText) tickerElem.innerText = globalAppSettings.tickerText;
         });
 
-        // مزامنة عداد التبرعات العام لحظياً للجميع
         rtdb.ref('global_donations_total').on('value', snap=>{
             globalTotalDonations = snap.exists() ? snap.val() : 0;
             let donDisp = document.getElementById('totalDonationsDisplay');
@@ -1518,8 +1530,10 @@
         if(bioInput){bioInput.value=userData.bio||'';document.getElementById('bioCounter').innerText=`${bioInput.value.length} / 60`;}
         let av=userData.avatar?userData.avatar:'https://via.placeholder.com/45';
         document.getElementById('headerUserAvatar').src=av;let avPrev=document.getElementById('avatarPreview');if(avPrev)avPrev.src=av;
-        let cVal=userData.activeCounterVal||0;
-        document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
+        
+        // تعديل دقة عرض العداد اليومي بالقيمة العددية الصحيحة المباشرة
+        let cVal = userData.activeCounterVal || 0;
+        document.getElementById('activeCounterInfo').innerText = cVal > 0 ? `${cVal.toLocaleString()} نقطة يومياً` : (userData.activeCounter || 'لا يوجد');
         
         let clickDisplay = document.getElementById('clickLiveCounterDisplay');
         if(clickDisplay){
@@ -2504,7 +2518,11 @@
                 resArea.innerHTML="❌ لم يتم العثور على مستخدم بهذا الـ ID.";
                 return;
             }
-            let counterInfo = foundUser.activeCounter && foundUser.activeCounter !== 'لا يوجد' ? foundUser.activeCounter : 'لا يوجد عداد مشترك';
+            
+            // إصلاح دقة عرض العداد بصفحة الفحص ليعرض القيمة الرقمية الفعلية الصحيحة
+            let valNum = foundUser.activeCounterVal || 0;
+            let counterInfo = valNum > 0 ? `عداد ${valNum.toLocaleString()} نقطة يومياً` : (foundUser.activeCounter && foundUser.activeCounter !== 'لا يوجد' ? foundUser.activeCounter : 'لا يوجد عداد مشترك');
+            
             let wCount = foundUser.withdrawCount || 0;
             let agentControlBtn = foundUser.isAgent ? `<button onclick="adminRemoveAgent('${foundUser.key}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-top:4px;cursor:pointer">إلغاء صفة الوكيل (حذف من القائمة) 🗑️</button>` : '';
             resArea.innerHTML=`<b>👤 اسم المستخدم:</b> ${foundUser.name || 'بدون اسم'}<br>`+
