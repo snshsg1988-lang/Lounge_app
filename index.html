@@ -257,19 +257,6 @@
         .treasure-icon { font-size: 32px; margin-bottom: 4px; animation: bounceTreasure 2s infinite ease-in-out; display: inline-block; }
         @keyframes bounceTreasure { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
-        .investment-card { background: rgba(15,23,42,0.95); border: 1.5px solid rgba(16,185,129,0.5); border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
-        .tree-container { width: 140px; height: 140px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; position: relative; }
-        
-        .tree-emoji-art { font-size: 75px; line-height: 1; filter: drop-shadow(0 0 18px rgba(16,185,129,0.8)); animation: treeGlow 3s ease-in-out infinite alternate; user-select: none; }
-        @keyframes treeGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16,185,129,0.4)); } 100% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(52,211,153,0.9)); } }
-        
-        .ground-area { width: 100%; height: 35px; border-radius: 50%; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; transition: background 0.5s ease; border: 1px dashed rgba(255,255,255,0.2); }
-        .ground-dry { background: #78350f; color: #fde047; }
-        .ground-wet { background: #065f46; color: #34d399; box-shadow: inset 0 0 10px rgba(52,211,153,0.5); }
-        .water-animation-box { position: relative; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-        @keyframes dropFall { 0% { transform: translateY(-20px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(15px); opacity: 0; } }
-        .water-drop { font-size: 22px; position: absolute; animation: dropFall 0.8s linear infinite; display: none; }
-
         .donation-modal-card { background: url('43994.png') no-repeat center center; background-size: cover; border: 2px solid #eab308; border-radius: 20px; padding: 20px; text-align: center; position: relative; }
         .donation-opt-btn { background: rgba(30,41,59,0.85); border: 2px solid rgba(234,179,8,0.5); border-radius: 12px; padding: 10px; font-size: 14px; font-weight: bold; color: #fde047; cursor: pointer; text-align: center; }
         .donation-opt-btn.selected { border-color: #22c55e; background: rgba(16,185,129,0.3); box-shadow: 0 0 15px rgba(34,197,94,0.6); }
@@ -401,15 +388,16 @@
                 <div class="mini-arrow" style="color:#fde047;">اضغط لاكتشاف الصناديق وفتح الجوائز 🚀</div>
             </div>
 
-            <div id="investmentMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(59,7,100,0.4)); border: 1.5px solid #10b981; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('investmentScreen')">
+            <!-- زر بيع وشراء العدادات البديل الجديد بمكان شجرة الحياة -->
+            <div id="counterTradingMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(59,7,100,0.4)); border: 1.5px solid #10b981; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('counterTradingScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="icon-circle" style="font-size:24px;">🌳💧</div>
+                    <div class="icon-circle" style="font-size:24px;">🛒🤝</div>
                     <div style="text-align:right;">
-                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> شجرة الحياة 🌳 </span>
-                        <div style="font-size:10px; color:#34d399; margin-top:2px;">اسقِ شجرة الحياة يومياً واكسب النقاط وتطورها!</div>
+                        <span style="font-size:14px; color:#fff; font-weight:900; display:block;"> بيع وشراء العدادات 🛒 </span>
+                        <div style="font-size:10px; color:#34d399; margin-top:2px;">سوق تداول العدادات اليومية بين المستخدمين بأمان تام!</div>
                     </div>
                 </div>
-                <div class="mini-arrow" style="color:#34d399;">اضغط لدخول بستان شجرة الحياة وسقيها 🚀</div>
+                <div class="mini-arrow" style="color:#34d399;">اضغط لدخول سوق بيع وشراء العدادات 🚀</div>
             </div>
         </div>
         
@@ -422,30 +410,21 @@
         </div>
     </div>
 
-    <!-- شاشة شجرة الحياة 🌳 -->
-    <div id="investmentScreen" class="screen-page">
+    <!-- شاشة سوق بيع وشراء العدادات الجديدة 🛒 -->
+    <div id="counterTradingScreen" class="screen-page">
         <div class="top-nav">
-            <h3 style="margin:0;color:#10b981;font-size:15px">🌳 شجرة الحياة (بستان النماء)</h3>
+            <h3 style="margin:0;color:#10b981;font-size:15px">🛒 سوق بيع وشراء العدادات</h3>
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
-        <div class="investment-card">
-            <div class="tree-container">
-                <div id="treeEmojiDisplay" class="tree-emoji-art">🌱</div>
-            </div>
-            <h4 id="palmStageTitle" style="margin:0 0 4px 0;color:#34d399;font-size:14px">شجرة الحياة الفخمة</h4>
-            <p style="font-size:10px;color:#cbd5e1;margin-bottom:12px">اسقِ شجرة الحياة مرتين يومياً (كل 12 ساعة سقية) لتحصل على النقاط وتظل مزهرة ومثمرة!</p>
-            
-            <div class="water-animation-box">
-                <div class="water-drop" id="waterDrop1">💧</div>
-                <div class="water-drop" id="waterDrop2" style="animation-delay: 0.3s">💧</div>
-                <div class="water-drop" id="waterDrop3" style="animation-delay: 0.6s">💧</div>
-            </div>
+        <div class="card" style="background:rgba(15,23,42,0.9);border:1px solid rgba(16,185,129,0.4);margin-bottom:12px;text-align:right">
+            <h4 style="margin:0 0 4px 0;color:#34d399;font-size:13px">💡 اعرض عدادك للبيع أو اشترِ عداداً جاهزاً</h4>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">يمكنك عرض عدادك الحالي للبيع لمدة 24 ساعة (مع بقاء عدادك يعمل لديك حتى يتم شراؤه). السعر يحدده البائع بالنقاط.</p>
+            <button class="action-btn btn-green" style="padding:8px;font-size:11px" onclick="openSellCounterModal()">عرض عدادي للبيع الآن ➕</button>
+        </div>
 
-            <div id="groundStateBox" class="ground-area ground-dry">🏜️ الأرض جافة وعطشانة... انقر للسقي</div>
-            
-            <div style="font-family:monospace; font-size:12px; color:#fde047; font-weight:bold; margin-bottom:10px;" id="investmentTimerDisplay">جاهزة للسقي الآن ⚡</div>
-
-            <button id="waterPalmBtn" class="action-btn btn-green" style="padding:11px;font-size:13px" onclick="startWateringPalm()">💧 اسقِ شجرة الحياة الآن (+5 نقاط)</button>
+        <div style="font-size:12px;color:#c084fc;font-weight:bold;margin-bottom:6px;text-align:right">📦 العدادات المعروضة حالياً للسوق:</div>
+        <div id="tradingCountersListContainer" style="display:flex;flex-direction:column;gap:8px;">
+            <div style="text-align:center;color:#cbd5e1;font-size:12px;padding:20px">جاري تحميل العروض...</div>
         </div>
     </div>
 
@@ -698,6 +677,36 @@
                 <input type="text" id="isolatedMsgInput" class="input-box" placeholder="اكتب رسالة..." style="margin:0;flex:1">
                 <button class="action-btn btn-gold" style="width:55px;padding:0;height:38px" onclick="sendIsolatedMsg()">إرسال</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- مودال عرض العداد للبيع (40% حجم مدمج وأنيق) -->
+<div id="sellCounterModal" class="modal">
+    <div class="modal-content" style="text-align:right; max-width:320px; padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <h4 style="margin:0;color:#34d399;font-size:13px">🛒 عرض عداد للبيع</h4>
+            <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeSellCounterModal()">✖</button>
+        </div>
+        <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">اكتب نوع عدادك (رقم النقاط اليومية) والسعر المطلوب بالنقاط:</p>
+        <label style="font-size:10px;color:#cbd5e1;">نوع العداد (مثال: 5000):</label>
+        <input type="number" id="sellCounterTypeInput" class="input-box" placeholder="اكتب الرقم فقط مثلا 5000" style="margin-bottom:6px">
+        
+        <label style="font-size:10px;color:#cbd5e1;">سعر البيع المطلوب (بالنقاط):</label>
+        <input type="number" id="sellCounterPriceInput" class="input-box" placeholder="مثال: 100000" style="margin-bottom:10px">
+
+        <button class="action-btn btn-green" style="padding:8px;font-size:11px" onclick="confirmPublishCounterForSale()">نشر العرض في السوق 🚀</button>
+    </div>
+</div>
+
+<!-- مودال تأكيد الشراء الآمن (شراء العرض / كلا) -->
+<div id="buyConfirmModal" class="modal">
+    <div class="modal-content" style="text-align:center; max-width:300px; padding:16px;">
+        <h4 style="margin:0 0 8px 0;color:#fde047;font-size:14px">⚠️ تأكيد عملية الشراء</h4>
+        <p id="buyConfirmText" style="font-size:11px;color:#cbd5e1;margin-bottom:14px">هل أنت متأكد من شراء هذا العداد؟</p>
+        <div style="display:flex;gap:8px;">
+            <button class="action-btn btn-green" style="flex:1;padding:8px;font-size:11px;" onclick="executeBuyCounterTransaction()">شراء العرض ✔️</button>
+            <button class="action-btn" style="flex:1;padding:8px;font-size:11px;background:#ef4444;color:#fff;" onclick="closeBuyConfirmModal()">كلا ❌</button>
         </div>
     </div>
 </div>
@@ -1039,7 +1048,7 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none', palmWaterCount:0, lastPalmWaterTime:0};
+    let userData={points:0,gems:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false,tickerText:'أهلاً بكم في تطبيق Lounge الرسمي!'};
     let newRoomAvatarBase64='',newRoomBgBase64='';
@@ -1048,6 +1057,7 @@
     let hFront64='', hBack64='', nFront64='', nBack64='', agentAvatar64='';
     let selectedDonationAmountValue = 150; 
     let globalTotalDonations = 0;
+    let pendingBuyItem = null;
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1085,89 +1095,156 @@
         }, 800);
     }
 
-    function updateInvestmentUI(){
-        let timerDisplay = document.getElementById('investmentTimerDisplay');
-        let waterBtn = document.getElementById('waterPalmBtn');
-        let treeEmoji = document.getElementById('treeEmojiDisplay');
-        let palmTitle = document.getElementById('palmStageTitle');
-        if(!timerDisplay) return;
-        
-        let waterCount = userData.palmWaterCount || 0;
-        if(waterCount < 5){
-            if(treeEmoji) treeEmoji.innerText = "🌱";
-            if(palmTitle) palmTitle.innerText = "شتلة الحياة الصغيرة (المرحلة الأولى)";
-        } else if(waterCount < 15){
-            if(treeEmoji) treeEmoji.innerText = "🌿";
-            if(palmTitle) palmTitle.innerText = "شجرة الحياة النامية (المرحلة الثانية)";
-        } else {
-            if(treeEmoji) treeEmoji.innerText = "🌳";
-            if(palmTitle) palmTitle.innerText = "شجرة الحياة الفخمة المزهرة والمثمرة 🌟";
-        }
-
-        let lastTime = userData.lastPalmWaterTime || 0;
-        let now = Date.now();
-        let twelveHours = 12 * 60 * 60 * 1000;
-        let diff = now - lastTime;
-        
-        if(diff < twelveHours){
-            let rem = twelveHours - diff;
-            let h = Math.floor(rem / (1000 * 60 * 60));
-            let m = Math.floor((rem % (1000 * 60 * 60)) / (1000 * 60));
-            let s = Math.floor((rem % (1000 * 60)) / 1000);
-            
-            timerDisplay.innerText = `⏳ متبقي للسقي القادم: ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-            waterBtn.disabled = true;
-            waterBtn.style.background = '#475569';
-            waterBtn.style.cursor = 'not-allowed';
-            waterBtn.innerText = "شجرة الحياة مروية حالياً ⏳";
-        } else {
-            timerDisplay.innerText = "جاهزة للسقي الآن ⚡ (تحصل على 5 نقاط)";
-            waterBtn.disabled = false;
-            waterBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
-            waterBtn.style.cursor = 'pointer';
-            waterBtn.innerText = "💧 اسقِ شجرة الحياة الآن (+5 نقاط)";
-        }
+    // دوال نظام بيع وشراء العدادات الجديد 🛒
+    function openSellCounterModal(){
+        document.getElementById('sellCounterModal').style.display = 'flex';
+    }
+    function closeSellCounterModal(){
+        document.getElementById('sellCounterModal').style.display = 'none';
     }
 
-    function startWateringPalm(){
-        let lastTime = userData.lastPalmWaterTime || 0;
-        let now = Date.now();
-        let twelveHours = 12 * 60 * 60 * 1000;
-        if(now - lastTime < twelveHours) return alert("⚠️ شجرة الحياة ما زالت رطبة! انتظر حتى ينتهي وقت الـ 12 ساعة للسقي مجدداً.");
+    function confirmPublishCounterForSale(){
+        let counterVal = parseInt(document.getElementById('sellCounterTypeInput').value);
+        let priceVal = parseInt(document.getElementById('sellCounterPriceInput').value);
 
-        let waterBtn = document.getElementById('waterPalmBtn');
-        let groundBox = document.getElementById('groundStateBox');
-        let drop1 = document.getElementById('waterDrop1');
-        let drop2 = document.getElementById('waterDrop2');
-        let drop3 = document.getElementById('waterDrop3');
+        if(isNaN(counterVal) || counterVal <= 0 || isNaN(priceVal) || priceVal <= 0){
+            return alert("⚠️ يرجى إدخال نوع العداد (النقاط) وسعر البيع بشكل صحيح!");
+        }
 
-        waterBtn.disabled = true;
-        waterBtn.innerText = "جاري سقي شجرة الحياة... 💧";
-        
-        groundBox.className = "ground-area ground-wet";
-        groundBox.innerText = "💧 الأرض رطبة ومخصبة الآن (تتغذى شجرة الحياة)...";
-        drop1.style.display = 'block';
-        drop2.style.display = 'block';
-        drop3.style.display = 'block';
+        let currentActiveVal = userData.activeCounterVal || 0;
+        if(currentActiveVal < counterVal){
+            return alert(`⚠️ عدادك الحالي (${currentActiveVal.toLocaleString()}) أقل من القيمة التي تريد بيعها (${counterVal.toLocaleString()})!`);
+        }
 
-        setTimeout(()=>{
-            drop1.style.display = 'none';
-            drop2.style.display = 'none';
-            drop3.style.display = 'none';
-            
-            userData.palmWaterCount = (userData.palmWaterCount || 0) + 1;
-            userData.lastPalmWaterTime = Date.now();
-            userData.points = (userData.points || 0) + 5;
-            addInteractionScore(5);
+        let expireTime = Date.now() + (24 * 60 * 60 * 1000); // 24 ساعة
 
-            saveToDB().then(()=>{
-                updateUI();
-                updateInvestmentUI();
-                groundBox.className = "ground-area ground-dry";
-                groundBox.innerText = "🏜️ الأرض جافة وعطشانة... انقر للسقي";
-                alert("🎉 مبروك أسطورة! أكملت عملية السقي بنجاح وحصلت على 5 نقاط 🪙 وزادت نضارة وتطور شجرة الحياة 🌳");
+        rtdb.ref('trading_counters').push({
+            sellerKey: currentUserKey,
+            sellerId: userData.customId || '---',
+            counterVal: counterVal,
+            price: priceVal,
+            expireTime: expireTime,
+            timestamp: Date.now()
+        }).then(()=>{
+            closeSellCounterModal();
+            document.getElementById('sellCounterTypeInput').value = '';
+            document.getElementById('sellCounterPriceInput').value = '';
+            alert("✅ تم نشر عدادك للبيع في السوق بنجاح! (يبقى فعالاً لديك لحين شراؤه أو انتهاء الـ 24 ساعة).");
+        }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
+    }
+
+    function loadTradingCountersMarket(){
+        if(!rtdb) return;
+        rtdb.ref('trading_counters').on('value', snap=>{
+            let container = document.getElementById('tradingCountersListContainer');
+            if(!container) return;
+            if(!snap.exists()){
+                container.innerHTML = "<div style='text-align:center;color:#94a3b8;padding:20px;font-size:11px;'>لا توجد عدادات معروضة للبيع حالياً في السوق.</div>";
+                return;
+            }
+
+            let now = Date.now();
+            let html = '';
+            snap.forEach(item=>{
+                let d = item.val();
+                let itemKey = item.key;
+
+                // فحص انتهاء الـ 24 ساعة
+                if(now > d.expireTime){
+                    rtdb.ref(`trading_counters/${itemKey}`).remove();
+                    return;
+                }
+
+                let dateObj = new Date(d.expireTime);
+                let dateStr = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                html += `<div style="background:rgba(30,41,59,0.85); border:1px solid rgba(16,185,129,0.4); border-radius:12px; padding:10px; display:flex; justify-content:space-between; align-items:center; text-align:right;">
+                    <div style="flex:1;">
+                        <div style="font-size:12px; color:#fde047; font-weight:bold;">عداد ${Number(d.counterVal).toLocaleString()} نقطة يومياً</div>
+                        <div style="font-size:10px; color:#cbd5e1; margin-top:2px;">📅 تاريخ الانتهاء: ${dateStr}</div>
+                        <div style="font-size:10px; color:#38bdf8; margin-top:2px;">👤 البائع (ID): ${d.sellerId}</div>
+                        <div style="font-size:11px; color:#34d399; font-weight:bold; margin-top:3px;">💰 السعر: ${Number(d.price).toLocaleString()} نقطة</div>
+                    </div>
+                    <div>
+                        <button class="action-btn btn-gold" style="padding:6px 12px; font-size:11px;" onclick="promptBuyTradingCounter('${itemKey}', '${d.sellerKey}', ${d.counterVal}, ${d.price})">شراء 🛒</button>
+                    </div>
+                </div>`;
             });
-        }, 5000);
+
+            container.innerHTML = html || "<div style='text-align:center;color:#94a3b8;padding:20px;font-size:11px;'>لا توجد عدادات معروضة للبيع حالياً.</div>";
+        });
+    }
+
+    function promptBuyTradingCounter(itemKey, sellerKey, counterVal, price){
+        if(sellerKey === currentUserKey){
+            return alert("⚠️ لا يمكنك شراء عدادك المعروض بنفسك!");
+        }
+        pendingBuyItem = { itemKey, sellerKey, counterVal, price };
+        document.getElementById('buyConfirmText').innerText = `هل أنت متأكد من شراء عداد (${counterVal.toLocaleString()} نقطة يومياً) بسعر (${price.toLocaleString()} نقطة)؟`;
+        document.getElementById('buyConfirmModal').style.display = 'flex';
+    }
+
+    function closeBuyConfirmModal(){
+        document.getElementById('buyConfirmModal').style.display = 'none';
+        pendingBuyItem = null;
+    }
+
+    function executeBuyCounterTransaction(){
+        if(!pendingBuyItem) return closeBuyConfirmModal();
+        let { itemKey, sellerKey, counterVal, price } = pendingBuyItem;
+
+        let buyerPts = userData.points || 0;
+        if(buyerPts < price){
+            closeBuyConfirmModal();
+            return alert(`❌ ليس لديك نقاط كافية لشراء العداد! رصيدك (${buyerPts.toLocaleString()} نقطة) بينما السعر (${price.toLocaleString()} نقطة).`);
+        }
+
+        // تنفيذ المعاملة الآمنة (Atomic Transaction عبر جلب بيانات البائع والمشتري)
+        rtdb.ref(`users/${sellerKey}`).once('value').then(sellerSnap=>{
+            if(!sellerSnap.exists()){
+                closeBuyConfirmModal();
+                rtdb.ref(`trading_counters/${itemKey}`).remove();
+                return alert("❌ عذراً، هذا العرض لم يعد متوفراً.");
+            }
+
+            let sellerData = sellerSnap.val();
+            let sellerCurrentPts = sellerData.points || 0;
+
+            // تحديث رصيد المشتري
+            userData.points = buyerPts - price;
+            // منح المشتري العداد الجديد
+            userData.activeCounterVal = counterVal;
+            userData.activeCounter = `عداد ${counterVal.toLocaleString()} نقطة يومياً (مشترى)`;
+
+            let up = {};
+            up[`users/${currentUserKey}/points`] = userData.points;
+            up[`users/${currentUserKey}/activeCounterVal`] = userData.activeCounterVal;
+            up[`users/${currentUserKey}/activeCounter`] = userData.activeCounter;
+
+            // تحويل النقاط للبائع وتصفير عداده اليومي (مع احتفاظه بالـ 500 جوهرة المجانية)
+            up[`users/${sellerKey}/points`] = sellerCurrentPts + price;
+            up[`users/${sellerKey}/activeCounterVal`] = 0;
+            up[`users/${sellerKey}/activeCounter`] = 'لا يوجد (تم بيع العداد)';
+
+            addInteractionScore(20);
+
+            rtdb.ref().update(up).then(()=>{
+                // إرسال إشعار للبائع
+                rtdb.ref(`notifications/${sellerKey}`).push({
+                    text: `🎉 مبروك! تم بيع عدادك (${counterVal.toLocaleString()} نقطة يومياً) بنجاح وإضافة (${price.toLocaleString()} نقطة) لرصيدك!`,
+                    timestamp: Date.now()
+                });
+
+                // حذف العرض من السوق
+                rtdb.ref(`trading_counters/${itemKey}`).remove();
+
+                closeBuyConfirmModal();
+                saveToDB().then(()=>{
+                    updateUI();
+                    alert("🎉 مبروك أسطورة! تمت عملية الشراء بنجاح تام وتم نقل العداد لحسابك وتحويل النقاط للبائع!");
+                });
+            });
+        });
     }
 
     function openDonationModal(){
@@ -1235,7 +1312,7 @@
 
         userData.userClicksCount = (userData.userClicksCount || 0) + 1;
         let currentClicks = userData.userClicksCount;
-        let maxTarget = 500000; // تم تحديث العداد إلى 500 ألف تكبيسة كما طلبتم
+        let maxTarget = 500000;
 
         document.getElementById('clickLiveCounterDisplay').innerText = `العداد اللحظي: ${currentClicks.toLocaleString()} / ${maxTarget.toLocaleString()} تكبيسة`;
 
@@ -1420,7 +1497,7 @@
         if(screenId==='quizScreen') initDailyQuizSession();
         if(screenId==='friendsScreen')loadFriendSystem();
         if(screenId==='agentsScreen')loadApprovedAgentsList();
-        if(screenId==='investmentScreen')updateInvestmentUI();
+        if(screenId==='counterTradingScreen')loadTradingCountersMarket();
         if(screenId==='profileScreen'){
             loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');
             let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`;
@@ -1471,7 +1548,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,agentProvince:'',agentAvatar:'',interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none',palmWaterCount:0,lastPalmWaterTime:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,withdrawCount:0,isAgent:false,agentTelegram:'',agentWhatsapp:'',agentBag:0,agentProvince:'',agentAvatar:'',interactionScore:0,gameWins:0,userClicksCount:0,isVerified:false,verificationPhone:'',verificationStatus:'none'};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -1571,7 +1648,6 @@
             }
         }
         updateVerificationStatusUI();
-        updateInvestmentUI();
     }
 
     function submitVerificationRequest(){
