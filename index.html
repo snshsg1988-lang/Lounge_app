@@ -260,7 +260,6 @@
         .investment-card { background: rgba(15,23,42,0.95); border: 1.5px solid rgba(16,185,129,0.5); border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
         .tree-container { width: 140px; height: 140px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; position: relative; }
         
-        /* تطوير مظهر شجرة الحياة برمز إيموجي وحجم وتوهج فخم مضمون الظهور 100% */
         .tree-emoji-art { font-size: 75px; line-height: 1; filter: drop-shadow(0 0 18px rgba(16,185,129,0.8)); animation: treeGlow 3s ease-in-out infinite alternate; user-select: none; }
         @keyframes treeGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16,185,129,0.4)); } 100% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(52,211,153,0.9)); } }
         
@@ -271,7 +270,6 @@
         @keyframes dropFall { 0% { transform: translateY(-20px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(15px); opacity: 0; } }
         .water-drop { font-size: 22px; position: absolute; animation: dropFall 0.8s linear infinite; display: none; }
 
-        /* تنسيقات زر صندوق التبرعات والعداد التفاعلي */
         .donation-modal-card { background: url('43994.png') no-repeat center center; background-size: cover; border: 2px solid #eab308; border-radius: 20px; padding: 20px; text-align: center; position: relative; }
         .donation-opt-btn { background: rgba(30,41,59,0.85); border: 2px solid rgba(234,179,8,0.5); border-radius: 12px; padding: 10px; font-size: 14px; font-weight: bold; color: #fde047; cursor: pointer; text-align: center; }
         .donation-opt-btn.selected { border-color: #22c55e; background: rgba(16,185,129,0.3); box-shadow: 0 0 15px rgba(34,197,94,0.6); }
@@ -386,7 +384,7 @@
                     <div class="icon-circle" style="font-size:24px;">👇⚡</div>
                     <div style="text-align:right;">
                         <span style="font-size:13px; color:#fff; font-weight:900; display:block;">كبس وأربح (100 نقاط + 100 جواهر 💎)</span>
-                        <div style="font-size:11px; color:#34d399; font-weight:bold; margin-top:2px;" id="clickLiveCounterDisplay">العداد اللحظي: 0 / 2,000,000 تكبيسة</div>
+                        <div style="font-size:11px; color:#34d399; font-weight:bold; margin-top:2px;" id="clickLiveCounterDisplay">العداد اللحظي: 0 / 500,000 تكبيسة</div>
                     </div>
                 </div>
                 <div class="mini-arrow" style="color:#f0abfc;">اضغط للتكبيس وتجميع الجوائز 🚀</div>
@@ -424,7 +422,7 @@
         </div>
     </div>
 
-    <!-- شاشة شجرة الحياة 🌳 (المحدثة بمظهر إيموجي فخم وتطور حسب السقي) -->
+    <!-- شاشة شجرة الحياة 🌳 -->
     <div id="investmentScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#10b981;font-size:15px">🌳 شجرة الحياة (بستان النماء)</h3>
@@ -1237,7 +1235,7 @@
 
         userData.userClicksCount = (userData.userClicksCount || 0) + 1;
         let currentClicks = userData.userClicksCount;
-        let maxTarget = 2000000;
+        let maxTarget = 500000; // تم تحديث العداد إلى 500 ألف تكبيسة كما طلبتم
 
         document.getElementById('clickLiveCounterDisplay').innerText = `العداد اللحظي: ${currentClicks.toLocaleString()} / ${maxTarget.toLocaleString()} تكبيسة`;
 
@@ -1249,7 +1247,7 @@
             
             saveToDB().then(()=>{
                 updateUI();
-                alert("🎉 أسطورة! أكملت 2,000,000 تكبيسة وحصلت على 100 نقطة 🪙 و 100 جوهرة 💎 بنجاح! بدأ العداد من جديد 🚀");
+                alert("🎉 أسطورة! أكملت 500,000 تكبيسة وحصلت على 100 نقطة 🪙 و 100 جوهرة 💎 بنجاح! بدأ العداد من جديد 🚀");
             });
         } else {
             if(clickDebounceTimer) clearTimeout(clickDebounceTimer);
@@ -1531,14 +1529,13 @@
         let av=userData.avatar?userData.avatar:'https://via.placeholder.com/45';
         document.getElementById('headerUserAvatar').src=av;let avPrev=document.getElementById('avatarPreview');if(avPrev)avPrev.src=av;
         
-        // تعديل دقة عرض العداد اليومي بالقيمة العددية الصحيحة المباشرة
         let cVal = userData.activeCounterVal || 0;
         document.getElementById('activeCounterInfo').innerText = cVal > 0 ? `${cVal.toLocaleString()} نقطة يومياً` : (userData.activeCounter || 'لا يوجد');
         
         let clickDisplay = document.getElementById('clickLiveCounterDisplay');
         if(clickDisplay){
             let curr = userData.userClicksCount || 0;
-            clickDisplay.innerText = `العداد اللحظي: ${curr.toLocaleString()} / 2,000,000 تكبيسة`;
+            clickDisplay.innerText = `العداد اللحظي: ${curr.toLocaleString()} / 500,000 تكبيسة`;
         }
 
         let pts = userData.points || 0;
@@ -2519,7 +2516,6 @@
                 return;
             }
             
-            // إصلاح دقة عرض العداد بصفحة الفحص ليعرض القيمة الرقمية الفعلية الصحيحة
             let valNum = foundUser.activeCounterVal || 0;
             let counterInfo = valNum > 0 ? `عداد ${valNum.toLocaleString()} نقطة يومياً` : (foundUser.activeCounter && foundUser.activeCounter !== 'لا يوجد' ? foundUser.activeCounter : 'لا يوجد عداد مشترك');
             
