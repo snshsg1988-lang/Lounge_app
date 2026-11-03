@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق Lounge الرسمي</title>
-    <!-- مكتبات Firebase المتوافقة (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -15,100 +14,23 @@
         .screen-page{display:none;width:100%;min-height:85vh;flex-direction:column;justify-content:flex-start}
         .screen-page.active{display:flex}
         
-        /* شريط الإعلانات المتحرك */
-        .ticker-wrap {
-            width: 100%;
-            background: rgba(147, 51, 234, 0.2);
-            border: 1px solid rgba(192, 132, 252, 0.4);
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 10px;
-            padding: 6px 0;
-            display: flex;
-            align-items: center;
-        }
-        .ticker-title {
-            background: #9333ea;
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: bold;
-            margin-right: 6px;
-            white-space: nowrap;
-        }
-        .ticker-text {
-            display: inline-block;
-            white-space: nowrap;
-            padding-right: 100%;
-            animation: ticker 18s linear infinite;
-            font-size: 11px;
-            color: #f0abfc;
-            font-weight: bold;
-        }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
-        }
+        .ticker-wrap { width: 100%; background: rgba(147, 51, 234, 0.2); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 12px; overflow: hidden; margin-bottom: 10px; padding: 6px 0; display: flex; align-items: center; }
+        .ticker-title { background: #9333ea; color: #fff; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; margin-right: 6px; white-space: nowrap; }
+        .ticker-text { display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 18s linear infinite; font-size: 11px; color: #f0abfc; font-weight: bold; }
+        @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
 
-        .badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            color: #fff;
-            box-shadow: 0 0 8px rgba(168,85,247,0.5);
-        }
-        .badge-tag.agent {
-            background: linear-gradient(135deg, #eab308, #ca8a04);
-            color: #000;
-        }
-        .badge-tag.level {
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
-            color: #fff;
-        }
+        .badge-tag { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; background: linear-gradient(135deg, #a855f7, #ec4899); color: #fff; box-shadow: 0 0 8px rgba(168,85,247,0.5); }
+        .badge-tag.agent { background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; }
+        .badge-tag.level { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; }
 
-        .verified-badge-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px;
-            height: 16px;
-            background: #a855f7;
-            color: #fff;
-            font-size: 10px;
-            font-weight: bold;
-            clip-path: polygon(50% 0%, 65% 15%, 85% 10%, 90% 30%, 105% 45%, 90% 60%, 85% 80%, 65% 85%, 50% 100%, 35% 85%, 15% 80%, 10% 60%, -5% 45%, 10% 30%, 15% 10%, 35% 15%);
-            box-shadow: 0 0 6px rgba(168,85,247,0.8);
-            margin-right: 4px;
-            vertical-align: middle;
-        }
+        .verified-badge-icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: #a855f7; color: #fff; font-size: 10px; font-weight: bold; clip-path: polygon(50% 0%, 65% 15%, 85% 10%, 90% 30%, 105% 45%, 90% 60%, 85% 80%, 65% 85%, 50% 100%, 35% 85%, 15% 80%, 10% 60%, -5% 45%, 10% 30%, 15% 10%, 35% 15%); box-shadow: 0 0 6px rgba(168,85,247,0.8); margin-right: 4px; vertical-align: middle; }
 
-        @keyframes darkHorrorWave {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        #authScreen.screen-page.active {
-            background: linear-gradient(-45deg, #020617, #0f172a, #3b0764, #18181b, #000000);
-            background-size: 500% 500%;
-            animation: darkHorrorWave 10s ease infinite;
-            justify-content: center;
-            align-items: center;
-            border-radius: 20px;
-        }
+        @keyframes darkHorrorWave { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        #authScreen.screen-page.active { background: linear-gradient(-45deg, #020617, #0f172a, #3b0764, #18181b, #000000); background-size: 500% 500%; animation: darkHorrorWave 10s ease infinite; justify-content: center; align-items: center; border-radius: 20px; }
 
         .auth-card{background:rgba(15,23,42,0.92);backdrop-filter:blur(20px);border:1px solid rgba(168,85,247,0.5);border-radius:24px;padding:24px 20px;box-shadow:0 25px 50px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.2);text-align:center;width:100%;position:relative;z-index:10}
         
-        @keyframes horrorGlow {
-            0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(168,85,247,0.6)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(239,68,68,0.9)) brightness(1.2); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(168,85,247,0.6)); }
-        }
+        @keyframes horrorGlow { 0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(168,85,247,0.6)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(239,68,68,0.9)) brightness(1.2); } 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(168,85,247,0.6)); } }
         .animated-logo-container{animation:horrorGlow 3s ease-in-out infinite;display:inline-block;margin-bottom:10px}
         
         .tab-switch{display:flex;background:rgba(15,23,42,0.9);border-radius:12px;padding:4px;margin-bottom:16px;direction:rtl;border:1px solid rgba(255,255,255,0.05)}
@@ -148,11 +70,7 @@
         .grid-btn-item .icon-circle{font-size:20px}
         .grid-btn-item .mini-arrow{position:absolute;bottom:4px;font-size:9px;color:#94a3b8}
 
-        @keyframes clickPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.96); }
-            100% { transform: scale(1); }
-        }
+        @keyframes clickPulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); } 100% { transform: scale(1); } }
         .click-active-anim { animation: clickPulse 0.12s ease-in-out; }
 
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
@@ -160,11 +78,14 @@
         .bottom-nav-item.active{color:#c084fc}
         .bottom-nav-item span{font-size:16px}
         .bottom-nav-wheel-circle{width:42px;height:42px;border-radius:50%;background:conic-gradient(#ef4444 0deg 60deg,#3b82f6 60deg 120deg,#10b981 120deg 180deg,#9333ea 180deg 240deg,#8b5cf6 240deg 300deg,#ec4899 300deg 360deg);border:2px solid #c084fc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;margin-top:-16px;box-shadow:0 4px 15px rgba(147,51,234,0.6);cursor:pointer}
-        button.action-btn{width:100%;padding:10px;border:none;border-radius:9px;font-weight:bold;font-size:12px;cursor:pointer}
+        
+        /* تصغير أزرار القائمة والشحن بنسبة 30% لتوفير المساحة */
+        button.action-btn{width:100%;padding:7px;border:none;border-radius:8px;font-weight:bold;font-size:11px;cursor:pointer}
         .btn-gold{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff}
         .btn-blue{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff}
         .btn-purple{background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff}
         .btn-green{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+        
         .shop-tabs{display:flex;gap:5px;margin-bottom:10px}
         .shop-tab-btn{flex:1;padding:7px;background:rgba(30,41,59,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#94a3b8;font-weight:bold;font-size:11px;cursor:pointer;text-align:center}
         .shop-tab-btn.active-gold{background:linear-gradient(135deg,#9333ea,#c084fc);color:#fff}
@@ -172,7 +93,8 @@
         .shop-tab-btn.active-legend{background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff}
         .shop-tier-content{display:none}
         .shop-tier-content.active{display:block}
-        .counter-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid #1e293b;padding:10px;border-radius:8px;margin-bottom:6px;text-align:right}
+        .counter-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid #1e293b;padding:8px 10px;border-radius:8px;margin-bottom:6px;text-align:right}
+        
         .profile-box{text-align:center;background:rgba(30,41,59,0.7);border:1px solid rgba(192,132,252,0.3);border-radius:16px;padding:15px;margin-bottom:10px}
         .large-avatar-container{position:relative;width:85px;height:85px;margin:0 auto 6px auto}
         .large-avatar{width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222;cursor:pointer}
@@ -181,10 +103,12 @@
         .profile-gift-mini-card{background:rgba(15,23,42,0.7);border:1px solid rgba(192,132,252,0.3);border-radius:8px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:55px}
         .profile-gift-mini-img{width:28px;height:28px;object-fit:contain}
         .profile-gift-mini-count{font-size:9px;color:#c084fc;font-weight:bold;margin-top:2px}
+        
         .wheel-box{width:140px;height:140px;border-radius:50%;border:6px solid #c084fc;margin:8px auto;position:relative;overflow:hidden;transition:transform 5s cubic-bezier(0.1,0.9,0.1,1);background:conic-gradient(#ef4444 0deg 60deg,#3b82f6 60deg 120deg,#10b981 120deg 180deg,#9333ea 180deg 240deg,#8b5cf6 240deg 300deg,#ec4899 300deg 360deg)}
         .wheel-pointer{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:15px solid #fff;margin:0 auto;margin-bottom:-6px;z-index:10;position:relative}
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:1000;padding:15px}
         .modal-content{background:#090514;border:1px solid rgba(192,132,252,0.4);border-radius:16px;width:100%;max-width:380px;padding:16px;max-height:90vh;overflow-y:auto}
+        
         .gift-box-btn{background:rgba(147,51,234,0.25);border:1px solid #9333ea;color:#fff;padding:0 8px;border-radius:8px;font-size:11px;cursor:pointer;height:38px;display:flex;align-items:center;justify-content:center}
         .room-settings-btn{background:rgba(168,85,247,0.25);border:1px solid #a855f7;color:#fff;padding:0 8px;border-radius:8px;font-size:11px;cursor:pointer;height:38px;display:flex;align-items:center;justify-content:center}
         .rooms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px;max-height:55vh;overflow-y:auto;padding:2px}
@@ -219,24 +143,9 @@
         .chat-msg-row { position: relative; overflow: hidden; touch-action: pan-y; }
         .chat-bubble-swipe { transition: transform 0.2s ease; }
 
-        .agent-copy-btn {
-            background: rgba(147, 51, 234, 0.3);
-            border: 1px solid #c084fc;
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 10px;
-            cursor: pointer;
-            margin-right: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 2px;
-        }
+        .agent-copy-btn { background: rgba(147, 51, 234, 0.3); border: 1px solid #c084fc; color: #fff; padding: 3px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; margin-right: 4px; display: inline-flex; align-items: center; gap: 2px; }
 
-        #c4GiftOverlay {
-          position: fixed; inset: 0; z-index: 999999; display: none; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;
-          background: radial-gradient(ellipse at center, rgba(28, 20, 65, .48), rgba(0, 0, 0, .80));
-        }
+        #c4GiftOverlay { position: fixed; inset: 0; z-index: 999999; display: none; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at center, rgba(28, 20, 65, .48), rgba(0, 0, 0, .80)); }
         #c4GiftOverlay.c4-show { display: flex; animation: c4FadeIn .25s ease both; }
         #c4GiftOverlay.c4-hide { animation: c4FadeOut .35s ease both; }
         .c4-gift-scene { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
@@ -263,6 +172,11 @@
 
         .agent-modal-input-group input, .agent-modal-input-group select { padding: 6px !important; font-size: 10px !important; margin-bottom: 5px !important; }
         .agent-modal-input-group label { font-size: 9px !important; color: #cbd5e1; display: block; margin-bottom: 2px; }
+        
+        /* أزرار اختيار طرق سحب الأرباح الصغيرة */
+        .withdraw-methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+        .withdraw-method-btn { background: rgba(30,41,59,0.8); border: 1px solid rgba(192,132,252,0.3); border-radius: 8px; padding: 8px 4px; font-size: 10px; font-weight: bold; color: #cbd5e1; cursor: pointer; text-align: center; }
+        .withdraw-method-btn.active { background: linear-gradient(135deg, #9333ea, #c084fc); color: #fff; border-color: #c084fc; box-shadow: 0 0 10px rgba(192,132,252,0.4); }
     </style>
 </head>
 <body>
@@ -295,7 +209,6 @@
     </div>
 
     <div id="mainScreen" class="screen-page">
-        <!-- شريط الإعلانات المتحرك -->
         <div class="ticker-wrap">
             <span class="ticker-title">📢 إعلان</span>
             <div class="ticker-text" id="tickerTextDisplay">أهلاً بكم في تطبيق Lounge الرسمي! أسرع وأحدث نظام دردشة وشحن أرباح.</div>
@@ -360,7 +273,6 @@
             </div>
         </div>
 
-        <!-- شبكة الأزرار الرئيسية -->
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">🏢</div><span>قائمة الوكلاء</span><div class="mini-arrow">⌄</div></div>
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
@@ -388,7 +300,6 @@
                 <div class="mini-arrow" style="color:#fde047;">اضغط لاكتشاف الصناديق وفتح الجوائز 🚀</div>
             </div>
 
-            <!-- زر بيع وشراء العدادات البديل الجديد بمكان شجرة الحياة -->
             <div id="counterTradingMainBtn" class="grid-btn-item" style="grid-column: span 3; background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(59,7,100,0.4)); border: 1.5px solid #10b981; position:relative; overflow:hidden; margin-top:4px;" onclick="navigateTo('counterTradingScreen')">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="icon-circle" style="font-size:24px;">🛒🤝</div>
@@ -410,7 +321,6 @@
         </div>
     </div>
 
-    <!-- شاشة سوق بيع وشراء العدادات الجديدة 🛒 -->
     <div id="counterTradingScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#10b981;font-size:15px">🛒 سوق بيع وشراء العدادات</h3>
@@ -428,7 +338,6 @@
         </div>
     </div>
 
-    <!-- شاشة كنز لاونج الأسبوعي -->
     <div id="treasureScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#eab308;font-size:15px">🎁 كنز لاونج الأسبوعي</h3>
@@ -443,7 +352,6 @@
         </div>
     </div>
 
-    <!-- شاشة نظام الوكلاء المعتمدين والتسجيل -->
     <div id="agentsScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#facc15;font-size:15px">🏢 الوكلاء المعتمدون والتسجيل</h3>
@@ -500,19 +408,27 @@
         </div>
     </div>
 
-    <!-- متجر العدادات المتضمن زر صندوق التبرعات -->
+    <!-- متجر العدادات مع قسم إيداع USDT TRC20 والمرفق به ID المستخدم -->
     <div id="shopScreen" class="screen-page">
         <div class="top-nav">
-            <h3 style="margin:0;color:#c084fc;font-size:15px">🛒 متجر العدادات</h3>
+            <h3 style="margin:0;color:#c084fc;font-size:15px">🛒 متجر العدادات والإيداع</h3>
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
-        <div class="card" style="text-align:right;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.4);margin-bottom:12px;padding:12px">
-            <h4 style="margin:0 0 6px 0;color:#38bdf8;font-size:13px">📥 طلب شراء عداد مخصص</h4>
-            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">أدخل رقم التحويل وتفاصيل العداد المطلوب وسيتم التحقق والشحن مباشرة:</p>
-            <input type="text" id="manualCounterPhone" class="input-box" placeholder="رقم التحويل (رقم عملية التحويل)" style="margin-bottom:6px">
-            <input type="text" id="manualCounterDetails" class="input-box" placeholder="العداد المطلوب (اكتب العداد المطلوب هنا)" style="margin-bottom:8px">
-            <button class="action-btn btn-blue" style="padding:8px;font-size:11px" onclick="submitManualCounterOrder()">إرسال طلب الحجز للإدارة 🚀</button>
+        
+        <div class="card" style="text-align:right;background:rgba(15,23,42,0.9);border:1px solid rgba(16,185,129,0.5);margin-bottom:12px;padding:12px">
+            <h4 style="margin:0 0 6px 0;color:#34d399;font-size:13px">📥 إيداع USDT TRC20 وطلب عداد مخصص</h4>
+            <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">حّول المبلغ عبر شبكة TRC20 إلى عنوان المحفظة أدناه، انسخ العنوان، ثم املأ رقم التحويل (Hash) والعداد المطلوب مع الـ ID الخاص بك للإرسال للإدارة:</p>
+            
+            <div style="background:rgba(2,6,23,0.9);border:1px solid rgba(16,185,129,0.4);border-radius:10px;padding:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+                <span id="usdtWalletAddressText" style="font-size:10px;color:#38bdf8;font-family:monospace;word-break:break-all;direction:ltr;text-align:left">TU31n5NnWAnhQ83YTpYFXvjhrAqxNfkn8F</span>
+                <button class="action-btn btn-green" style="width:auto;padding:5px 10px;font-size:10px" onclick="copyUsdtAddress()">📋 نسخ العنوان</button>
+            </div>
+
+            <input type="text" id="manualCounterPhone" class="input-box" placeholder="رقم عملية التحويل أو الـ Hash" style="margin-bottom:6px">
+            <input type="text" id="manualCounterDetails" class="input-box" placeholder="العداد المطلوب (مثلا: عداد 5000 نقطة)" style="margin-bottom:8px">
+            <button class="action-btn btn-green" style="padding:8px;font-size:11px" onclick="submitManualCounterOrder()">إرسال طلب الحجز للإدارة 🚀</button>
         </div>
+
         <div class="card">
             <div class="shop-tabs">
                 <button class="shop-tab-btn active-gold" id="tabGold" onclick="switchShopTab('gold')">الذهبي</button>
@@ -520,28 +436,27 @@
                 <button class="shop-tab-btn" id="tabLegend" onclick="switchShopTab('legend')">الأسطوري</button>
             </div>
             <div id="shopGoldContent" class="shop-tier-content active">
-                <div class="counter-row"><div><b>عداد 100 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 20.000 نقطة (6.000 د.ع)</small></div><button class="action-btn btn-gold" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(100,20000, 'عداد 100 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 200 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 40.000 نقطة (12.000 د.ع)</small></div><button class="action-btn btn-gold" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(200,40000, 'عداد 200 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 500 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 100.000 نقطة (30.000 د.ع)</small></div><button class="action-btn btn-gold" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(500,100000, 'عداد 500 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 1.000 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 200.000 نقطة (60.000 د.ع)</small></div><button class="action-btn btn-gold" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(1000,200000, 'عداد 1.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 100 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 20.000 نقطة</small></div><button class="action-btn btn-gold" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(100,20000, 'عداد 100 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 200 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 40.000 نقطة</small></div><button class="action-btn btn-gold" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(200,40000, 'عداد 200 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 500 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 100.000 نقطة</small></div><button class="action-btn btn-gold" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(500,100000, 'عداد 500 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 1.000 نقطة يومياً</b><br><small style="color:#c084fc">السعر: 200.000 نقطة</small></div><button class="action-btn btn-gold" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(1000,200000, 'عداد 1.000 نقطة يومياً')">شراء 🛒</button></div>
             </div>
             <div id="shopDiamondContent" class="shop-tier-content">
-                <div class="counter-row"><div><b>عداد 2.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 400.000 نقطة (120.000 د.ع)</small></div><button class="action-btn btn-blue" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(2000,400000, 'عداد 2.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 3.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 600.000 نقطة (180.000 د.ع)</small></div><button class="action-btn btn-blue" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(3000,600000, 'عداد 3.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 4.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 800.000 نقطة (240.000 د.ع)</small></div><button class="action-btn btn-blue" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(4000,800000, 'عداد 4.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 5.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 1.000.000 نقطة (300.000 د.ع)</small></div><button class="action-btn btn-blue" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(5000,1000000, 'عداد 5.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 2.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 400.000 نقطة</small></div><button class="action-btn btn-blue" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(2000,400000, 'عداد 2.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 3.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 600.000 نقطة</small></div><button class="action-btn btn-blue" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(3000,600000, 'عداد 3.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 4.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 800.000 نقطة</small></div><button class="action-btn btn-blue" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(4000,800000, 'عداد 4.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 5.000 نقطة يومياً</b><br><small style="color:#38bdf8">السعر: 1.000.000 نقطة</small></div><button class="action-btn btn-blue" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(5000,1000000, 'عداد 5.000 نقطة يومياً')">شراء 🛒</button></div>
             </div>
             <div id="shopLegendContent" class="shop-tier-content">
-                <div class="counter-row"><div><b>عداد 10.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 2.000.000 نقطة (600.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(10000,2000000, 'عداد 10.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 20.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 4.000.000 نقطة (1.200.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(20000,4000000, 'عداد 20.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 30.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 6.000.000 نقطة (1.800.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(30000,6000000, 'عداد 30.000 نقطة يومياً')">شراء 🛒</button></div>
-                <div class="counter-row"><div><b>عداد 40.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 8.000.000 نقطة (2.400.000 د.ع)</small></div><button class="action-btn btn-purple" style="width:auto;padding:5px 12px;font-size:11px" onclick="buyCounter(40000,8000000, 'عداد 40.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 10.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 2.000.000 نقطة</small></div><button class="action-btn btn-purple" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(10000,2000000, 'عداد 10.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 20.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 4.000.000 نقطة</small></div><button class="action-btn btn-purple" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(20000,4000000, 'عداد 20.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 30.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 6.000.000 نقطة</small></div><button class="action-btn btn-purple" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(30000,6000000, 'عداد 30.000 نقطة يومياً')">شراء 🛒</button></div>
+                <div class="counter-row"><div><b>عداد 40.000 نقطة يومياً</b><br><small style="color:#a855f7">السعر: 8.000.000 نقطة</small></div><button class="action-btn btn-purple" style="width:auto;padding:4px 10px;font-size:10px" onclick="buyCounter(40000,8000000, 'عداد 40.000 نقطة يومياً')">شراء 🛒</button></div>
             </div>
         </div>
 
-        <!-- زر صندوق التبرعات حصراً داخل المتجر وتحت العدادات -->
         <div style="margin-top:10px;">
-            <button class="action-btn btn-gold" style="padding:12px;font-size:13px;border-radius:14px;background:linear-gradient(135deg,#eab308,#ca8a04);color:#000;box-shadow:0 5px 15px rgba(234,179,8,0.4);" onclick="openDonationModal()">صندوق التبرعات</button>
+            <button class="action-btn btn-gold" style="padding:10px;font-size:12px;border-radius:14px;background:linear-gradient(135deg,#eab308,#ca8a04);color:#000;box-shadow:0 5px 15px rgba(234,179,8,0.4);" onclick="openDonationModal()">صندوق التبرعات</button>
         </div>
     </div>
 
@@ -681,7 +596,6 @@
     </div>
 </div>
 
-<!-- مودال عرض العداد للبيع (40% حجم مدمج وأنيق) -->
 <div id="sellCounterModal" class="modal">
     <div class="modal-content" style="text-align:right; max-width:320px; padding:14px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -699,7 +613,6 @@
     </div>
 </div>
 
-<!-- مودال تأكيد الشراء الآمن (شراء العرض / كلا) -->
 <div id="buyConfirmModal" class="modal">
     <div class="modal-content" style="text-align:center; max-width:300px; padding:16px;">
         <h4 style="margin:0 0 8px 0;color:#fde047;font-size:14px">⚠️ تأكيد عملية الشراء</h4>
@@ -711,7 +624,6 @@
     </div>
 </div>
 
-<!-- مودال تقديم الوكالة -->
 <div id="agentApplyModal" class="modal">
     <div class="modal-content agent-modal-input-group" style="text-align:right; max-width:320px; padding:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -752,7 +664,6 @@
     </div>
 </div>
 
-<!-- مودال صندوق التبرعات التفاعلي مع العداد العام وزر التصفير السري للإدارة -->
 <div id="donationModal" class="modal">
     <div class="modal-content donation-modal-card">
         <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
@@ -760,7 +671,6 @@
         </div>
         <div style="font-size:18px;font-weight:900;color:#fde047;text-shadow:0 2px 4px rgba(0,0,0,0.8);margin-bottom:8px;">صندوق التبرعات</div>
         
-        <!-- عداد التبرعات العام المرئي للجميع -->
         <div style="background:rgba(15,23,42,0.85); border:1px solid rgba(234,179,8,0.5); border-radius:12px; padding:8px; margin-bottom:12px; text-align:center;">
             <div style="font-size:10px; color:#94a3b8;">إجمالي التبرعات الحالية في الصندوق:</div>
             <div style="font-size:16px; font-weight:900; color:#34d399; margin-top:2px;" id="totalDonationsDisplay">0 🪙</div>
@@ -774,14 +684,12 @@
 
         <button class="action-btn" style="background:linear-gradient(135deg,#facc15,#eab308);color:#000;font-size:14px;padding:9px;border-radius:12px;box-shadow:0 4px 15px rgba(234,179,8,0.6);font-weight:900;margin-bottom:8px;" onclick="confirmDonation()">حسناً</button>
 
-        <!-- زر تصفير العداد (يظهر حصراً لحساب الإدارة داخل نافذة التبرع) -->
         <div id="adminDonationResetArea" style="display:none; margin-top:6px; border-top:1px dashed rgba(255,255,255,0.2); padding-top:6px;">
             <button class="action-btn" style="background:rgba(239,68,68,0.2); border:1px solid #ef4444; color:#ef4444; font-size:10px; padding:6px; border-radius:8px;" onclick="adminResetDonationsCounter()">🗑️ تصفير عداد التبرعات (خاص بالإدارة)</button>
         </div>
     </div>
 </div>
 
-<!-- لوحة تحكم الإدارة -->
 <div id="adminPanelModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px;padding:8px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
@@ -842,7 +750,6 @@
     </div>
 </div>
 
-<!-- مودال طلبات الوكلاء -->
 <div id="adminAgentAppsModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -856,7 +763,7 @@
 <div id="adminCounterOrdersModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <h4 style="margin:0;color:#c084fc;font-size:13px">📥 طلبات شراء العدادات المعلقة</h4>
+            <h4 style="margin:0;color:#c084fc;font-size:13px">📥 طلبات شراء العدادات المعلقة والإيداعات</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:16px;cursor:pointer" onclick="closeAdminCounterOrders()">✖</button>
         </div>
         <div id="adminCounterOrdersList" style="max-height:260px;overflow-y:auto;font-size:11px">جاري التحميل...</div>
@@ -909,7 +816,6 @@
     </div>
 </div>
 
-<!-- مودال تعديل الصناديق السريع للإدارة -->
 <div id="adminTreasureEditModal" class="modal">
     <div class="modal-content" style="text-align:right;max-width:390px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -1022,16 +928,23 @@
     </div>
 </div>
 
+<!-- مودال سحب الأرباح مع الثلاثة أزرار الصغيرة (زين كاش، سوبركي، USDT TRC20) -->
 <div id="withdrawModal" class="modal">
     <div class="modal-content" style="text-align:right">
         <div class="modal-header" style="display:flex;justify-content:space-between;margin-bottom:8px">
             <h3 style="color:#c084fc;margin:0;font-size:14px">💸 سحب الأرباح</h3>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeWithdrawModal()">✖</button>
         </div>
-        <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;padding:8px;border-radius:8px;margin-bottom:10px;font-size:11px;color:#10b981"><b>💼 قسم سحب الأرباح:</b><br>الحد الأدنى للسحب 10$ ويتم التحويل حصراً من قبل الإدارة على محفظة زين كاش لاستلام الأرباح.</div>
-        <label style="font-size:11px;color:#cbd5e1;display:block;margin-bottom:4px">طريقة السحب:</label>
-        <select id="withdrawMethod" class="select-box"><option value="زين كاش (Zain Cash)">زين كاش (Zain Cash)</option></select>
-        <input type="text" class="input-box" id="withdrawAccount" placeholder="رقم محفظة زين كاش الخاصة بك لاستلام الأرباح">
+        <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;padding:8px;border-radius:8px;margin-bottom:10px;font-size:11px;color:#10b981"><b>💼 قسم سحب الأرباح:</b><br>الحد الأدنى للسحب 10$. اختر طريقة السحب المناسبة لك أدناه:</div>
+        
+        <label style="font-size:11px;color:#cbd5e1;display:block;margin-bottom:4px">اختر طريقة السحب:</label>
+        <div class="withdraw-methods-grid">
+            <button class="withdraw-method-btn active" id="wBtnZain" onclick="selectWithdrawMethod('زين كاش (Zain Cash)')">زين كاش</button>
+            <button class="withdraw-method-btn" id="wBtnSuper" onclick="selectWithdrawMethod('سوبركي (SuperKey)')">سوبركي</button>
+            <button class="withdraw-method-btn" id="wBtnUsdt" onclick="selectWithdrawMethod('USDT TRC20')">USDT TRC20</button>
+        </div>
+
+        <input type="text" class="input-box" id="withdrawAccount" placeholder="رقم الحساب أو محفظة USDT الخاصة بك">
         <input type="number" class="input-box" id="withdrawAmount" placeholder="أدخل مبلغ السحب (10 دولار فأكثر)">
         <button class="action-btn btn-gold" onclick="submitWithdrawal()">تأكيد طلب السحب للإدارة 🚀</button>
     </div>
@@ -1058,6 +971,7 @@
     let selectedDonationAmountValue = 150; 
     let globalTotalDonations = 0;
     let pendingBuyItem = null;
+    let selectedWithdrawMethodName = 'زين كاش (Zain Cash)';
 
     const fullQuestionsPool = [
         { id: 1, q: "ما هي عاصمة جمهورية العراق؟", correct: "بغداد", wrong: "البصرة" },
@@ -1095,13 +1009,55 @@
         }, 800);
     }
 
-    // دوال نظام بيع وشراء العدادات الجديد 🛒
-    function openSellCounterModal(){
-        document.getElementById('sellCounterModal').style.display = 'flex';
+    // دوال النسخ الآمن 100% لعنوان الـ USDT TRC20
+    function copyUsdtAddress(){
+        let addr = "TU31n5NnWAnhQ83YTpYFXvjhrAqxNfkn8F";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(addr).then(()=>{
+                alert("📋 تم نسخ عنوان محفظة USDT TRC20 بنجاح!");
+            }).catch(()=>{
+                fallbackCopyUsdt(addr);
+            });
+        } else {
+            fallbackCopyUsdt(addr);
+        }
     }
-    function closeSellCounterModal(){
-        document.getElementById('sellCounterModal').style.display = 'none';
+    function fallbackCopyUsdt(text) {
+        let textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            let successful = document.execCommand('copy');
+            if(successful) alert("📋 تم نسخ عنوان محفظة USDT TRC20 بنجاح!");
+            else alert("❌ تعذر النسخ.");
+        } catch (err) {
+            alert("❌ تعذر النسخ.");
+        }
+        document.body.removeChild(textArea);
     }
+
+    // اختيار طريقة سحب الأرباح
+    function selectWithdrawMethod(methodName){
+        selectedWithdrawMethodName = methodName;
+        document.getElementById('wBtnZain').className = "withdraw-method-btn" + (methodName === 'زين كاش (Zain Cash)' ? " active" : "");
+        document.getElementById('wBtnSuper').className = "withdraw-method-btn" + (methodName === 'سوبركي (SuperKey)' ? " active" : "");
+        document.getElementById('wBtnUsdt').className = "withdraw-method-btn" + (methodName === 'USDT TRC20' ? " active" : "");
+        
+        let accInput = document.getElementById('withdrawAccount');
+        if(methodName === 'USDT TRC20') {
+            accInput.placeholder = "أدخل عنوان محفظة USDT TRC20 الخاصة بك";
+        } else if(methodName === 'سوبركي (SuperKey)') {
+            accInput.placeholder = "أدخل رقم أو حساب سوبركي الخاص بك";
+        } else {
+            accInput.placeholder = "رقم محفظة زين كاش الخاص بك لاستلام الأرباح";
+        }
+    }
+
+    function openSellCounterModal(){ document.getElementById('sellCounterModal').style.display = 'flex'; }
+    function closeSellCounterModal(){ document.getElementById('sellCounterModal').style.display = 'none'; }
 
     function confirmPublishCounterForSale(){
         let counterVal = parseInt(document.getElementById('sellCounterTypeInput').value);
@@ -1116,7 +1072,7 @@
             return alert(`⚠️ عدادك الحالي (${currentActiveVal.toLocaleString()}) أقل من القيمة التي تريد بيعها (${counterVal.toLocaleString()})!`);
         }
 
-        let expireTime = Date.now() + (24 * 60 * 60 * 1000); // 24 ساعة
+        let expireTime = Date.now() + (24 * 60 * 60 * 1000);
 
         rtdb.ref('trading_counters').push({
             sellerKey: currentUserKey,
@@ -1129,7 +1085,7 @@
             closeSellCounterModal();
             document.getElementById('sellCounterTypeInput').value = '';
             document.getElementById('sellCounterPriceInput').value = '';
-            alert("✅ تم نشر عدادك للبيع في السوق بنجاح! (يبقى فعالاً لديك لحين شراؤه أو انتهاء الـ 24 ساعة).");
+            alert("✅ تم نشر عدادك للبيع في السوق بنجاح!");
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
     }
 
@@ -1149,7 +1105,6 @@
                 let d = item.val();
                 let itemKey = item.key;
 
-                // فحص انتهاء الـ 24 ساعة
                 if(now > d.expireTime){
                     rtdb.ref(`trading_counters/${itemKey}`).remove();
                     return;
@@ -1199,7 +1154,6 @@
             return alert(`❌ ليس لديك نقاط كافية لشراء العداد! رصيدك (${buyerPts.toLocaleString()} نقطة) بينما السعر (${price.toLocaleString()} نقطة).`);
         }
 
-        // تنفيذ المعاملة الآمنة (Atomic Transaction عبر جلب بيانات البائع والمشتري)
         rtdb.ref(`users/${sellerKey}`).once('value').then(sellerSnap=>{
             if(!sellerSnap.exists()){
                 closeBuyConfirmModal();
@@ -1210,9 +1164,7 @@
             let sellerData = sellerSnap.val();
             let sellerCurrentPts = sellerData.points || 0;
 
-            // تحديث رصيد المشتري
             userData.points = buyerPts - price;
-            // منح المشتري العداد الجديد
             userData.activeCounterVal = counterVal;
             userData.activeCounter = `عداد ${counterVal.toLocaleString()} نقطة يومياً (مشترى)`;
 
@@ -1221,7 +1173,6 @@
             up[`users/${currentUserKey}/activeCounterVal`] = userData.activeCounterVal;
             up[`users/${currentUserKey}/activeCounter`] = userData.activeCounter;
 
-            // تحويل النقاط للبائع وتصفير عداده اليومي (مع احتفاظه بالـ 500 جوهرة المجانية)
             up[`users/${sellerKey}/points`] = sellerCurrentPts + price;
             up[`users/${sellerKey}/activeCounterVal`] = 0;
             up[`users/${sellerKey}/activeCounter`] = 'لا يوجد (تم بيع العداد)';
@@ -1229,19 +1180,17 @@
             addInteractionScore(20);
 
             rtdb.ref().update(up).then(()=>{
-                // إرسال إشعار للبائع
                 rtdb.ref(`notifications/${sellerKey}`).push({
                     text: `🎉 مبروك! تم بيع عدادك (${counterVal.toLocaleString()} نقطة يومياً) بنجاح وإضافة (${price.toLocaleString()} نقطة) لرصيدك!`,
                     timestamp: Date.now()
                 });
 
-                // حذف العرض من السوق
                 rtdb.ref(`trading_counters/${itemKey}`).remove();
 
                 closeBuyConfirmModal();
                 saveToDB().then(()=>{
                     updateUI();
-                    alert("🎉 مبروك أسطورة! تمت عملية الشراء بنجاح تام وتم نقل العداد لحسابك وتحويل النقاط للبائع!");
+                    alert("🎉 مبروك أسطورة! تمت عملية الشراء بنجاح تام!");
                 });
             });
         });
@@ -1261,9 +1210,7 @@
             }
         }
     }
-    function closeDonationModal(){
-        document.getElementById('donationModal').style.display = 'none';
-    }
+    function closeDonationModal(){ document.getElementById('donationModal').style.display = 'none'; }
     function selectDonationAmount(amt, btnElem){
         selectedDonationAmountValue = amt;
         document.querySelectorAll('.donation-opt-btn').forEach(b => b.classList.remove('selected'));
@@ -1284,14 +1231,14 @@
             saveToDB().then(()=>{
                 updateUI();
                 closeDonationModal();
-                alert(`✅ تم التبرع بنجاح بـ (${selectedDonationAmountValue} نقطة)! شكراً لعطائك وتمت إضافة التبرع للعداد العام للشفافية 💖`);
+                alert(`✅ تم التبرع بنجاح بـ (${selectedDonationAmountValue} نقطة)! شكراً لعطائك 💖`);
             });
         });
     }
 
     function adminResetDonationsCounter(){
         if(currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com' && userData.customId !== '1') return alert("⚠️ غير مسموح.");
-        if(!confirm("⚠️ هل أنت متأكد من تصفير عداد التبرعات العام وإرجاعه إلى الصفر للبدء من جديد؟")) return;
+        if(!confirm("⚠️ هل أنت متأكد من تصفير عداد التبرعات العام وإرجاعه إلى الصفر؟")) return;
 
         rtdb.ref('global_donations_total').set(0).then(()=>{
             alert("🗑️ تم تصفير عداد التبرعات العام بنجاح!");
@@ -1300,7 +1247,7 @@
 
     function handleUserClickAndWin(){
         if(globalAppSettings.dailyCounterLocked && currentUserKey !== 'msaftwtn_gmail_com'){
-            return alert('⚠️ عذراً، نظام التكبيس متوقف حالياً بأمر من الإدارة لمراجعة الأمن والعداد اليومي.');
+            return alert('⚠️ عذراً، نظام التكبيس متوقف حالياً بأمر من الإدارة.');
         }
 
         let btn = document.getElementById('clickAndWinMainBtn');
@@ -1324,13 +1271,11 @@
             
             saveToDB().then(()=>{
                 updateUI();
-                alert("🎉 أسطورة! أكملت 500,000 تكبيسة وحصلت على 100 نقطة 🪙 و 100 جوهرة 💎 بنجاح! بدأ العداد من جديد 🚀");
+                alert("🎉 أسطورة! أكملت 500,000 تكبيسة وحصلت على 100 نقطة 🪙 و 100 جوهرة 💎 بنجاح!");
             });
         } else {
             if(clickDebounceTimer) clearTimeout(clickDebounceTimer);
-            clickDebounceTimer = setTimeout(()=>{
-                saveToDB();
-            }, 600);
+            clickDebounceTimer = setTimeout(()=>{ saveToDB(); }, 600);
         }
     }
 
@@ -1357,7 +1302,7 @@
         const completedToday = localStorage.getItem('lounge_quiz_completed_' + currentUserKey);
         if (completedToday === todayStr) {
             isCompletedToday = true;
-            lockQuizButton("لقد أتممت تحدي الـ 100 سؤال بنجاح لهذا اليوم، ننتظرك غداً!");
+            lockQuizButton("لقد أتممت تحدي الـ 100 سؤال بنجاح لهذا اليوم!");
         } else {
             isCompletedToday = false;
             currentQuestionIndex = 0;
@@ -1401,9 +1346,7 @@
         if (isCompletedToday) return;
         const allButtons = document.getElementById('options-box').getElementsByTagName('button');
 
-        for (let b of allButtons) {
-            b.style.pointerEvents = 'none';
-        }
+        for (let b of allButtons) { b.style.pointerEvents = 'none'; }
 
         if (isCorrect) {
             selectedBtn.style.background = '#22c55e';
@@ -1682,7 +1625,7 @@
                 <span>${verifiedBadge} <b style="color:#c084fc;font-size:10px;">موثق رسمياً</b></span>
             </div>`;
         } else if(userData.verificationStatus === 'pending'){
-            statusDisp.innerHTML = `<span style="color:#eab308;font-weight:bold">⏳ طلب التوثيق بالرقم (${userData.verificationPhone || ''}) قيد المراجعة من الإدارة...</span>`;
+            statusDisp.innerHTML = `<span style="color:#eab308;font-weight:bold">⏳ طلب التوثيق بالرقم قيد المراجعة...</span>`;
         } else {
             statusDisp.innerHTML = `
                 <div style="font-size:11px;color:#c084fc;font-weight:bold;margin-bottom:4px">🛡️ طلب توثيق الحساب بالعلامة الزرقاء:</div>
@@ -1721,22 +1664,17 @@
             verificationPhone: phone
         }).then(()=>{
             rtdb.ref(`notifications/${targetKey}`).push({
-                text: `🎉 مبروك! وافقت الإدارة على طلب توثيق حسابك بالرقم وتم تفعيل الشارة البنفسجية الملكية بجانب اسمك! 🛡️`,
+                text: `🎉 مبروك! وافقت الإدارة على طلب توثيق حسابك بالرقم وتم تفعيل الشارة البنفسجية الملكية! 🛡️`,
                 timestamp: Date.now()
             });
             rtdb.ref(`verification_requests/${reqKey}`).remove();
-            alert("✅ تم توثيق الحساب ومنح الشارة البنفسجية بنجاح وتثبيت الرقم في ملفه!");
+            alert("✅ تم توثيق الحساب ومنح الشارة البنفسجية بنجاح!");
         });
     }
 
     function adminRejectVerification(targetKey, reqKey){
-        rtdb.ref(`users/${targetKey}`).update({
-            verificationStatus: 'rejected'
-        }).then(()=>{
-            rtdb.ref(`notifications/${targetKey}`).push({
-                text: `⚠️ عذراً، تم رفض طلب توثيق حسابك من قبل الإدارة.`,
-                timestamp: Date.now()
-            });
+        rtdb.ref(`users/${targetKey}`).update({ verificationStatus: 'rejected' }).then(()=>{
+            rtdb.ref(`notifications/${targetKey}`).push({ text: `⚠️ عذراً، تم رفض طلب توثيق حسابك من قبل الإدارة.`, timestamp: Date.now() });
             rtdb.ref(`verification_requests/${reqKey}`).remove();
             alert("❌ تم رفض الطلب.");
         });
@@ -1814,9 +1752,7 @@
         });
     }
 
-    function closeAdminTreasureEditModal(){
-        document.getElementById('adminTreasureEditModal').style.display = 'none';
-    }
+    function closeAdminTreasureEditModal(){ document.getElementById('adminTreasureEditModal').style.display = 'none'; }
 
     function saveQuickTreasureBoxes(){
         let b1t = document.getElementById('quickBox1Title').value.trim();
@@ -1848,7 +1784,7 @@
     function openTreasureBox(boxKey, price, hiddenReward, boxTitle){
         let currentPts = userData.points || 0;
         if(currentPts < price) {
-            return alert(`❌ نقاطك الحالية (${currentPts.toLocaleString()} نقطة) لا تكفي لفتح هذا الصندوق! سعره ${price.toLocaleString()} نقطة.`);
+            return alert(`❌ نقاطك الحالية (${currentPts.toLocaleString()} نقطة) لا تكفي لفتح هذا الصندوق!`);
         }
 
         if(!confirm(`هل أنت متأكد من خصم ${price.toLocaleString()} نقطة وفتح (${boxTitle})؟`)) return;
@@ -1859,7 +1795,7 @@
 
         saveToDB().then(()=>{
             updateUI();
-            alert(`🎉 مبروك أسطورة! فتحت (${boxTitle}) وظهرت بداخله مفاجأة مخفية بقيمة (${hiddenReward.toLocaleString()} نقطة 🪙)! تمت إضافتها لرصيدك بنجاح 🚀`);
+            alert(`🎉 مبروك أسطورة! فتحت (${boxTitle}) وظهرت بداخله مفاجأة مخفية بقيمة (${hiddenReward.toLocaleString()} نقطة 🪙)!`);
         });
     }
 
@@ -1904,14 +1840,17 @@
         saveToDB().then(()=>{updateUI();alert(`🎉 مبروك! تم شراء العداد وأصبح إجمالي إنتاجك (${userData.activeCounterVal.toLocaleString()} نقطة يومياً).`);});
     }
     
+    // إرسال طلب شراء العداد المخصص عبر الـ USDT مع تضمين ID المستخدم تلقائياً
     function submitManualCounterOrder(){
         let ph = document.getElementById('manualCounterPhone').value.trim();
         let det = document.getElementById('manualCounterDetails').value.trim();
-        if(!ph || !det) return alert("⚠️ يرجى ملء حقل رقم التحويل وحقل العداد المطلوب!");
+        if(!ph || !det) return alert("⚠️ يرجى ملء حقل رقم التحويل/الـ Hash وحقل العداد المطلوب!");
+        
         rtdb.ref('manual_counter_orders').push({
             userKey: currentUserKey,
-            userName: userData.name,
-            userId: userData.customId,
+            userName: userData.name || 'مستخدم',
+            userId: userData.customId || '---',
+            paymentMethod: 'USDT TRC20',
             phone: ph,
             details: det,
             timestamp: Date.now(),
@@ -1919,7 +1858,7 @@
         }).then(()=>{
             document.getElementById('manualCounterPhone').value = '';
             document.getElementById('manualCounterDetails').value = '';
-            alert("✅ تم إرسال طلب حجز العداد للإدارة بنجاح! سيتم التحقق والشحن قريباً.");
+            alert("✅ تم إرسال طلب الإيداع وحجز العداد للإدارة بنجاح برقم الـ ID الخاص بك! سيتم التحقق والشحن قريباً.");
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
     }
 
@@ -1937,7 +1876,7 @@
         let nF = document.getElementById('agentNationalFront').files[0];
         let nB = document.getElementById('agentNationalBack').files[0];
 
-        if(!prov || !tg || !wa || !aImg || !hF || !hB || !nF || !nB) return alert("⚠️ يرجى ملء المحافظة، اليوزر، الواتساب، رفع صورة الوكيل، والمستمسكات الأربعة!");
+        if(!prov || !tg || !wa || !aImg || !hF || !hB || !nF || !nB) return alert("⚠️ يرجى ملء كافة الحقول ورفع المستمسكات والصورة!");
 
         if(method === 'points' && (userData.points||0) < 1000000){
             return alert("❌ نقاطك الحالية أقل من 1,000,000 نقطة المطلوبة للتقديم بها!");
@@ -1976,7 +1915,7 @@
                                 timestamp: Date.now()
                             }).then(()=>{
                                 closeAgentApplyModal();
-                                alert("✅ تم إرسال طلب الوكالة والمستمسكات وصورة الوكيل بنجاح! سيتم فحصها وتفعيل وكالتك من الإدارة قريباً.");
+                                alert("✅ تم إرسال طلب الوكالة والمستمسكات بنجاح!");
                             });
                         };
                         r4.readAsDataURL(nB);
@@ -2029,12 +1968,8 @@
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(()=>{
                 alert(`📋 تم نسخ (${text}) إلى الحافظة بنجاح!`);
-            }).catch(()=>{
-                fallbackCopyText(text);
-            });
-        } else {
-            fallbackCopyText(text);
-        }
+            }).catch(()=>{ fallbackCopyText(text); });
+        } else { fallbackCopyText(text); }
     }
     function fallbackCopyText(text) {
         let textArea = document.createElement("textarea");
@@ -2047,9 +1982,7 @@
             let successful = document.execCommand('copy');
             if(successful) alert(`📋 تم نسخ (${text}) بنجاح!`);
             else alert("❌ تعذر النسخ.");
-        } catch (err) {
-            alert("❌ تعذر النسخ.");
-        }
+        } catch (err) { alert("❌ تعذر النسخ."); }
         document.body.removeChild(textArea);
     }
 
@@ -2062,7 +1995,7 @@
         userData.gems=(userData.gems||0)+500;
         userData.lastSpinTime=now;
         addInteractionScore(15);
-        saveToDB().then(()=>{updateUI();alert(`🎉 حصلت على أرباحك (${rPts.toLocaleString()} نقطة) و 500 جوهرة 💎 بنجاح، وبدأت الساعة بالعد التنازلي.`);});
+        saveToDB().then(()=>{updateUI();alert(`🎉 حصلت على أرباحك (${rPts.toLocaleString()} نقطة) و 500 جوهرة 💎 بنجاح.`);});
     }
 
     function convertGemsToPoints(){
@@ -2205,9 +2138,7 @@
             let tk='';
             snap.forEach(c=>{
                 let u=c.val();
-                if(String(u.customId).trim()===String(sId).trim() || c.key===sId) {
-                    tk=c.key;
-                }
+                if(String(u.customId).trim()===String(sId).trim() || c.key===sId) { tk=c.key; }
             });
             if(!tk)return res.innerText="❌ لم يتم العثور على مستخدم بهذا الـ ID";
             if(tk===currentUserKey)return res.innerText="⚠️ لا يمكنك إضافة نفسك!";
@@ -2220,12 +2151,8 @@
                 }).then(()=>{
                     document.getElementById('searchIdInput').value='';
                     res.innerText="✅ تم إرسال طلب الصداقة بنجاح!";
-                }).catch(err=>{
-                    res.innerText="❌ فشل إرسال الطلب، حاول مجدداً.";
                 });
             });
-        }).catch(err=>{
-            res.innerText="❌ خطأ في الاتصال بالشبكة.";
         });
     }
 
@@ -2261,7 +2188,7 @@
     function clearFriendsDisplayList(){let c=document.getElementById('friendsListContainer');if(c)c.innerHTML="لا يوجد أصدقاء معروضون";}
     function openChatModal(fk,fName){
         activeChatFriendKey=fk;activeChatFriendName=fName;
-        document.getElementById('chatTitle').innerText=`${fName} 👤 (زيارة الملف الشخصي)`;
+        document.getElementById('chatTitle').innerText=`${fName} 👤`;
         document.getElementById('chatModal').style.display='flex';
         let chatId=[currentUserKey,fk].sort().join('_');
         rtdb.ref(`chats/${chatId}`).on('value',snap=>{
@@ -2288,7 +2215,6 @@
         if(!targetKey||!rtdb)return;visitedProfileTargetKey=targetKey;
         rtdb.ref(`users/${targetKey}`).once('value').then(snap=>{
             if(!snap.exists())return alert("❌ لم يتم العثور على المستخدم!");let u=snap.val();
-            
             let vVerifiedIcon = u.isVerified ? `<span class="verified-badge-icon" title="موثق">✔</span>` : '';
             document.getElementById('visitedUserName').innerHTML=`${u.name||'مستخدم'} ${vVerifiedIcon}`;
             document.getElementById('visitedUserCustomId').innerText=`ID: ${u.customId||'---'}`;
@@ -2310,12 +2236,8 @@
                 if(u.isAgent){
                     adminDirectControl.style.display = 'block';
                     adminDirectControl.innerHTML = `<button class="action-btn" style="background:#ef4444;color:#fff;padding:6px;font-size:11px" onclick="adminDirectRemoveAgent('${targetKey}')">🗑️ إلغاء صفة الوكيل وحذف بياناته فوراً</button>`;
-                } else {
-                    adminDirectControl.style.display = 'none';
-                }
-            } else {
-                adminDirectControl.style.display = 'none';
-            }
+                } else { adminDirectControl.style.display = 'none'; }
+            } else { adminDirectControl.style.display = 'none'; }
 
             loadProfileReceivedGifts(targetKey,'visitedReceivedGiftsGrid');
             let addB=document.getElementById('visitedAddFriendBtn'),roomA=document.getElementById('visitedUserRoomArea'),noRoomA=document.getElementById('visitedUserNoRoom'),banB=document.getElementById('roomOwnerBanBtn');
@@ -2335,20 +2257,10 @@
     }
 
     function adminDirectRemoveAgent(targetKey){
-        if(!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم وحذف بياناته مباشرة؟")) return;
-        rtdb.ref(`users/${targetKey}`).update({
-            isAgent: false,
-            agentTelegram: '',
-            agentWhatsapp: '',
-            agentBag: 0,
-            agentProvince: '',
-            agentAvatar: ''
-        }).then(()=>{
-            rtdb.ref(`notifications/${targetKey}`).push({
-                text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`,
-                timestamp: Date.now()
-            });
-            alert("✅ تم إلغاء الوكالة وحذف بياناته بنجاح!");
+        if(!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم؟")) return;
+        rtdb.ref(`users/${targetKey}`).update({ isAgent: false, agentTelegram: '', agentWhatsapp: '', agentBag: 0, agentProvince: '', agentAvatar: '' }).then(()=>{
+            rtdb.ref(`notifications/${targetKey}`).push({ text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`, timestamp: Date.now() });
+            alert("✅ تم إلغاء الوكالة بنجاح!");
             closeUserProfileModal();
         });
     }
@@ -2369,10 +2281,10 @@
         });
     }
     function banUserFromRoom(){
-        if(!isolatedActiveRoomId||currentUserKey!==activeRoomCreatorKey||!visitedProfileTargetKey||!confirm("⚠️ حظر المستخدم من الغرفة ليوم كامل؟"))return;
+        if(!isolatedActiveRoomId||currentUserKey!==activeRoomCreatorKey||!visitedProfileTargetKey||!confirm("⚠️ حظر المستخدم من الغرفة؟"))return;
         rtdb.ref(`room_bans/${isolatedActiveRoomId}/${visitedProfileTargetKey}`).set({bannedUntil:Date.now()+(24*60*60*1000)}).then(()=>{closeUserProfileModal();alert("🚫 تم الحظر بنجاح.");});
     }
-    function blockCurrentFriend(){if(!activeChatFriendKey||!confirm("⚠️ حظر المستخدم نهائياً؟"))return;rtdb.ref(`friends/${currentUserKey}/${activeChatFriendKey}`).remove();rtdb.ref(`friends/${activeChatFriendKey}/${currentUserKey}`).remove();closeChatModal();loadFriendSystem();alert("🚫 تم الحظر.");}
+    function blockCurrentFriend(){if(!activeChatFriendKey||!confirm("⚠️ حظر المستخدم؟"))return;rtdb.ref(`friends/${currentUserKey}/${activeChatFriendKey}`).remove();rtdb.ref(`friends/${activeChatFriendKey}/${currentUserKey}`).remove();closeChatModal();loadFriendSystem();alert("🚫 تم الحظر.");}
     function deleteFriendConnection(){if(!activeChatFriendKey||!confirm("⚠️ حذف الصديق؟"))return;rtdb.ref(`friends/${currentUserKey}/${activeChatFriendKey}`).remove();rtdb.ref(`friends/${activeChatFriendKey}/${currentUserKey}`).remove();closeChatModal();loadFriendSystem();alert("❌ تم الحذف.");}
     function sendChatMessage(){
         let txt=document.getElementById('chatInputMsg').value.trim();if(!txt||!activeChatFriendKey)return;
@@ -2405,37 +2317,41 @@
             let elapsed = now - userData.lastWithdrawTime;
             if(elapsed < tenDaysMs) {
                 let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
-                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. يجب انقضاء 10 أيام كاملة بين كل طلب سحب وآخر. متبقي لديك حوالي ${remainingDays} أيام لتتمكن من السحب مجدداً.`);
+                return alert(`⚠️ عذراً، يجب انقضاء 10 أيام كاملة بين كل طلب سحب وآخر. متبقي لديك حوالي ${remainingDays} أيام.`);
             }
         }
         document.getElementById('withdrawModal').style.display='flex';
     }
-    function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
+    function closeWithdrawModal(){ document.getElementById('withdrawModal').style.display='none'; }
+    
     function submitWithdrawal(){
         if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
             closeWithdrawModal();
             return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
         }
-        if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
-            let now = Date.now();
-            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
-            let elapsed = now - userData.lastWithdrawTime;
-            if(elapsed < tenDaysMs) {
-                let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
-                closeWithdrawModal();
-                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. متبقي لديك ${remainingDays} أيام لإتمام مدة الـ 10 أيام المفروضة.`);
-            }
-        }
-        let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
-        if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
+        let acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
+        if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');
+        if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
         
         userData.withdrawCount = (userData.withdrawCount || 0) + 1;
         addInteractionScore(10);
 
-        rtdb.ref(`admin_withdrawals`).push({userKey:currentUserKey,userName:userData.name,userId:userData.customId,method:m,account:acc,amount:amt,timestamp:Date.now(),status:'pending'}).then(()=>{
+        rtdb.ref(`admin_withdrawals`).push({
+            userKey: currentUserKey,
+            userName: userData.name,
+            userId: userData.customId,
+            method: selectedWithdrawMethodName,
+            account: acc,
+            amount: amt,
+            timestamp: Date.now(),
+            status: 'pending'
+        }).then(()=>{
             userData.lastWithdrawTime=Date.now();
-            saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح. (تم تفعيل قفل الـ 10 أيام القادمة بنجاح)');});
+            saveToDB().then(()=>{
+                closeWithdrawModal();
+                alert(`✅ تم تقديم طلب السحب للإدارة بنجاح عبر (${selectedWithdrawMethodName})!`);
+            });
         });
     }
 
@@ -2449,10 +2365,7 @@
             rtdb.ref(`users/${tk}`).once('value').then(us=>{
                 let newPts = (us.val().points||0)+pts;
                 rtdb.ref(`users/${tk}`).update({points:newPts}).then(()=>{
-                    rtdb.ref(`notifications/${tk}`).push({
-                        text: `⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`,
-                        timestamp: Date.now()
-                    });
+                    rtdb.ref(`notifications/${tk}`).push({ text: `⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`, timestamp: Date.now() });
                     document.getElementById('adminDualTargetId').value='';document.getElementById('adminDualPointsAmount').value='';
                     alert(`✅ تم شحن ${pts} نقطة بنجاح.`);
                 });
@@ -2476,10 +2389,7 @@
                 if(!u.isAgent) return alert("⚠️ هذا المستخدم ليس وكيلاً معتمداً بعد!");
                 let newBag = (u.agentBag||0) + amt;
                 rtdb.ref(`users/${tk}`).update({agentBag: newBag}).then(()=>{
-                    rtdb.ref(`notifications/${tk}`).push({
-                        text: `💼 قامت الإدارة بشحن حقيبتك بـ ${amt.toLocaleString()} نقطة!`,
-                        timestamp: Date.now()
-                    });
+                    rtdb.ref(`notifications/${tk}`).push({ text: `💼 قامت الإدارة بشحن حقيبتك بـ ${amt.toLocaleString()} نقطة!`, timestamp: Date.now() });
                     document.getElementById('adminDualTargetId').value = '';
                     document.getElementById('adminDualPointsAmount').value = '';
                     alert("✅ تم شحن حقيبة الوكيل بنجاح!");
@@ -2500,16 +2410,10 @@
 
             rtdb.ref(`users/${tk}`).once('value').then(us=>{
                 let u = us.val();
-                let currentStatus = !!u.isBanned;
-                let newStatus = !currentStatus;
-                
+                let newStatus = !u.isBanned;
                 rtdb.ref(`users/${tk}`).update({isBanned: newStatus}).then(()=>{
                     document.getElementById('adminFreezeTargetId').value = '';
-                    if(newStatus){
-                        alert(`🚫 تم تجميد وإيقاف حساب المستخدم (${u.name}) بنجاح! سيتم تسجيل خروجه ولن يستطيع الدخول إلا بعد إلغاء التجميد.`);
-                    } else {
-                        alert(`✅ تم إلغاء تجميد حساب المستخدم (${u.name}) بنجاح وأصبح بإمكانه الدخول الآن.`);
-                    }
+                    alert(newStatus ? `🚫 تم تجميد حساب المستخدم (${u.name}).` : `✅ تم إلغاء تجميد حساب المستخدم (${u.name}).`);
                 });
             });
         });
@@ -2521,7 +2425,7 @@
         if(!txt) return alert("⚠️ أدخل نص الإعلان!");
         rtdb.ref('app_settings').update({tickerText: txt}).then(()=>{
             document.getElementById('adminTickerInput').value = '';
-            alert("📢 تم نشر الإعلان المباشر على الشريط العلوى بنجاح!");
+            alert("📢 تم نشر الإعلان المباشر بنجاح!");
         });
     }
 
@@ -2537,14 +2441,6 @@
                     <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
                     <b>المحافظة:</b> <span style="color:#facc15">${d.province||'غير محدد'}</span><br>
                     <b>تليجرام:</b> ${d.telegram} | <b>واتساب:</b> ${d.whatsapp}<br>
-                    <b>طريقة الدفع:</b> ${d.method==='points'?'1,000,000 نقطة':'تحويل زين كاش 1M'}<br>
-                    <div style="margin:4px 0;display:flex;gap:4px;flex-wrap:wrap">
-                        ${d.agentAvatar?`<a href="${d.agentAvatar}" target="_blank" download="agent_avatar.png" style="color:#38bdf8">👤 صورة الوكيل (تنزيل)</a> | `:''}
-                        <a href="${d.housingFront}" target="_blank" download="housing_front.png" style="color:#38bdf8">🖼️ سكن (أمام) 📥</a> | 
-                        <a href="${d.housingBack}" target="_blank" download="housing_back.png" style="color:#38bdf8">🖼️ سكن (خلف) 📥</a> | 
-                        <a href="${d.nationalFront}" target="_blank" download="national_front.png" style="color:#38bdf8">🖼️ وطنية (أمام) 📥</a> | 
-                        <a href="${d.nationalBack}" target="_blank" download="national_back.png" style="color:#38bdf8">🖼️ وطنية (خلف) 📥</a>
-                    </div>
                     <button onclick="adminApproveAgent('${d.userKey}','${d.telegram}','${d.whatsapp}','${d.province||''}','${d.agentAvatar||''}','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وتفعيل الوكالة ✔️</button>
                     <button onclick="adminDeleteRef('agent_applications','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;margin-right:4px;cursor:pointer">رفض 🗑️</button>
                 </div>`;
@@ -2555,17 +2451,8 @@
     function closeAdminAgentApplications(){ document.getElementById('adminAgentAppsModal').style.display='none'; }
 
     function adminApproveAgent(userKey, tg, wa, prov, agentAv, appKey){
-        rtdb.ref(`users/${userKey}`).update({
-            isAgent: true,
-            agentTelegram: tg,
-            agentWhatsapp: wa,
-            agentProvince: prov,
-            agentAvatar: agentAv
-        }).then(()=>{
-            rtdb.ref(`notifications/${userKey}`).push({
-                text: `🎉 مبروك! وافقت الإدارة على طلبك وأصبحت وكيلاً معتمداً للبرنامج.`,
-                timestamp: Date.now()
-            });
+        rtdb.ref(`users/${userKey}`).update({ isAgent: true, agentTelegram: tg, agentWhatsapp: wa, agentProvince: prov, agentAvatar: agentAv }).then(()=>{
+            rtdb.ref(`notifications/${userKey}`).push({ text: `🎉 مبروك! وافقت الإدارة على طلبك وأصبحت وكيلاً معتمداً.`, timestamp: Date.now() });
             rtdb.ref(`agent_applications/${appKey}`).remove();
             alert("💼 تم تفعيل الوكالة للمستخدم بنجاح!");
         });
@@ -2575,7 +2462,7 @@
         if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
         let tId=document.getElementById('adminInspectIdInput').value.trim();
         let resArea=document.getElementById('adminInspectResult');
-        if(!tId)return alert('⚠️ أدخل ID المستخدم الفعلي!');
+        if(!tId)return alert('⚠️ أدخل ID المستخدم!');
         resArea.style.display='block';
         resArea.innerHTML="جاري جلب البيانات...";
 
@@ -2583,42 +2470,26 @@
             let foundUser=null;
             snap.forEach(c=>{
                 let u=c.val();
-                if(String(u.customId).trim()===String(tId).trim() || c.key===tId) {
-                    foundUser=u;
-                }
+                if(String(u.customId).trim()===String(tId).trim() || c.key===tId) { foundUser=u; }
             });
-            if(!foundUser){
-                resArea.innerHTML="❌ لم يتم العثور على مستخدم بهذا الـ ID.";
-                return;
-            }
+            if(!foundUser){ resArea.innerHTML="❌ لم يتم العثور على مستخدم."; return; }
             
             let valNum = foundUser.activeCounterVal || 0;
-            let counterInfo = valNum > 0 ? `عداد ${valNum.toLocaleString()} نقطة يومياً` : (foundUser.activeCounter && foundUser.activeCounter !== 'لا يوجد' ? foundUser.activeCounter : 'لا يوجد عداد مشترك');
-            
+            let counterInfo = valNum > 0 ? `عداد ${valNum.toLocaleString()} نقطة يومياً` : 'لا يوجد عداد';
             let wCount = foundUser.withdrawCount || 0;
-            let agentControlBtn = foundUser.isAgent ? `<button onclick="adminRemoveAgent('${foundUser.key}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-top:4px;cursor:pointer">إلغاء صفة الوكيل (حذف من القائمة) 🗑️</button>` : '';
+            let agentControlBtn = foundUser.isAgent ? `<button onclick="adminRemoveAgent('${foundUser.key}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-top:4px;cursor:pointer">إلغاء صفة الوكيل 🗑️</button>` : '';
             resArea.innerHTML=`<b>👤 اسم المستخدم:</b> ${foundUser.name || 'بدون اسم'}<br>`+
-                              `<b>👑 نوع العداد المشترك:</b> ${counterInfo}<br>`+
+                              `<b>👑 نوع العداد:</b> ${counterInfo}<br>`+
                               `<b>💼 صفة الوكيل:</b> ${foundUser.isAgent?'وكيل معتمد':'مستخدم عادي'}<br>`+
-                              `<b>💸 عدد مرات سحب الأرباح:</b> ${wCount} مرة<br>${agentControlBtn}`;
+                              `<b>💸 سحوبات الأرباح:</b> ${wCount} مرة<br>${agentControlBtn}`;
         });
     }
 
     function adminRemoveAgent(userKey){
-        if(currentUserKey!=='msaftwtn_gmail_com'||!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم وإزالته من قائمة الوكلاء؟"))return;
-        rtdb.ref(`users/${userKey}`).update({
-            isAgent: false,
-            agentTelegram: '',
-            agentWhatsapp: '',
-            agentBag: 0,
-            agentProvince: '',
-            agentAvatar: ''
-        }).then(()=>{
-            rtdb.ref(`notifications/${userKey}`).push({
-                text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`,
-                timestamp: Date.now()
-            });
-            alert("🗑️ تم إلغاء الوكالة بنجاح وإزالته من القائمة!");
+        if(currentUserKey!=='msaftwtn_gmail_com'||!confirm("⚠️ هل أنت متأكد من إلغاء وكالة هذا المستخدم؟"))return;
+        rtdb.ref(`users/${userKey}`).update({ isAgent: false, agentTelegram: '', agentWhatsapp: '', agentBag: 0, agentProvince: '', agentAvatar: '' }).then(()=>{
+            rtdb.ref(`notifications/${userKey}`).push({ text: `⚠️ تم إلغاء صفة الوكيل المعتمد من قبل الإدارة.`, timestamp: Date.now() });
+            alert("🗑️ تم إلغاء الوكالة بنجاح!");
             adminInspectUser();
         });
     }
@@ -2628,14 +2499,14 @@
         let ns=!globalAppSettings.withdrawLocked;
         rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>{
             globalAppSettings.withdrawLocked = ns;
-            alert(ns ? '🔒 تم إغلاق سحب الأرباح بنجاح.' : '🔓 تم فتح سحب الأرباح وإتاحته للجميع.');
+            alert(ns ? '🔒 تم إغلاق سحب الأرباح.' : '🔓 تم فتح سحب الأرباح.');
         });
     }
 
     function adminToggleDailyCounterFeature(){
         if(currentUserKey!=='msaftwtn_gmail_com')return;
         let ns=!globalAppSettings.dailyCounterLocked;
-        rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي ونظام التكبيس.':'⚡ تم فتح العداد اليومي ونظام التكبيس.'));
+        rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي والتكبيس.':'⚡ تم فتح العداد اليومي والتكبيس.'));
     }
 
     function openAdminPanelModal(){
@@ -2644,32 +2515,33 @@
         loadAdminData();
         loadAdminVerificationRequests();
     }
-    function closeAdminPanelModal(){document.getElementById('adminPanelModal').style.display='none';}
+    function closeAdminPanelModal(){ document.getElementById('adminPanelModal').style.display='none'; }
     
     function openAdminCounterOrders(){
         document.getElementById('adminCounterOrdersModal').style.display='flex';
         rtdb.ref('manual_counter_orders').on('value',snap=>{
             let lst = document.getElementById('adminCounterOrdersList');
-            if(!snap.exists()){lst.innerHTML="لا توجد طلبات حجز عدادات معلقة.";return;}
+            if(!snap.exists()){ lst.innerHTML = "لا توجد طلبات إيداع أو حجز عدادات معلقة."; return; }
             let h="";
             snap.forEach(item=>{
                 let d = item.val();
                 h+=`<div style="background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:6px">
-                    <b>المستخدم:</b> ${d.userName} (${d.userId})<br>
-                    <b>رقم التحويل:</b> ${d.phone}<br>
+                    <b>المستخدم:</b> ${d.userName} (ID: <span style="color:#38bdf8">${d.userId}</span>)<br>
+                    <b>طريقة الدفع:</b> ${d.paymentMethod || 'USDT TRC20'}<br>
+                    <b>رقم التحويل / الـ Hash:</b> <span style="color:#fde047;word-break:break-all">${d.phone}</span><br>
                     <b>العداد المطلوب:</b> ${d.details}<br>
-                    <button onclick="adminDeleteRef('manual_counter_orders','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">إتمام الطلب والحذف ✔️</button>
+                    <button onclick="adminDeleteRef('manual_counter_orders','${item.key}')" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:4px;margin-top:4px;cursor:pointer">موافقة وإتمام الطلب ✔️</button>
                 </div>`;
             });
             lst.innerHTML = h;
         });
     }
-    function closeAdminCounterOrders(){document.getElementById('adminCounterOrdersModal').style.display='none';}
+    function closeAdminCounterOrders(){ document.getElementById('adminCounterOrdersModal').style.display='none'; }
 
     function loadAdminData(){
         rtdb.ref('admin_withdrawals').on('value',snap=>{
             let a=document.getElementById('adminWithdrawalsArea');if(!snap.exists()){a.innerHTML="لا توجد طلبات سحب.";return;}let h='';
-            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:4px;border-radius:4px;margin-bottom:3px"><b>${d.userName} (${d.userId})</b>: ${d.amount}$ <button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:1px 4px;border-radius:3px;cursor:pointer;float:left">حذف 🗑️</button></div>`;});
+            snap.forEach(item=>{let d=item.val();h+=`<div style="background:rgba(255,255,255,0.03);padding:4px;border-radius:4px;margin-bottom:3px"><b>${d.userName} (ID: ${d.userId})</b>: ${d.amount}$ عبر (${d.method})<button onclick="adminDeleteRef('admin_withdrawals','${item.key}')" style="background:#ef4444;color:#fff;border:none;padding:1px 4px;border-radius:3px;cursor:pointer;float:left">حذف 🗑️</button></div>`;});
             a.innerHTML=h;
         });
     }
@@ -2681,11 +2553,7 @@
     function loadIsolatedRoomsSafe(){
         try{
             rtdb.ref('public_rooms').on('value',snap=>{
-                if(!snap.exists()){
-                    globalRoomsList = [];
-                    renderRoomsList([]);
-                    return;
-                }
+                if(!snap.exists()){ globalRoomsList = []; renderRoomsList([]); return; }
                 let list=[];snap.forEach(r=>list.push(r.val()));
                 rtdb.ref('room_occupants').once('value').then(os=>{
                     let od=os.val()||{};list.forEach(r=>{r.occupantsCount=Object.keys(od[r.id]||{}).length;});
@@ -2699,7 +2567,7 @@
 
     function renderRoomsList(list){
         let c=document.getElementById('isolatedRoomsContainer');if(!c)return;
-        if(list.length===0){c.innerHTML="<div style='grid-column:span 2;text-align:center;color:#94a3b8'>لا توجد غرف مطابقة للبحث أو متاحة.</div>";return;}
+        if(list.length===0){c.innerHTML="<div style='grid-column:span 2;text-align:center;color:#94a3b8'>لا توجد غرف مطابقة للبحث.</div>";return;}
         let h='';
         list.forEach(r=>{
             let av=r.avatar?r.avatar:'https://via.placeholder.com/55';
@@ -2716,11 +2584,8 @@
 
     function filterIsolatedRooms(){
         let query = document.getElementById('roomSearchInput').value.trim().toLowerCase();
-        if(!query){
-            renderRoomsList(globalRoomsList);
-            return;
-        }
-        let filtered = globalRoomsList.filter(r => (r.name && r.name.toLowerCase().includes(query)) || (r.id && r.id.toLowerCase().includes(query)) || (r.creatorKey && r.creatorKey.toLowerCase().includes(query)));
+        if(!query){ renderRoomsList(globalRoomsList); return; }
+        let filtered = globalRoomsList.filter(r => (r.name && r.name.toLowerCase().includes(query)) || (r.id && r.id.toLowerCase().includes(query)));
         renderRoomsList(filtered);
     }
 
@@ -2785,10 +2650,9 @@
                     let gft=!isMe?`<button class="msg-action-btn" style="margin-left:6px" onclick="openUnifiedGiftBox('${msg.sender}','${msg.senderName.replace(/'/g,"\\'")}')">🎁</button>`:'';
                     let bg=isMe?"background:#ef4444;color:#fff":"background:#10b981;color:#fff";
                     let q=msg.replyTo?`<div style="background:rgba(0,0,0,0.25);border-right:2px solid #38bdf8;padding:3px 6px;border-radius:4px;margin-bottom:4px;font-size:10px;color:#cbd5e1"><b style="color:#38bdf8">${msg.replyTo.senderName}:</b> ${msg.replyTo.text}</div>`:'';
-                    
                     let msgVerifiedIcon = msg.isVerified ? `<span class="verified-badge-icon" style="width:12px;height:12px;font-size:8px;">✔</span>` : '';
 
-                    h+=`<div class="chat-msg-row" style="text-align:${isMe?'left':'right'};margin-bottom:5px" data-sender="${msg.senderName.replace(/'/g,"\\'")}" data-text="${(msg.text||'').replace(/'/g,"\\'")}">
+                    h+=`<div class="chat-msg-row" style="text-align:${isMe?'left':'right'};margin-bottom:5px">
                         <div style="font-size:9px;color:#38bdf8;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${msg.sender}')"><b>${msg.senderName}</b> ${msgVerifiedIcon} ${gft}</div>
                         <div class="msg-bubble-container chat-bubble-swipe" style="${bg}" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event, '${msg.senderName.replace(/'/g,"\\'")}', '${(msg.text||'').replace(/'/g,"\\'")}')">
                             <div>${rep}</div>
@@ -2803,8 +2667,7 @@
         rtdb.ref(`room_occupants/${id}`).on('value',snap=>{document.getElementById('isolatedRoomCount').innerText=`👁️‍🗨️ ${Object.keys(snap.val()||{}).length}`;});
     }
 
-    let touchStartX = 0;
-    let touchCurrentX = 0;
+    let touchStartX = 0; let touchCurrentX = 0;
     function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
     function handleTouchMove(e) {
         touchCurrentX = e.touches[0].clientX;
@@ -2905,9 +2768,9 @@
                 
                 if(selectedTargetUserKey==='all'){
                     let otherUsers=occupantKeys.filter(k=>k!==currentUserKey);
-                    if(otherUsers.length===0)return alert('⚠️ لا توجد أشخاص معك في الغرفة لإرسال هدية جماعية!');
+                    if(otherUsers.length===0)return alert('⚠️ لا توجد أشخاص معك في الغرفة!');
                     let totalCost=cost*otherUsers.length;
-                    if(curPts<totalCost)return alert(`❌ نقاطك غير كافية! التكلفة الإجمالية للجميع: ${totalCost} نقطة.`);
+                    if(curPts<totalCost)return alert(`❌ نقاطك غير كافية! التكلفة الإجمالية: ${totalCost} نقطة.`);
                     
                     let up={};up[`users/${currentUserKey}/points`]=curPts-totalCost;up[`users/${currentUserKey}/weeklyGiftsSent`]=(sDat.weeklyGiftsSent||0)+totalCost;
                     
@@ -2926,13 +2789,13 @@
                     Promise.all(promises).then(()=>{
                         addInteractionScore(15);
                         rtdb.ref().update(up).then(()=>{
-                            rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:'all',targetName:'جميع الحضور (Broadcast)',giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
+                            rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:'all',targetName:'جميع الحضور',giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
                             if(typeof window.showC4Gift==='function'&&(gIcon==='palace'||gIcon==='plane')){ window.showC4Gift(gIcon); }
-                            closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى جميع الحضور!`);
+                            closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح للجميع!`);
                         });
                     });
                 } else {
-                    if(curPts<cost)return alert(`❌ رصيدك (${curPts}) لا يكفي لشراء هذه الهدية (${cost} نقطة)!`);
+                    if(curPts<cost)return alert(`❌ رصيدك لا يكفي لشراء هذه الهدية (${cost} نقطة)!`);
                     let up={};up[`users/${currentUserKey}/points`]=curPts-cost;up[`users/${currentUserKey}/weeklyGiftsSent`]=(sDat.weeklyGiftsSent||0)+cost;
                     
                     rtdb.ref(`users/${selectedTargetUserKey}`).once('value').then(ts=>{
@@ -2958,42 +2821,19 @@
       const overlay = document.getElementById("c4GiftOverlay");
       const art = document.getElementById("c4GiftArt");
       const label = document.getElementById("c4GiftLabel");
-
       if (!overlay || !art || !label) return;
-
-      let hideTimer = null;
-      let resetTimer = null;
-
-      const C4_GIFTS = {
-        palace: { price: 5000, emoji: "🏰" },
-        plane:  { price: 4000, emoji: "✈️" }
-      };
-
+      let hideTimer = null; let resetTimer = null;
+      const C4_GIFTS = { palace: { emoji: "🏰" }, plane: { emoji: "✈️" } };
       window.showC4Gift = function (giftType) {
-        const gift = C4_GIFTS[giftType];
-        if (!gift) return;
-
-        clearTimeout(hideTimer);
-        clearTimeout(resetTimer);
-
-        overlay.classList.remove("c4-hide");
-        overlay.classList.remove("c4-show");
-
-        art.style.animation = "none";
-        void art.offsetWidth;
-
-        art.textContent = gift.emoji;
-        label.textContent = "Lounge";
-
-        overlay.classList.add("c4-show");
-        art.style.animation = "";
-
+        const gift = C4_GIFTS[giftType]; if (!gift) return;
+        clearTimeout(hideTimer); clearTimeout(resetTimer);
+        overlay.classList.remove("c4-hide"); overlay.classList.remove("c4-show");
+        art.style.animation = "none"; void art.offsetWidth;
+        art.textContent = gift.emoji; label.textContent = "Lounge";
+        overlay.classList.add("c4-show"); art.style.animation = "";
         hideTimer = setTimeout(function () {
           overlay.classList.add("c4-hide");
-
-          resetTimer = setTimeout(function () {
-            overlay.classList.remove("c4-show", "c4-hide");
-          }, 380);
+          resetTimer = setTimeout(function () { overlay.classList.remove("c4-show", "c4-hide"); }, 380);
         }, 3000);
       };
     })();
